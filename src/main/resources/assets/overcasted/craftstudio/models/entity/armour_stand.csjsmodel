@@ -1,0 +1,156 @@
+{
+  "title": "ArmourStand",
+  "tree": [
+    {
+      "name": "StandBase",
+      "position": [ 0, 0.5, 0 ],
+      "offsetFromPivot": [ 0, 0, 0 ],
+      "size": [ 12, 1, 12 ],
+      "rotation": [ 0, 0, 0 ],
+      "texOffset": [ 0, 19 ],
+      "children": []
+    },
+    {
+      "name": "LeftLeg",
+      "position": [ 1, 13, 0 ],
+      "offsetFromPivot": [ 1, -3, 0 ],
+      "size": [ 2, 6, 2 ],
+      "rotation": [ 0, 0, 0 ],
+      "texOffset": [ 0, 14 ],
+      "children": [
+        {
+          "name": "LeftLeg1",
+          "position": [ 0, -3, 0 ],
+          "offsetFromPivot": [ 0, -3, 0 ],
+          "size": [ 2, 6, 2 ],
+          "rotation": [ 0, 0, 0 ],
+          "texOffset": [ 0, 14 ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "RightLeg",
+      "position": [ -1, 13, 0 ],
+      "offsetFromPivot": [ -1, -3, 0 ],
+      "size": [ 2, 6, 2 ],
+      "rotation": [ 0, 0, 0 ],
+      "texOffset": [ 0, 14 ],
+      "children": [
+        {
+          "name": "RightLeg1",
+          "position": [ 0, -3, 0 ],
+          "offsetFromPivot": [ 0, -3, 0 ],
+          "size": [ 2, 6, 2 ],
+          "rotation": [ 0, 0, 0 ],
+          "texOffset": [ 0, 14 ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Body",
+      "position": [ 0, 23.5, 0 ],
+      "offsetFromPivot": [ 0, 0, 0 ],
+      "size": [ 11, 3, 3 ],
+      "rotation": [ 0, 0, 0 ],
+      "texOffset": [ 0, 0 ],
+      "children": [
+        {
+          "name": "LeftSide",
+          "position": [ 1.5, -5, 0 ],
+          "offsetFromPivot": [ 0, 0, 0 ],
+          "size": [ 2, 7, 2 ],
+          "rotation": [ 0, 0, 0 ],
+          "vertexCoords": [
+            [ -0.7, 3.5, -1 ],
+            [ 0.7, 3.5, -1 ],
+            [ 0.7, -3.5, -1 ],
+            [ -0.7, -3.5, -1 ],
+            [ 0.7, 3.5, 1 ],
+            [ -0.7, 3.5, 1 ],
+            [ -0.7, -3.5, 1 ],
+            [ 0.7, -3.5, 1 ]
+          ],
+          "texOffset": [ 8, 6 ],
+          "children": []
+        },
+        {
+          "name": "RightSide",
+          "position": [ -1.5, -5, 0 ],
+          "offsetFromPivot": [ 0, 0, 0 ],
+          "size": [ 2, 7, 2 ],
+          "rotation": [ 0, 0, 0 ],
+          "vertexCoords": [
+            [ -0.7, 3.5, -1 ],
+            [ 0.7, 3.5, -1 ],
+            [ 0.7, -3.5, -1 ],
+            [ -0.7, -3.5, -1 ],
+            [ 0.7, 3.5, 1 ],
+            [ -0.7, 3.5, 1 ],
+            [ -0.7, -3.5, 1 ],
+            [ 0.7, -3.5, 1 ]
+          ],
+          "texOffset": [ 8, 6 ],
+          "children": []
+        },
+        {
+          "name": "Waist",
+          "position": [ 0, -9.5, 0 ],
+          "offsetFromPivot": [ 0, 0, 0 ],
+          "size": [ 8, 2, 2 ],
+          "rotation": [ 0, 0, 0 ],
+          "texOffset": [ 28, 0 ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "RightArm",
+      "position": [ -5.5, 25, 0 ],
+      "offsetFromPivot": [ -1, -3, 0 ],
+      "size": [ 2, 6, 2 ],
+      "rotation": [ 0, 0, 0 ],
+      "texOffset": [ 0, 6 ],
+      "children": [
+        {
+          "name": "RightArm1",
+          "position": [ 0, -3, 0 ],
+          "offsetFromPivot": [ 0, -3, 0 ],
+          "size": [ 2, 6, 2 ],
+          "rotation": [ 0, 0, 0 ],
+          "texOffset": [ 0, 6 ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "LeftArm",
+      "position": [ 5.5, 25, 0 ],
+      "offsetFromPivot": [ 1, -3, 0 ],
+      "size": [ 2, 6, 2 ],
+      "rotation": [ 0, 0, 0 ],
+      "texOffset": [ 0, 6 ],
+      "children": [
+        {
+          "name": "LeftArm1",
+          "position": [ 0, -3, 0 ],
+          "offsetFromPivot": [ 0, -3, 0 ],
+          "size": [ 2, 6, 2 ],
+          "rotation": [ 0, 0, 0 ],
+          "texOffset": [ 0, 6 ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Head",
+      "position": [ 0, 25, 0 ],
+      "offsetFromPivot": [ 0, 3.5, 0 ],
+      "size": [ 2, 7, 2 ],
+      "rotation": [ 0, 0, 0 ],
+      "texOffset": [ 16, 6 ],
+      "children": []
+    }
+  ]
+}
