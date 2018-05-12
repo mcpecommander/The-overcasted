@@ -1,5 +1,6 @@
 package mcpecommander.theOvercasted.entity.entities;
 
+import com.google.common.base.Predicate;
 import com.leviathanstudio.craftstudio.CraftStudioApi;
 import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
 import com.leviathanstudio.craftstudio.common.animation.IAnimated;
@@ -59,7 +60,12 @@ public class EntityLangolier extends EntityMob implements IAnimated{
 	protected void initEntityAI(){
 		this.tasks.addTask(1, new LangolierAIAttack(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0] ));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 4, true, true, new Predicate<EntityPlayer>() {
+        	@Override
+        	public boolean apply(EntityPlayer input) {
+        		return input.onGround;
+        	}
+        }));
 	}
 	
 	@Override
