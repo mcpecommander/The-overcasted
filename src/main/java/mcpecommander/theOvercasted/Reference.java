@@ -15,7 +15,8 @@ public class Reference {
 	public enum ModEntities{
 		
 		ARMOURSTAND(new ResourceLocation(MODID, "armour_stand")),
-		LANGOLIER(new ResourceLocation(MODID, "langolier"));
+		LANGOLIER(new ResourceLocation(MODID, "langolier")),
+		BASILISK(new ResourceLocation(MODID, "basilisk"));
 		
 		private ResourceLocation name;
 		

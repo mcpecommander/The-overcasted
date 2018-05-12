@@ -4,8 +4,10 @@ import java.awt.Color;
 
 import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.entity.entities.EntityArmourStand;
+import mcpecommander.theOvercasted.entity.entities.EntityBasilisk;
 import mcpecommander.theOvercasted.entity.entities.EntityLangolier;
 import mcpecommander.theOvercasted.entity.renderer.RenderArmourStand;
+import mcpecommander.theOvercasted.entity.renderer.RenderBasilisk;
 import mcpecommander.theOvercasted.entity.renderer.RenderLangolier;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -27,14 +29,18 @@ public class ModEntities {
 		EntityEntry langolier = EntityEntryBuilder.create().entity(EntityLangolier.class)
 				.id(Reference.ModEntities.LANGOLIER.getRegistryName(), id++).egg(22342, 23123)
 				.name(Reference.ModEntities.LANGOLIER.getName()).tracker(64, 3, true).build();
+		EntityEntry basilisk = EntityEntryBuilder.create().entity(EntityBasilisk.class)
+				.id(Reference.ModEntities.BASILISK.getRegistryName(), id++).egg(12442, 256823)
+				.name(Reference.ModEntities.BASILISK.getName()).tracker(64, 3, true).build();
 
-		e.getRegistry().registerAll(stand, langolier);
+		e.getRegistry().registerAll(stand, langolier, basilisk);
 
 	}
 
 	public static void initModel() {
 		RenderingRegistry.registerEntityRenderingHandler(EntityArmourStand.class, new RenderArmourStand.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityLangolier.class, new RenderLangolier.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityBasilisk.class, new RenderBasilisk.Factory());
 	}
 
 }

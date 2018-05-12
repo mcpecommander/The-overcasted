@@ -15,6 +15,7 @@ public class CraftStudioRegistry {
 		
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "armour_stand");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "langolier");
+		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "basilisk");
 		
 		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "stand_set");
 		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "stand_slash");
