@@ -30,7 +30,6 @@ public class EntityLangolier extends EntityMob implements IAnimated{
 	
 	static {
 		EntityLangolier.animHandler.addAnim(Reference.MODID, "langolier_idle", "langolier", true);
-		EntityLangolier.animHandler.addAnim(Reference.MODID, "langolier_eat", "langolier", false);
 		EntityLangolier.animHandler.addAnim(Reference.MODID, "eat", "langolier", false);
 	}
 
