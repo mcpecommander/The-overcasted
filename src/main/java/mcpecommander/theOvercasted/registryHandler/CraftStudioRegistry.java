@@ -24,8 +24,8 @@ public class CraftStudioRegistry {
 		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "sword_slash");
 		
 		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "langolier_idle");
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "langolier_eat");
 		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "eat");
+		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "basilisk_idle");
 	}
 
 }
