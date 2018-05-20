@@ -24,7 +24,7 @@ public class EntityManEater extends EntityMob implements IAnimated {
 
 	public EntityManEater(World worldIn) {
 		super(worldIn);
-		this.setSize(1.2f, 0.2f);
+		this.setSize(1.2f, 0.3f);
 	}
 
 	@Override
