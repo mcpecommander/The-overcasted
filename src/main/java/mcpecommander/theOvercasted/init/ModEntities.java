@@ -6,9 +6,11 @@ import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.entity.entities.EntityArmourStand;
 import mcpecommander.theOvercasted.entity.entities.EntityBasilisk;
 import mcpecommander.theOvercasted.entity.entities.EntityLangolier;
+import mcpecommander.theOvercasted.entity.entities.EntityManEater;
 import mcpecommander.theOvercasted.entity.renderer.RenderArmourStand;
 import mcpecommander.theOvercasted.entity.renderer.RenderBasilisk;
 import mcpecommander.theOvercasted.entity.renderer.RenderLangolier;
+import mcpecommander.theOvercasted.entity.renderer.RenderManEater;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -32,8 +34,11 @@ public class ModEntities {
 		EntityEntry basilisk = EntityEntryBuilder.create().entity(EntityBasilisk.class)
 				.id(Reference.ModEntities.BASILISK.getRegistryName(), id++).egg(12442, 256823)
 				.name(Reference.ModEntities.BASILISK.getName()).tracker(64, 3, true).build();
+		EntityEntry eater = EntityEntryBuilder.create().entity(EntityManEater.class)
+				.id(Reference.ModEntities.MANEATER.getRegistryName(), id++).egg(235366, 256823)
+				.name(Reference.ModEntities.MANEATER.getName()).tracker(64, 3, true).build();
 
-		e.getRegistry().registerAll(stand, langolier, basilisk);
+		e.getRegistry().registerAll(stand, langolier, basilisk, eater);
 
 	}
 
@@ -41,6 +46,7 @@ public class ModEntities {
 		RenderingRegistry.registerEntityRenderingHandler(EntityArmourStand.class, new RenderArmourStand.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityLangolier.class, new RenderLangolier.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityBasilisk.class, new RenderBasilisk.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityManEater.class, new RenderManEater.Factory());
 	}
 
 }

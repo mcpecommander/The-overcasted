@@ -2,5 +2,9 @@
 	"fall": {
 		"subtitle": "overcasted:subtitles.fall",
 		"sounds": ["overcasted:fall"]
+	},
+	"man_eater_trap":{
+		"subtitle": "overcasted:subtitles.man_eater_trap",
+		"sounds": ["overcasted:man_eater_trap"]
 	}
 }

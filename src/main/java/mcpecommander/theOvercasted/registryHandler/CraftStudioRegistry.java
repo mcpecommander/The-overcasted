@@ -16,6 +16,7 @@ public class CraftStudioRegistry {
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "armour_stand");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "langolier");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "basilisk");
+		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "man_eater");
 		
 		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "stand_set");
 		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "stand_slash");
@@ -26,6 +27,7 @@ public class CraftStudioRegistry {
 		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "langolier_idle");
 		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "eat");
 		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "basilisk_idle");
+		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "man_eat");
 	}
 
 }

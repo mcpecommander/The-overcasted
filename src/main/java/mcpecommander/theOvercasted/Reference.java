@@ -16,7 +16,8 @@ public class Reference {
 		
 		ARMOURSTAND(new ResourceLocation(MODID, "armour_stand")),
 		LANGOLIER(new ResourceLocation(MODID, "langolier")),
-		BASILISK(new ResourceLocation(MODID, "basilisk"));
+		BASILISK(new ResourceLocation(MODID, "basilisk")),
+		MANEATER(new ResourceLocation(MODID, "man_eater"));
 		
 		private ResourceLocation name;
 		

@@ -11,7 +11,7 @@ public class SoundsRegistry {
 	
 	@SubscribeEvent
 	public static void soundsRegistry(RegistryEvent.Register<SoundEvent> e) {
-		e.getRegistry().register(ModSounds.fall);
+		e.getRegistry().registerAll(ModSounds.fall, ModSounds.man_eater_trap);
 		
 	}
 

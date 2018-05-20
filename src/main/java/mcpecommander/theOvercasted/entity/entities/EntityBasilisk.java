@@ -19,7 +19,7 @@ public class EntityBasilisk extends EntityMob implements IAnimated{
 
 	public EntityBasilisk(World worldIn) {
 		super(worldIn);
-		this.setSize(1.1f, 0.7f);
+		this.setSize(1.1f, 1.3f);
 		
 	}
 	
