@@ -44,6 +44,35 @@
           "rotation": [ 30, 30, -45 ],
           "texOffset": [ 2, 33 ],
           "children": []
+        },
+        {
+          "name": "Tail",
+          "position": [ 0, 0, -10 ],
+          "offsetFromPivot": [ 0, 0, -3 ],
+          "size": [ 6, 6, 8 ],
+          "rotation": [ -10.03045, 0, 0 ],
+          "texOffset": [ 16, 16 ],
+          "children": [
+            {
+              "name": "Tail1",
+              "position": [ 0, -6.748272E-07, -4 ],
+              "offsetFromPivot": [ 0, 0, -3 ],
+              "size": [ 4, 4, 8 ],
+              "rotation": [ 2.533754E-07, 6.919826, 3.075076E-08 ],
+              "texOffset": [ 16, 16 ],
+              "children": [
+                {
+                  "name": "Tail2",
+                  "position": [ 0, 1.549502E-07, -4 ],
+                  "offsetFromPivot": [ 0, 0, -3 ],
+                  "size": [ 2, 2, 8 ],
+                  "rotation": [ 16.95537, 0, 0 ],
+                  "texOffset": [ 16, 16 ],
+                  "children": []
+                }
+              ]
+            }
+          ]
         }
       ]
     },

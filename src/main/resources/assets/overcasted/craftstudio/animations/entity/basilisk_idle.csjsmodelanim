@@ -3,40 +3,6 @@
   "duration": 160,
   "holdLastKeyframe": false,
   "nodeAnimations": {
-    "RightEye": {
-      "position": {
-      },
-      "offsetFromPivot": {
-      },
-      "size": {
-      },
-      "rotation": {
-        "0": [ 0, 0, 0 ],
-        "40": [ 0, -7.526103, 0 ],
-        "80": [ 0, 9.035491, 0 ],
-        "120": [ 0, -7.952459, 0 ],
-        "160": [ 0, 0, 0 ]
-      },
-      "stretch": {
-      }
-    },
-    "LeftEye": {
-      "position": {
-      },
-      "offsetFromPivot": {
-      },
-      "size": {
-      },
-      "rotation": {
-        "0": [ 0, 0, 0 ],
-        "40": [ 0, -12.61718, 0 ],
-        "80": [ 0, 11.06974, 0 ],
-        "120": [ 0, -8.000001, 0 ],
-        "160": [ 0, 0, 0 ]
-      },
-      "stretch": {
-      }
-    },
     "LeftArm": {
       "position": {
       },
