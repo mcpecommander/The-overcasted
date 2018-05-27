@@ -7,10 +7,12 @@ import mcpecommander.theOvercasted.entity.entities.EntityArmourStand;
 import mcpecommander.theOvercasted.entity.entities.EntityBasilisk;
 import mcpecommander.theOvercasted.entity.entities.EntityLangolier;
 import mcpecommander.theOvercasted.entity.entities.EntityManEater;
+import mcpecommander.theOvercasted.entity.entities.EntityMushroomPerson;
 import mcpecommander.theOvercasted.entity.renderer.RenderArmourStand;
 import mcpecommander.theOvercasted.entity.renderer.RenderBasilisk;
 import mcpecommander.theOvercasted.entity.renderer.RenderLangolier;
 import mcpecommander.theOvercasted.entity.renderer.RenderManEater;
+import mcpecommander.theOvercasted.entity.renderer.RenderMushroomPerson;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -37,8 +39,11 @@ public class ModEntities {
 		EntityEntry eater = EntityEntryBuilder.create().entity(EntityManEater.class)
 				.id(Reference.ModEntities.MANEATER.getRegistryName(), id++).egg(235366, 256823)
 				.name(Reference.ModEntities.MANEATER.getName()).tracker(64, 3, true).build();
+		EntityEntry mushroom = EntityEntryBuilder.create().entity(EntityMushroomPerson.class)
+				.id(Reference.ModEntities.MUSHROOMPERSON.getRegistryName(), id++).egg(7876366, 5843459)
+				.name(Reference.ModEntities.MUSHROOMPERSON.getName()).tracker(64, 3, true).build();
 
-		e.getRegistry().registerAll(stand, langolier, basilisk, eater);
+		e.getRegistry().registerAll(stand, langolier, basilisk, eater, mushroom);
 
 	}
 
@@ -47,6 +52,7 @@ public class ModEntities {
 		RenderingRegistry.registerEntityRenderingHandler(EntityLangolier.class, new RenderLangolier.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityBasilisk.class, new RenderBasilisk.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityManEater.class, new RenderManEater.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityMushroomPerson.class, new RenderMushroomPerson.Factory());
 	}
 
 }
