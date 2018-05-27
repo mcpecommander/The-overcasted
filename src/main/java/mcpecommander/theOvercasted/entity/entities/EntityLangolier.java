@@ -8,21 +8,17 @@ import com.leviathanstudio.craftstudio.common.animation.IAnimated;
 import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.entity.ai.LangolierAIAttack;
 import mcpecommander.theOvercasted.util.AnimationHelper;
-import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 
-public class EntityLangolier extends EntityMob implements IAnimated{
+public class EntityLangolier extends EntityBaseAnimated{
 	
 	protected static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(EntityLangolier.class);
 	//A variable that auto syncs to the client (only to the client).
@@ -116,31 +112,6 @@ public class EntityLangolier extends EntityMob implements IAnimated{
 	@Override
 	public <T extends IAnimated> AnimationHandler<T> getAnimationHandler() {
 		return EntityLangolier.animHandler;
-	}
-
-	@Override
-	public int getDimension() {
-		return dimension;
-	}
-
-	@Override
-	public double getX() {
-		return posX;
-	}
-
-	@Override
-	public double getY() {
-		return posY;
-	}
-
-	@Override
-	public double getZ() {
-		return posZ;
-	}
-
-	@Override
-	public boolean isWorldRemote() {
-		return world.isRemote;
 	}
 
 }

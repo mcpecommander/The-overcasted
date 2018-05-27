@@ -1,0 +1,70 @@
+{
+  "title": "Hide",
+  "duration": 30,
+  "holdLastKeyframe": true,
+  "nodeAnimations": {
+    "RightArm": {
+      "position": {
+        "0": [ 0, 0, 0 ],
+        "10": [ 1, 0, 0 ],
+        "20": [ 1, 0, 0 ],
+        "30": [ 1, -9, 0 ]
+      },
+      "offsetFromPivot": {
+      },
+      "size": {
+      },
+      "rotation": {
+      },
+      "stretch": {
+      }
+    },
+    "LeftArm": {
+      "position": {
+        "0": [ 0, 0, 0 ],
+        "10": [ -1, 0, 0 ],
+        "20": [ -1, 0, 0 ],
+        "30": [ -1, -9, 0 ]
+      },
+      "offsetFromPivot": {
+      },
+      "size": {
+      },
+      "rotation": {
+      },
+      "stretch": {
+      }
+    },
+    "Body": {
+      "position": {
+        "10": [ 0, 0, 0 ],
+        "20": [ 0, -3, 0 ],
+        "30": [ 0, -7, 0 ]
+      },
+      "offsetFromPivot": {
+      },
+      "size": {
+      },
+      "rotation": {
+      },
+      "stretch": {
+        "20": [ 0, 0, 0 ],
+        "30": [ 0, -0.75, 0 ]
+      }
+    },
+    "Hat": {
+      "position": {
+        "20": [ 0, 0, 0 ],
+        "30": [ 0, -7, 0 ]
+      },
+      "offsetFromPivot": {
+      },
+      "size": {
+      },
+      "rotation": {
+      },
+      "stretch": {
+      }
+    }
+  }
+}

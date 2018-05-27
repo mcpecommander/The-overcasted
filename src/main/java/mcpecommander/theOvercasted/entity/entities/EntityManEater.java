@@ -9,13 +9,12 @@ import mcpecommander.theOvercasted.init.ModSounds;
 import mcpecommander.theOvercasted.util.AnimationHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
-public class EntityManEater extends EntityMob implements IAnimated {
+public class EntityManEater extends EntityBaseAnimated {
 
+	//The animation handler from the api.
 	private static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(EntityManEater.class);
 
 	static {
@@ -38,6 +37,7 @@ public class EntityManEater extends EntityMob implements IAnimated {
 	@Override
 	protected void onDeathUpdate() {
 		super.onDeathUpdate();
+		//This might actually be unnecessary.
 		if (this.isBeingRidden()) {
 			this.getPassengers().forEach(entity -> entity.dismountRidingEntity());
 		}
@@ -46,10 +46,12 @@ public class EntityManEater extends EntityMob implements IAnimated {
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
+		//Center the mob and reset its rotation for a better looking trap.
 		this.rotationYawHead = 0;
 		this.getAnimationHandler().animationsUpdate(this);
 		if (this.isWorldRemote()) {
 			if (this.isBeingRidden()) {
+				//Hold animations are heavy on the server so make sure to always run them from the client.
 				AnimationHelper.startHoldAnimation(animHandler, this, "man_eat");
 			} else {
 				AnimationHelper.stopAnimation(animHandler, this, "man_eat");
@@ -66,7 +68,7 @@ public class EntityManEater extends EntityMob implements IAnimated {
 				player.setSneaking(false);
 			}
 		} else {
-			this.setSize(1.2f, 0.2f);
+			this.setSize(1.2f, 0.3f);
 		}
 	}
 
@@ -98,6 +100,7 @@ public class EntityManEater extends EntityMob implements IAnimated {
 				&& !entityIn.isBeingRidden() && !((EntityPlayer) entityIn).isSpectator()) {
 			entityIn.startRiding(this, true);
 			this.playSound(ModSounds.man_eater_trap, 2f, 1.5f);
+			//Increase the bounding box to make it more realistic and possible to attack.
 			this.setSize(2.3f, 2.3f);
 		}
 	}
@@ -105,31 +108,6 @@ public class EntityManEater extends EntityMob implements IAnimated {
 	@Override
 	public <T extends IAnimated> AnimationHandler<T> getAnimationHandler() {
 		return EntityManEater.animHandler;
-	}
-
-	@Override
-	public int getDimension() {
-		return this.dimension;
-	}
-
-	@Override
-	public double getX() {
-		return this.posX;
-	}
-
-	@Override
-	public double getY() {
-		return this.posY;
-	}
-
-	@Override
-	public double getZ() {
-		return this.posZ;
-	}
-
-	@Override
-	public boolean isWorldRemote() {
-		return this.world.isRemote;
 	}
 
 }

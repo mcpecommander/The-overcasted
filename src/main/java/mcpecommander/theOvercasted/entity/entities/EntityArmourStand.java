@@ -8,14 +8,11 @@ import com.leviathanstudio.craftstudio.common.animation.IAnimated;
 import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.entity.ai.ArmourStandAIAttack;
 import mcpecommander.theOvercasted.util.AnimationHelper;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -23,12 +20,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityArmourStand extends EntityMob implements IAnimated {
+public class EntityArmourStand extends EntityBaseAnimated {
 
 	//The animation handler from the api.
 	protected static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(EntityArmourStand.class);
@@ -177,31 +173,6 @@ public class EntityArmourStand extends EntityMob implements IAnimated {
 	@Override
 	public <T extends IAnimated> AnimationHandler<T> getAnimationHandler() {
 		return EntityArmourStand.animHandler;
-	}
-
-	@Override
-	public int getDimension() {
-		return this.dimension;
-	}
-
-	@Override
-	public double getX() {
-		return this.posX;
-	}
-
-	@Override
-	public double getY() {
-		return this.posY;
-	}
-
-	@Override
-	public double getZ() {
-		return this.posZ;
-	}
-
-	@Override
-	public boolean isWorldRemote() {
-		return world.isRemote;
 	}
 
 }

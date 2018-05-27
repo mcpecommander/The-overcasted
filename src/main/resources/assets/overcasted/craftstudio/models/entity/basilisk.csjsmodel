@@ -89,7 +89,7 @@
           "position": [ 0, 0, 4 ],
           "offsetFromPivot": [ 0, 0, 4 ],
           "size": [ 2, 2, 8 ],
-          "rotation": [ 72.01675, 180, 180 ],
+          "rotation": [ 72.01675, 0, 0 ],
           "texOffset": [ 0, 0 ],
           "children": [
             {
