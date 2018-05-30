@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber
-public class PotionRegistry {
+public class PotionsRegistry {
 
 	@SubscribeEvent
 	public static void registerPotion(RegistryEvent.Register<Potion> e) {

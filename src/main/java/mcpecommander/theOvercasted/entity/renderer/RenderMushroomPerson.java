@@ -27,10 +27,13 @@ public class RenderMushroomPerson extends RenderLiving<EntityMushroomPerson>{
 	@Override
 	protected void renderModel(EntityMushroomPerson entitylivingbaseIn, float limbSwing, float limbSwingAmount,
 			float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
-		this.shadowSize = 0.3f + entitylivingbaseIn.size/3f;
 		GlStateManager.pushMatrix();
-		GlStateManager.scale(1d + entitylivingbaseIn.size, 1d + entitylivingbaseIn.size, 1d + entitylivingbaseIn.size);
-		GlStateManager.translate(0d, 0d - (entitylivingbaseIn.size/1.33d), 0d);
+		if(!entitylivingbaseIn.isBaby()) {
+			this.shadowSize = 0.6f;
+			GlStateManager.scale(2d, 2d, 2d);
+			GlStateManager.translate(0d, 0d - (1/1.33d), 0d);
+		}
+		
 		super.renderModel(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
 		GlStateManager.popMatrix();
 	}

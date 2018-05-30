@@ -57,4 +57,23 @@ public class Reference {
 		}
 	}
 	
+	public enum ModBlocks{
+		
+		MUSHROOMSPROUT(new ResourceLocation(MODID, "block_mushroom_sprout"));
+		
+		private ResourceLocation name;
+		
+		private ModBlocks(ResourceLocation name) {
+			this.name = name;
+		}
+		
+		public ResourceLocation getRegistryName() {
+			return name;
+		}
+		
+		public String getName() {
+			return name.toString();
+		}
+	}
+	
 }

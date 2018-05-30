@@ -14,11 +14,15 @@ public class CraftStudioRegistry {
 		CSRegistryHelper e = new CSRegistryHelper(Reference.MODID);
 		
 		//Models
+		//Entities
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "armour_stand");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "langolier");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "basilisk");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "man_eater");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "mushroom_person");
+		
+		//Blocks
+		e.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "mushroom_sprout");
 		
 		//Armour stand animations
 		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "stand_set");
@@ -43,6 +47,9 @@ public class CraftStudioRegistry {
 		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "mushroom_walk");
 		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "mushroom_hide");
 		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "mushroom_punch");
+		
+		//Mushroom sprout animations
+		e.register(EnumResourceType.ANIM, EnumRenderType.BLOCK, "mushroom_grow");
 	}
 
 }

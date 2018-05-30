@@ -1,0 +1,10 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "overcasted:block_mushroom_sprout"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}
