@@ -7,7 +7,6 @@ import com.leviathanstudio.craftstudio.common.animation.IAnimated;
 import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.entity.ai.MushroomPersonAIAttack;
 import mcpecommander.theOvercasted.entity.ai.MushroomPersonAIHide;
-import mcpecommander.theOvercasted.entity.animations.Shatter;
 import mcpecommander.theOvercasted.init.ModBlocks;
 import mcpecommander.theOvercasted.util.AnimationHelper;
 import net.minecraft.block.Block;
@@ -40,14 +39,11 @@ public class EntityMushroomPerson extends EntityBaseAnimated {
 			DataSerializers.BYTE);
 	private static final DataParameter<Boolean> BABY = EntityDataManager.<Boolean>createKey(EntityMushroomPerson.class,
 			DataSerializers.BOOLEAN);
-	
-	
 
 	static {
 		EntityMushroomPerson.animHandler.addAnim(Reference.MODID, "mushroom_walk", "mushroom_person", true);
 		EntityMushroomPerson.animHandler.addAnim(Reference.MODID, "mushroom_hide", "mushroom_person", false);
 		EntityMushroomPerson.animHandler.addAnim(Reference.MODID, "mushroom_punch", "mushroom_person", false);
-		EntityMushroomPerson.animHandler.addAnim(Reference.MODID, "shatter", new Shatter());
 	}
 
 	public EntityMushroomPerson(World worldIn) {
@@ -70,7 +66,7 @@ public class EntityMushroomPerson extends EntityBaseAnimated {
 			@Override
 			public boolean shouldExecute() {
 				boolean flag = super.shouldExecute();
-				if(flag && !isBaby() && getAttacking() != 2) {
+				if (flag && !isBaby() && getAttacking() != 2) {
 					return true;
 				}
 				return false;
@@ -82,7 +78,7 @@ public class EntityMushroomPerson extends EntityBaseAnimated {
 	public boolean isBaby() {
 		return this.dataManager.get(BABY);
 	}
-	
+
 	public void setBaby(boolean baby) {
 		this.dataManager.set(BABY, baby);
 	}
@@ -113,11 +109,11 @@ public class EntityMushroomPerson extends EntityBaseAnimated {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		boolean flag = this.getRNG().nextBoolean();
-		if(livingdata instanceof IsBaby) {
+		if (livingdata instanceof IsBaby) {
 			flag = this.isBaby();
-		}else {
+		} else {
 			this.dataManager.set(BABY, flag);
-		}		
+		}
 		if (!flag) {
 			this.tasks.addTask(1, new MushroomPersonAIAttack(this, 1.0d, false));
 			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
@@ -131,12 +127,22 @@ public class EntityMushroomPerson extends EntityBaseAnimated {
 	@Override
 	protected void onDeathUpdate() {
 		++this.deathTime;
-		
-		if(this.isWorldRemote()) {
-			AnimationHelper.startAnimation(animHandler, this, "shatter");
+		this.motionX = 0;
+		this.motionY = 0;
+		this.motionZ = 0;
+		if (isWorldRemote()) {
+			for (int i = 0; i < 5; i++) {
+				this.world.spawnParticle(EnumParticleTypes.BLOCK_DUST,
+						this.posX + this.getRNG().nextGaussian() / 2 - .25,
+						(this.getEntityBoundingBox().maxY - this.getEntityBoundingBox().minY) / 2 + this.posY
+								+ this.getRNG().nextGaussian() / 2 - .25,
+						this.posZ + this.getRNG().nextGaussian() / 2 - .25, (this.getRNG().nextGaussian() - .5) / 15,
+						(this.getRNG().nextGaussian() - .5) / 15, (this.getRNG().nextGaussian() - .5) / 15,
+						Block.getStateId(ModBlocks.mushroomBlock.getDefaultState()));
+			}
 		}
 
-		if (this.deathTime == 20) {
+		if (this.deathTime == 10) {
 			if (!this.world.isRemote) {
 				if ((this.isPlayer() || this.recentlyHit > 0 && this.canDropLoot()
 						&& this.world.getGameRules().getBoolean("doMobLoot"))) {
@@ -232,7 +238,7 @@ public class EntityMushroomPerson extends EntityBaseAnimated {
 					AnimationHelper.startAnimation(animHandler, this, "mushroom_walk");
 				} else {
 					AnimationHelper.stopAnimation(animHandler, this, "mushroom_walk");
-					if(this.getAttacking() == 0) {
+					if (this.getAttacking() == 0) {
 						AnimationHelper.stopAnimation(animHandler, this, "mushroom_hide");
 					}
 				}
@@ -250,9 +256,9 @@ public class EntityMushroomPerson extends EntityBaseAnimated {
 
 		}
 	}
-	
-	private class IsBaby implements IEntityLivingData{
-		
+
+	private class IsBaby implements IEntityLivingData {
+
 	}
 
 }
