@@ -170,7 +170,7 @@ public class EntityMushroomPerson extends EntityBaseAnimated {
 								(double) ((float) pos.getZ() + this.getRNG().nextFloat()), 5, d0, d1, d2, 0.1d);
 					}
 				} else {
-					for (int i = 0; i < 3; i++) {
+					for (int i = 0; i < 2; i++) {
 						EntityMushroomPerson mushroom = new EntityMushroomPerson(world);
 						mushroom.setBaby(true);
 						mushroom.onInitialSpawn(world.getDifficultyForLocation(getPosition()), new IsBaby());
