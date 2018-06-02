@@ -1,9 +1,8 @@
 package mcpecommander.theOvercasted.registryHandler;
 
-import com.leviathanstudio.craftstudio.common.animation.simpleImpl.CSTileEntitySpecialRenderer;
-
 import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.block.BlockMushroomSprout;
+import mcpecommander.theOvercasted.block.renderer.TileEntityMushroomSproutRenderer;
 import mcpecommander.theOvercasted.block.tileEntity.TileEntityMushroomSprout;
 import mcpecommander.theOvercasted.init.ModBlocks;
 import net.minecraft.block.Block;
@@ -35,7 +34,7 @@ public class BlocksRegistry {
 //	}
 	
 	public static void registerTileEntityRenderer() {
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMushroomSprout.class, new CSTileEntitySpecialRenderer(Reference.MODID, "mushroom_sprout", 64,
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMushroomSprout.class, new TileEntityMushroomSproutRenderer(Reference.MODID, "mushroom_sprout", 64,
                 32, new ResourceLocation(Reference.MODID, "textures/tile/mushroom.png")));
 	}
 	

@@ -8,15 +8,21 @@ import mcpecommander.theOvercasted.block.tileEntity.TileEntityMushroomSprout;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -27,6 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockMushroomSprout extends Block implements ITileEntityProvider{
 	
+	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 	protected static final AxisAlignedBB BOUNDING_BOX = new AxisAlignedBB(0.0625d * 4d, 0d, 0.0625d * 4d, 0.0625d * 12d, 0.0625d * 8d, 0.0625d * 12d);
 
 	public BlockMushroomSprout() {
@@ -35,6 +42,45 @@ public class BlockMushroomSprout extends Block implements ITileEntityProvider{
 				.setUnlocalizedName(Reference.ModBlocks.MUSHROOMSPROUT.getName())
 				.setCreativeTab(TheOvercasted.overcastedTab);
 		
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+	}
+	
+	@Override
+    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        world.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
+    }
+	
+	@Override
+	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+		world.setBlockState(pos, state.withProperty(FACING, EnumFacing.HORIZONTALS[world.rand.nextInt(EnumFacing.HORIZONTALS.length)]), 2);
+	}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+	{
+		return BlockFaceShape.UNDEFINED;
+	}
+	
+	@Override
+    public IBlockState getStateFromMeta(int meta) {
+        return getDefaultState()
+                .withProperty(FACING, EnumFacing.getFront(meta));
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(FACING).getIndex();
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, FACING);
+    }
+    
+    @Override
+    public IBlockState withRotation(IBlockState state, Rotation rot)
+	{
+		return state.withProperty(FACING, rot.rotate((EnumFacing) state.getValue(FACING)));
 	}
 	
 	@Override

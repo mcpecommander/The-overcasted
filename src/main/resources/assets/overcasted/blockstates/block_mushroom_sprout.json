@@ -1,10 +1,11 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "overcasted:block_mushroom_sprout"
-  },
-  "variants": {
-    "normal": [{}],
-    "inventory": [{}]
-  }
+    "variants": {
+        "normal": { "model": "overcasted:block_mushroom_sprout" },
+        "facing=north": { "model": "overcasted:block_mushroom_sprout" },
+        "facing=west": { "model": "overcasted:block_mushroom_sprout" },
+        "facing=east": { "model": "overcasted:block_mushroom_sprout" },
+        "facing=up": { "model": "overcasted:block_mushroom_sprout" },
+        "facing=down": { "model": "overcasted:block_mushroom_sprout" },
+        "facing=south": { "model": "overcasted:block_mushroom_sprout" }
+    }
 }
