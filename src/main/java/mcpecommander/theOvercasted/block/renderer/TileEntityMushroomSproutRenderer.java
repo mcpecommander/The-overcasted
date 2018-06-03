@@ -12,7 +12,6 @@ public class TileEntityMushroomSproutRenderer extends CSTileEntitySpecialRendere
 	public TileEntityMushroomSproutRenderer(String modid, String modelNameIn, int textureWidth, int textureHeigth,
 			ResourceLocation texture) {
 		super(modid, modelNameIn, textureWidth, textureHeigth, texture);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -24,9 +23,25 @@ public class TileEntityMushroomSproutRenderer extends CSTileEntitySpecialRendere
         // Correction of the rotation.
         GlStateManager.multMatrix(CSTileEntitySpecialRenderer.ROTATION_CORRECTOR);
         GlStateManager.rotate(enumfacing.getHorizontalAngle(), 0, 1, 0);
+        System.out.println(destroyStage);
+        if (destroyStage >= 0)
+        {
+            this.bindTexture(DESTROY_STAGES[destroyStage]);
+            GlStateManager.matrixMode(5890);
+            GlStateManager.pushMatrix();
+            GlStateManager.scale(4.0F, 4.0F, 1.0F);
+            GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
+            GlStateManager.matrixMode(5888);
+        }
         this.bindTexture(this.texture); // Binding the texture.
         this.model.render(te); // Rendering the model.
         GlStateManager.popMatrix();
+        if (destroyStage >= 0)
+        {
+            GlStateManager.matrixMode(5890);
+            GlStateManager.popMatrix();
+            GlStateManager.matrixMode(5888);
+        }
     }
 
 }

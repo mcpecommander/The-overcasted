@@ -8,11 +8,13 @@ import mcpecommander.theOvercasted.entity.entities.EntityBasilisk;
 import mcpecommander.theOvercasted.entity.entities.EntityLangolier;
 import mcpecommander.theOvercasted.entity.entities.EntityManEater;
 import mcpecommander.theOvercasted.entity.entities.EntityMushroomPerson;
+import mcpecommander.theOvercasted.entity.entities.EntitySnowRat;
 import mcpecommander.theOvercasted.entity.renderer.RenderArmourStand;
 import mcpecommander.theOvercasted.entity.renderer.RenderBasilisk;
 import mcpecommander.theOvercasted.entity.renderer.RenderLangolier;
 import mcpecommander.theOvercasted.entity.renderer.RenderManEater;
 import mcpecommander.theOvercasted.entity.renderer.RenderMushroomPerson;
+import mcpecommander.theOvercasted.entity.renderer.RenderSnowRat;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -42,8 +44,11 @@ public class ModEntities {
 		EntityEntry mushroom = EntityEntryBuilder.create().entity(EntityMushroomPerson.class)
 				.id(Reference.ModEntities.MUSHROOMPERSON.getRegistryName(), id++).egg(7876366, 5843459)
 				.name(Reference.ModEntities.MUSHROOMPERSON.getName()).tracker(64, 3, true).build();
+		EntityEntry rat = EntityEntryBuilder.create().entity(EntitySnowRat.class)
+				.id(Reference.ModEntities.SNOWRAT.getRegistryName(), id++).egg(354578, 233488)
+				.name(Reference.ModEntities.SNOWRAT.getName()).tracker(64, 3, true).build();
 
-		e.getRegistry().registerAll(stand, langolier, basilisk, eater, mushroom);
+		e.getRegistry().registerAll(stand, langolier, basilisk, eater, mushroom, rat);
 
 	}
 
@@ -53,6 +58,7 @@ public class ModEntities {
 		RenderingRegistry.registerEntityRenderingHandler(EntityBasilisk.class, new RenderBasilisk.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityManEater.class, new RenderManEater.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityMushroomPerson.class, new RenderMushroomPerson.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntitySnowRat.class, new RenderSnowRat.Factory());
 	}
 
 }

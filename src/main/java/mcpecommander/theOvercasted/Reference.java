@@ -18,7 +18,8 @@ public class Reference {
 		LANGOLIER(new ResourceLocation(MODID, "langolier")),
 		BASILISK(new ResourceLocation(MODID, "basilisk")),
 		MANEATER(new ResourceLocation(MODID, "man_eater")),
-		MUSHROOMPERSON(new ResourceLocation(MODID, "mushroom_person"));
+		MUSHROOMPERSON(new ResourceLocation(MODID, "mushroom_person")),
+		SNOWRAT(new ResourceLocation(MODID, "snow_rat"));
 		
 		private ResourceLocation name;
 		

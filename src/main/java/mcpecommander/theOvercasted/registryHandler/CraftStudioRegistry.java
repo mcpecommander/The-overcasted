@@ -20,6 +20,7 @@ public class CraftStudioRegistry {
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "basilisk");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "man_eater");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "mushroom_person");
+		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "snow_rat");
 		
 		//Blocks
 		e.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "mushroom_sprout");
@@ -50,6 +51,10 @@ public class CraftStudioRegistry {
 		
 		//Mushroom sprout animations
 		e.register(EnumResourceType.ANIM, EnumRenderType.BLOCK, "mushroom_grow");
+		
+		//Snow Rat animations
+		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "rat_idle");
+		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "rat_walk");
 	}
 
 }
