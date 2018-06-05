@@ -61,13 +61,13 @@ public class EntitySnowRat extends EntityBaseAnimated {
 		if(isWorldRemote()) {
 			float x = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 			boolean moving = x != 0 && (x > 0.001f || x < -0.001f);
-			if(moving) {
-				AnimationHelper.stopAnimation(animHandler, this, "rat_idle");
+//			if(moving) {
+				//AnimationHelper.stopAnimation(animHandler, this, "rat_idle");
 				AnimationHelper.startAnimation(animHandler, this, "rat_walk");
-			}else {
-				AnimationHelper.stopAnimation(animHandler, this, "rat_walk");
-				AnimationHelper.startAnimation(animHandler, this, "rat_idle");
-			}
+//			}else {
+//				AnimationHelper.stopAnimation(animHandler, this, "rat_walk");
+//				AnimationHelper.startAnimation(animHandler, this, "rat_idle");
+//			}
 		}
 	}
 
