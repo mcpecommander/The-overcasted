@@ -1,6 +1,12 @@
 {
-    "parent": "block/cube_all",
+    "parent": "block/cube",
     "textures": {
-        "all": "overcasted:block/mushroom"
+		"particle": "minecraft:blocks/mushroom_red",
+		"down": "overcasted:block/mushroom",
+		"up": "overcasted:block/mushroom",
+		"east": "overcasted:block/mushroom",
+		"west": "overcasted:block/mushroom",
+		"north": "overcasted:block/mushroom",
+		"south": "overcasted:block/mushroom"
     }
 }
