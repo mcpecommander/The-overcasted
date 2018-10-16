@@ -1,0 +1,9 @@
+{
+    "parent": "overcasted:block/torch.obj",
+	"display": {
+		"fixed": {
+			"scale": [0.2, 0.2, 0.2]
+		}
+	}
+    
+}

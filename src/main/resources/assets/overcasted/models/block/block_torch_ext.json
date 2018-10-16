@@ -1,0 +1,6 @@
+{
+  "parent": "overcasted:block/torch.obj",
+  "textures": {
+    "all": "overcasted:block/blocktexture"
+  }
+}

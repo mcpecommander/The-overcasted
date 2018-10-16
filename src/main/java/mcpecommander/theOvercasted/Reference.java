@@ -19,7 +19,8 @@ public class Reference {
 		BASILISK(new ResourceLocation(MODID, "basilisk")),
 		MANEATER(new ResourceLocation(MODID, "man_eater")),
 		MUSHROOMPERSON(new ResourceLocation(MODID, "mushroom_person")),
-		SNOWRAT(new ResourceLocation(MODID, "snow_rat"));
+		SNOWRAT(new ResourceLocation(MODID, "snow_rat")),
+		TEST(new ResourceLocation(MODID, "test"));
 		
 		private ResourceLocation name;
 		
@@ -60,7 +61,9 @@ public class Reference {
 	
 	public enum ModBlocks{
 		
-		MUSHROOMSPROUT(new ResourceLocation(MODID, "block_mushroom_sprout"));
+		MUSHROOMSPROUT(new ResourceLocation(MODID, "block_mushroom_sprout")),
+		TORCH(new ResourceLocation(MODID, "block_torch")),
+		TORCH_EXT(new ResourceLocation(MODID, "block_torch_ext"));
 		
 		private ResourceLocation name;
 		

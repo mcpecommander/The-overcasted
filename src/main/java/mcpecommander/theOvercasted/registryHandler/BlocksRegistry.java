@@ -2,36 +2,47 @@ package mcpecommander.theOvercasted.registryHandler;
 
 import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.block.BlockMushroomSprout;
+import mcpecommander.theOvercasted.block.multiBlocks.BlockTorch;
+import mcpecommander.theOvercasted.block.multiBlocks.BlockTorchExt;
 import mcpecommander.theOvercasted.block.renderer.TileEntityItemMushroomSproutRenderer;
 import mcpecommander.theOvercasted.block.renderer.TileEntityMushroomSproutRenderer;
 import mcpecommander.theOvercasted.block.tileEntity.TileEntityMushroomSprout;
-import mcpecommander.theOvercasted.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.BuiltInModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID)
 public class BlocksRegistry {
 
-	static BlockMushroomSprout mushroom = new BlockMushroomSprout();
+	private static BlockMushroomSprout mushroom = new BlockMushroomSprout();
+	private static BlockTorch torch = new BlockTorch();
+	private static BlockTorchExt torch_ext = new BlockTorchExt();
+	private static ItemMushroom item_mushroom;
+	private static Item item_torch;
 
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> e) {
+		e.getRegistry().registerAll(mushroom, torch, torch_ext);
 
-		e.getRegistry().register(mushroom);
-		ForgeRegistries.ITEMS.register(new ItemMushroom(mushroom));
-
+	}
+	
+	@SubscribeEvent
+	public static void registerItems(RegistryEvent.Register<Item> e) {
+		item_mushroom = new ItemMushroom(mushroom);
+		item_torch = new ItemBlock(torch).setRegistryName(torch.getRegistryName());
+		e.getRegistry().registerAll(item_mushroom, item_torch);
 	}
 	
 	public static class ItemMushroom extends ItemBlock{
@@ -40,6 +51,7 @@ public class BlocksRegistry {
 			super(block);
 			setRegistryName(mushroom.getRegistryName());
 			setTileEntityItemStackRenderer(new TileEntityItemMushroomSproutRenderer());
+			
 			
 		}
 		
@@ -53,7 +65,8 @@ public class BlocksRegistry {
 
 	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent event) {
-		ModBlocks.mushroomBlock.initModel();
+		ModelLoader.setCustomModelResourceLocation(item_mushroom, 0, new ModelResourceLocation(item_mushroom.getRegistryName(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item_torch, 0, new ModelResourceLocation(item_torch.getRegistryName(), "inventory"));
 	}
 
 	@SubscribeEvent
