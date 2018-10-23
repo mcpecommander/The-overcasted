@@ -4,12 +4,16 @@ import javax.vecmath.Vector3d;
 
 import mcpecommander.theOvercasted.entity.animationTest.Animation;
 import mcpecommander.theOvercasted.entity.animationTest.KeyFrame;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumHandSide;
 
-public class ModelFatty extends ModelBiped {
+public class ModelFatty extends ModelBase {
 	ModelOvercastedRenderer Bottom;
 	ModelOvercastedRenderer RightLeg;
 	ModelOvercastedRenderer Chest;
@@ -47,6 +51,7 @@ public class ModelFatty extends ModelBiped {
 		this.RightArm = new ModelOvercastedRenderer(this, 12, 32);
 		this.RightArm.setRotationPoint(-6.0F, -5.6F, 0.0F);
 		this.RightArm.addBox(-3.0F, 0.0F, -1.5F, 3, 6, 3, 0.0F);
+		this.RightArm.setBoxName("RightArm");
 		
 		this.Bottom = new ModelOvercastedRenderer(this, 0, 48);
 		this.Bottom.setRotationPoint(0.0F, 20.0F, 0.0F);
@@ -60,7 +65,7 @@ public class ModelFatty extends ModelBiped {
 		
 		KeyFrame frame1 = new KeyFrame(new Vector3d(-4, 1.5, 17), 0);
 		KeyFrame frame2 = new KeyFrame(new Vector3d(11.19, -36.67, 69.16), 5);
-		KeyFrame frame3 = new KeyFrame(new Vector3d(-39.78, 9.81, 129.95), 10);
+		KeyFrame frame3 = new KeyFrame(new Vector3d(39.78, 9.81, 129.95), 10);
 		KeyFrame frame4 = new KeyFrame(new Vector3d(-63.35, 1.76, 27.35), 15);
 		KeyFrame frame5 = new KeyFrame(new Vector3d(-63.35, 1.76, -25.37), 20);
 		KeyFrame frame6 = new KeyFrame(new Vector3d(-68.63, 9.27, 6.07), 25);
@@ -75,21 +80,57 @@ public class ModelFatty extends ModelBiped {
 	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		this.Bottom.render(scale);
-		//RightArm.resetRotation();
+//		RightArm.resetRotation();
 		LeftArm.resetRotation();
-		Chest.resetRotation();
+//		Chest.resetRotation();
 		Head.resetRotation();
+//		RightArm.renderWithRotation(scale);
 		Chest.showModel = true;
 		Chest.isHidden = false;
-		int x = 200;
-		int y = 45;
-		RightArm.playAnimation(animation, ageInTicks);
-		//System.out.println(((((y - x) % 360) + 540) % 360) - 180);
+		ModelOvercastedRenderer.rotateBoxes( 0, 0, 0, RightArm);
+//		RightArm.playAnimation(animation, ageInTicks);
 		
+		GlStateManager.disableTexture2D();
+		Tessellator tessellator = Tessellator.getInstance();
+		BufferBuilder buf = tessellator.getBuffer();
+		buf.begin(7, DefaultVertexFormats.POSITION_COLOR);
+		float xb = this.Bottom.rotationPointX * scale;
+		float xc = this.Chest.rotationPointX * scale;
+		float xa = this.RightArm.rotationPointX * scale;
+		float x = xc + xb + xa;
+		float yb = this.Bottom.rotationPointY * scale;
+		float yc = this.Chest.rotationPointY * scale;
+		float ya = this.RightArm.rotationPointY * scale;
+		float y =  yc + yb + ya;
+		float zb = this.Bottom.rotationPointZ * scale;
+		float zc = this.Chest.rotationPointZ * scale;
+		float za = this.RightArm.rotationPointZ * scale;
+		float z =  zc + zb + za;
+		float d = 0.05f;
+		buf.pos(x, -d + y, -d + z ).color(1f, 0f, 0f, 1f).endVertex();
+		buf.pos( x, d + y, -d + z).color(1f, 0f, 0f, 1f).endVertex();
+		buf.pos(x, d + y, d + z).color(1f, 0f, 0f, 1f).endVertex();
+		buf.pos(x, -d + y, d + z).color(1f, 1f, 0f, 1f).endVertex();
+		buf.pos(-d + x, -d + y, z ).color(1f, 0f, 0f, 1f).endVertex();
+		buf.pos( d + x, -d + y, z).color(1f, 0f, 0f, 1f).endVertex();
+		buf.pos(d + x, d + y, z).color(1f, 0f, 0f, 1f).endVertex();
+		buf.pos(-d + x, d + y, z).color(1f, 0f, 0f, 1f).endVertex();
+		buf.pos(-d + x, y, -d + z ).color(1f, 0f, 0f, 1f).endVertex();
+		buf.pos( d + x, y, -d + z).color(1f, 0f, 0f, 1f).endVertex();
+		buf.pos(d + x, y, d + z).color(1f, 0f, 0f, 1f).endVertex();
+		buf.pos(-d + x, y, d + z).color(1f, 0f, 1f, 1f).endVertex();
+		
+		tessellator.draw();
+		GlStateManager.enableTexture2D();
+
 		
 	}
 	
-	@Override
+	public void postRenderArm(float scale, EnumHandSide side)
+    {
+		RightArm.postRerender(scale, Bottom, Chest, RightArm);
+    }
+	
 	protected ModelRenderer getArmForSide(EnumHandSide side)
     {
         return side == EnumHandSide.LEFT ? this.LeftArm : this.RightArm;

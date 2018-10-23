@@ -120,7 +120,7 @@ public class LayerHeldItemCraftStudio implements LayerRenderer<EntityLivingBase>
 					GlStateManager.multMatrix(buf);
 					GlStateManager.translate(RightArm.offsetX * 0.0625f, RightArm.offsetY * 0.0625f,
 							RightArm.offsetZ * 0.0625f);
-
+					
 					GlStateManager.translate(RightArm1.rotationPointX * 0.0625f, RightArm1.rotationPointY * 0.0625f,
 							RightArm1.rotationPointZ * 0.0625f);
 					FloatBuffer buf2 = MathHelper.makeFloatBuffer(RightArm1.getRotationMatrix());

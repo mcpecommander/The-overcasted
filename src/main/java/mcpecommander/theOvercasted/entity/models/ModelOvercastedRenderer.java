@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -25,9 +26,14 @@ public class ModelOvercastedRenderer extends ModelRenderer{
 	private boolean compiled;
 	private int displayList;
 	private float currentTick = 0;
+	private String boxName;
 	
 	public ModelOvercastedRenderer(ModelBase model, int texOffX, int texOffY) {
 		super(model, texOffX, texOffY);
+	}
+	
+	public ModelOvercastedRenderer(ModelBase model, String boxName) {
+		super(model, boxName);
 	}
 	
 	/**
@@ -54,6 +60,14 @@ public class ModelOvercastedRenderer extends ModelRenderer{
 		this.originalRotateZ = z;
 	}
 	
+	public String getBoxName() {
+		return boxName;
+	}
+
+	public void setBoxName(String boxName) {
+		this.boxName = boxName;
+	}
+
 	/**
 	 * Resets the rotation to the original state (if original angles are not specified, it will default to 0, 0, 0).
 	 */
@@ -84,14 +98,13 @@ public class ModelOvercastedRenderer extends ModelRenderer{
                 {
                     if (this.rotationPointX == 0.0F && this.rotationPointY == 0.0F && this.rotationPointZ == 0.0F)
                     {
-                    	
                     	GlStateManager.pushMatrix();
-                        if(scaleX != 0f && scaleY != 0f && scaleZ != 0f) {
+                        if(scaleX != 0 && scaleY != 0 && scaleZ != 0) {
                         	GlStateManager.scale(scaleX, scaleY, scaleZ);
                         }
                         GlStateManager.callList(this.displayList);
                         GlStateManager.popMatrix();
-                        
+
                         if (this.childModels != null)
                         {
                             for (int k = 0; k < this.childModels.size(); ++k)
@@ -102,9 +115,13 @@ public class ModelOvercastedRenderer extends ModelRenderer{
                     }
                     else
                     {
+
                         GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
+                        if(this.boxName == "Chest") {
+                        	//System.out.println(this.rotationPointX * scale + " " + this.rotationPointY * scale + " " +  this.rotationPointZ * scale);
+                        }
                         GlStateManager.pushMatrix();
-                        if(scaleX != 0f && scaleY != 0f && scaleZ != 0f) {
+                        if(scaleX != 0 && scaleY != 0 && scaleZ != 0) {
                         	GlStateManager.scale(scaleX, scaleY, scaleZ);
                         }
                         GlStateManager.callList(this.displayList);
@@ -112,7 +129,6 @@ public class ModelOvercastedRenderer extends ModelRenderer{
 
                         if (this.childModels != null)
                         {
-                        	
                             for (int j = 0; j < this.childModels.size(); ++j)
                             {
                                 ((ModelRenderer)this.childModels.get(j)).render(scale);
@@ -129,24 +145,25 @@ public class ModelOvercastedRenderer extends ModelRenderer{
 
                     if (this.rotateAngleZ != 0.0F)
                     {
-                        GlStateManager.rotate(this.rotateAngleZ , 0.0F, 0.0F, 1.0F);
+                        GlStateManager.rotate(this.rotateAngleZ, 0.0F, 0.0F, 1.0F);
                     }
 
                     if (this.rotateAngleY != 0.0F)
                     {
-                        GlStateManager.rotate(this.rotateAngleY , 0.0F, 1.0F, 0.0F);
+                        GlStateManager.rotate(this.rotateAngleY, 0.0F, 1.0F, 0.0F);
                     }
 
                     if (this.rotateAngleX != 0.0F)
                     {
-                        GlStateManager.rotate(this.rotateAngleX , 1.0F, 0.0F, 0.0F);
+                        GlStateManager.rotate(this.rotateAngleX, 1.0F, 0.0F, 0.0F);
                     }
-                    
-                    if(scaleX != 0f && scaleY != 0f && scaleZ != 0f) {
+
+                    GlStateManager.pushMatrix();
+                    if(scaleX != 0 && scaleY != 0 && scaleZ != 0) {
                     	GlStateManager.scale(scaleX, scaleY, scaleZ);
                     }
-                    
                     GlStateManager.callList(this.displayList);
+                    GlStateManager.popMatrix();
 
                     if (this.childModels != null)
                     {
@@ -160,7 +177,6 @@ public class ModelOvercastedRenderer extends ModelRenderer{
                 }
 
                 GlStateManager.translate(-this.offsetX, -this.offsetY, -this.offsetZ);
-                
             }
         }
     }
@@ -170,6 +186,7 @@ public class ModelOvercastedRenderer extends ModelRenderer{
 	@SideOnly(Side.CLIENT)
     public void renderWithRotation(float scale)
     {
+		
         if (!this.isHidden)
         {
             if (this.showModel)
@@ -178,13 +195,14 @@ public class ModelOvercastedRenderer extends ModelRenderer{
                 {
                     this.compileDisplayList(scale);
                 }
-
+                GlStateManager.translate(this.offsetX * scale, this.offsetY * scale, this.offsetZ * scale);
                 GlStateManager.pushMatrix();
                 GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
                 GlStateManager.rotate(this.rotateAngleZ, 0.0F, 0.0F, 1.0F);
                 GlStateManager.rotate(this.rotateAngleY , 0.0F, 1.0F, 0.0F);
                 GlStateManager.rotate(this.rotateAngleX, 1.0F, 0.0F, 0.0F);
-                GlStateManager.translate(this.offsetX * scale, this.offsetY * scale, this.offsetZ * scale);
+                
+                
 
                 GlStateManager.pushMatrix();
                 if(scaleX != 0 && scaleY != 0 && scaleZ != 0) {
@@ -192,9 +210,26 @@ public class ModelOvercastedRenderer extends ModelRenderer{
                 }
                 GlStateManager.callList(this.displayList);
                 GlStateManager.popMatrix();
-                
 
                 GlStateManager.popMatrix();
+                if (this.childModels != null)
+                {
+                    for (int i = 0; i < this.childModels.size(); ++i)
+                    {
+                        ((ModelRenderer)this.childModels.get(i)).render(scale);
+                    }
+                }
+                GlStateManager.translate(-this.offsetX * scale, -this.offsetY * scale, -this.offsetZ * scale);
+//                GlStateManager.disableTexture2D();
+//        		Tessellator tessellator = Tessellator.getInstance();
+//        		BufferBuilder buf = tessellator.getBuffer();
+//        		buf.begin(7, DefaultVertexFormats.POSITION_COLOR);
+//        		buf.pos(-0.2 + this.rotationPointX * scale, -0.2 + this.rotationPointY * scale, 0 ).color(1f, 0f, 0f, 1f).endVertex();
+//        		buf.pos( 0.2 + this.rotationPointX * scale, -0.2 + this.rotationPointY * scale, 0).color(1f, 0f, 0f, 1f).endVertex();
+//        		buf.pos(0.2 + this.rotationPointX * scale, 0.2 + this.rotationPointY * scale, 0).color(1f, 0f, 0f, 1f).endVertex();
+//        		buf.pos(-0.2 + this.rotationPointX * scale, 0.2 + this.rotationPointY * scale, 0).color(1f, 0f, 0f, 1f).endVertex();
+//        		tessellator.draw();
+//        		GlStateManager.enableTexture2D();
             }
         }
     }
@@ -288,7 +323,7 @@ public class ModelOvercastedRenderer extends ModelRenderer{
 	@SideOnly(Side.CLIENT)
     public void postRender(float scale)
     {
-        if (!this.isHidden)
+		if (!this.isHidden)
         {
             if (this.showModel)
             {
@@ -301,6 +336,7 @@ public class ModelOvercastedRenderer extends ModelRenderer{
                 {
                     if (this.rotationPointX != 0.0F || this.rotationPointY != 0.0F || this.rotationPointZ != 0.0F)
                     {
+                    	
                         GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
                     }
                 }
@@ -310,22 +346,72 @@ public class ModelOvercastedRenderer extends ModelRenderer{
 
                     if (this.rotateAngleZ != 0.0F)
                     {
-                        GlStateManager.rotate(this.rotateAngleZ, 0.0F, 0.0F, 1.0F);
+                        GlStateManager.rotate(this.rotateAngleZ , 0.0F, 0.0F, 1.0F);
                     }
 
                     if (this.rotateAngleY != 0.0F)
                     {
-                        GlStateManager.rotate(this.rotateAngleY, 0.0F, 1.0F, 0.0F);
+                        GlStateManager.rotate(this.rotateAngleY , 0.0F, 1.0F, 0.0F);
                     }
 
                     if (this.rotateAngleX != 0.0F)
                     {
-                        GlStateManager.rotate(this.rotateAngleX, 1.0F, 0.0F, 0.0F);
+                        GlStateManager.rotate(this.rotateAngleX , 1.0F, 0.0F, 0.0F);
                     }
                 }
             }
         }
     }
+	
+	@SideOnly(Side.CLIENT)
+	public void postRerender(float scale, ModelOvercastedRenderer... boxes) {
+		if (!this.isHidden)
+        {
+            if (this.showModel)
+            {
+                if (!this.compiled)
+                {
+                    this.compileDisplayList(scale);
+                }
+
+                for(ModelOvercastedRenderer box : boxes) {
+                	
+                	if (box.rotateAngleX == 0.0F && box.rotateAngleY == 0.0F && box.rotateAngleZ == 0.0F)
+                    {
+                        if (box.rotationPointX != 0.0F || box.rotationPointY != 0.0F || box.rotationPointZ != 0.0F)
+                        {
+                            GlStateManager.translate(box.rotationPointX * scale, box.rotationPointY * scale, box.rotationPointZ * scale);
+                        }
+                    }
+                    else
+                    {
+                        
+                    	GlStateManager.translate(box.rotationPointX * scale, box.rotationPointY * scale, box.rotationPointZ * scale);
+                    	
+                        if (box.rotateAngleZ != 0.0F)
+                        {
+                            GlStateManager.rotate(box.rotateAngleZ , 0.0F, 0.0F, 1.0F);
+                        }
+
+                        if (box.rotateAngleY != 0.0F)
+                        {
+                            GlStateManager.rotate(box.rotateAngleY , 0.0F, 1.0F, 0.0F);
+                        }
+
+                        if (box.rotateAngleX != 0.0F)
+                        {
+                            GlStateManager.rotate(box.rotateAngleX , 1.0F, 0.0F, 0.0F);
+                        }
+                        
+                    }
+                }
+                
+
+
+                
+        	}  
+        }      
+	}
 	
 	//My own version since compiled and displayList are private.
 	@SideOnly(Side.CLIENT)
@@ -337,7 +423,9 @@ public class ModelOvercastedRenderer extends ModelRenderer{
 
         for (int i = 0; i < this.cubeList.size(); ++i)
         {
+        	
             ((ModelBox)this.cubeList.get(i)).render(bufferbuilder, scale);
+            
         }
 
         GlStateManager.glEndList();
