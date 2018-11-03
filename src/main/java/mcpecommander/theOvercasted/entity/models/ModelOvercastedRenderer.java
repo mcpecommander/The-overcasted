@@ -1,10 +1,8 @@
 package mcpecommander.theOvercasted.entity.models;
 
-import java.util.Map;
 import java.util.SortedMap;
 
-import javax.vecmath.Tuple3d;
-import javax.vecmath.Vector3d;
+import javax.vecmath.Vector3f;
 
 import mcpecommander.theOvercasted.entity.animationTest.Animation;
 import mcpecommander.theOvercasted.entity.animationTest.KeyFrame;
@@ -15,7 +13,6 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -98,6 +95,7 @@ public class ModelOvercastedRenderer extends ModelRenderer{
                 {
                     if (this.rotationPointX == 0.0F && this.rotationPointY == 0.0F && this.rotationPointZ == 0.0F)
                     {
+                    	
                     	GlStateManager.pushMatrix();
                         if(scaleX != 0 && scaleY != 0 && scaleZ != 0) {
                         	GlStateManager.scale(scaleX, scaleY, scaleZ);
@@ -294,10 +292,10 @@ public class ModelOvercastedRenderer extends ModelRenderer{
 	 * Used to change the position quickly instead of changing each axis on its own.
 	 * @param translate The translation vector wished to be added to the current position.
 	 */
-	public void addTranslate(Vector3d translate) {
-		this.rotationPointX += (float) translate.x;
-		this.rotationPointY += (float) translate.y;
-		this.rotationPointZ += (float) translate.z;
+	public void addTranslate(Vector3f translate) {
+		this.rotationPointX += translate.x;
+		this.rotationPointY += translate.y;
+		this.rotationPointZ += translate.z;
 	}
 	
 	public void playAnimation(Animation animation, float tick) {
@@ -373,42 +371,41 @@ public class ModelOvercastedRenderer extends ModelRenderer{
                 {
                     this.compileDisplayList(scale);
                 }
-
-                for(ModelOvercastedRenderer box : boxes) {
+                
+                if(boxes.length != 0) {
                 	
-                	if (box.rotateAngleX == 0.0F && box.rotateAngleY == 0.0F && box.rotateAngleZ == 0.0F)
-                    {
-                        if (box.rotationPointX != 0.0F || box.rotationPointY != 0.0F || box.rotationPointZ != 0.0F)
-                        {
-                            GlStateManager.translate(box.rotationPointX * scale, box.rotationPointY * scale, box.rotationPointZ * scale);
-                        }
-                    }
-                    else
-                    {
-                        
-                    	GlStateManager.translate(box.rotationPointX * scale, box.rotationPointY * scale, box.rotationPointZ * scale);
+                	for(ModelOvercastedRenderer box : boxes) {
                     	
-                        if (box.rotateAngleZ != 0.0F)
+                    	if (box.rotateAngleX == 0.0F && box.rotateAngleY == 0.0F && box.rotateAngleZ == 0.0F)
                         {
-                            GlStateManager.rotate(box.rotateAngleZ , 0.0F, 0.0F, 1.0F);
+                            if (box.rotationPointX != 0.0F || box.rotationPointY != 0.0F || box.rotationPointZ != 0.0F)
+                            {
+                                GlStateManager.translate(box.rotationPointX * scale, box.rotationPointY * scale, box.rotationPointZ * scale);
+                            }
                         }
+                        else
+                        {
+                            
+                        	GlStateManager.translate(box.rotationPointX * scale, box.rotationPointY * scale, box.rotationPointZ * scale);
+                        	
+                            if (box.rotateAngleZ != 0.0F)
+                            {
+                                GlStateManager.rotate(box.rotateAngleZ , 0.0F, 0.0F, 1.0F);
+                            }
 
-                        if (box.rotateAngleY != 0.0F)
-                        {
-                            GlStateManager.rotate(box.rotateAngleY , 0.0F, 1.0F, 0.0F);
-                        }
+                            if (box.rotateAngleY != 0.0F)
+                            {
+                                GlStateManager.rotate(box.rotateAngleY , 0.0F, 1.0F, 0.0F);
+                            }
 
-                        if (box.rotateAngleX != 0.0F)
-                        {
-                            GlStateManager.rotate(box.rotateAngleX , 1.0F, 0.0F, 0.0F);
+                            if (box.rotateAngleX != 0.0F)
+                            {
+                                GlStateManager.rotate(box.rotateAngleX , 1.0F, 0.0F, 0.0F);
+                            }
+
                         }
-                        
                     }
                 }
-                
-
-
-                
         	}  
         }      
 	}

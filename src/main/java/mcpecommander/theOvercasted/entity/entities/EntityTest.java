@@ -1,18 +1,19 @@
 package mcpecommander.theOvercasted.entity.entities;
 
-import javax.vecmath.Vector3d;
+import com.leviathanstudio.craftstudio.CraftStudioApi;
+import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
+import com.leviathanstudio.craftstudio.common.animation.IAnimated;
 
-import mcpecommander.theOvercasted.entity.animationTest.Animation;
-import mcpecommander.theOvercasted.entity.animationTest.KeyFrame;
 import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityTest extends EntityMob {
+public class EntityTest extends EntityBaseAnimated {
+	
+	protected static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(EntityTest.class);
 
 	public EntityTest(World worldIn) {
 		super(worldIn);
@@ -25,5 +26,15 @@ public class EntityTest extends EntityMob {
 		return super.onInitialSpawn(difficulty, livingdata);
 	}
 
+	@Override
+	public <T extends IAnimated> AnimationHandler<T> getAnimationHandler() {
+		return EntityTest.animHandler;
+	}
+
+	@Override
+	public void onLivingUpdate() {
+		super.onLivingUpdate();
+		this.getAnimationHandler().animationsUpdate(this);
+	}
 
 }

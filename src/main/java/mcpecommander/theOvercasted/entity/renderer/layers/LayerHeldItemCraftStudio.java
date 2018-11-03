@@ -4,10 +4,10 @@ import java.nio.FloatBuffer;
 
 import javax.vecmath.Quat4f;
 
-import com.leviathanstudio.craftstudio.client.model.CSModelRenderer;
 import com.leviathanstudio.craftstudio.client.util.MathHelper;
 
 import mcpecommander.theOvercasted.entity.CraftStudioModelSon;
+import mcpecommander.theOvercasted.entity.animationTest.CSModelRendererOvercasted;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -76,8 +76,8 @@ public class LayerHeldItemCraftStudio implements LayerRenderer<EntityLivingBase>
 
     protected void translateToHand()
 	{
-		CSModelRenderer RightArm = null;
-		CSModelRenderer RightArm1 = null;
+    	CSModelRendererOvercasted RightArm = null;
+    	CSModelRendererOvercasted RightArm1 = null;
 		if (((CraftStudioModelSon) this.livingEntityRenderer.getMainModel())
 				.getModelRendererFromName("RightArm") != null) {
 			RightArm = ((CraftStudioModelSon) this.livingEntityRenderer.getMainModel())
@@ -135,8 +135,8 @@ public class LayerHeldItemCraftStudio implements LayerRenderer<EntityLivingBase>
     
     protected void translateToLeftHand()
     {
-    	CSModelRenderer LeftArm = null;
-		CSModelRenderer LeftArm1 = null;
+    	CSModelRendererOvercasted LeftArm = null;
+    	CSModelRendererOvercasted LeftArm1 = null;
 		if (((CraftStudioModelSon) this.livingEntityRenderer.getMainModel())
 				.getModelRendererFromName("LeftArm") != null) {
 			LeftArm = ((CraftStudioModelSon) this.livingEntityRenderer.getMainModel())

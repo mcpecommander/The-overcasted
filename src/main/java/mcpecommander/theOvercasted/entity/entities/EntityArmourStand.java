@@ -102,7 +102,7 @@ public class EntityArmourStand extends EntityBaseAnimated {
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 		//Mandatory animation update method from the api.
-		this.getAnimationHandler().animationsUpdate(this);
+//		this.getAnimationHandler().animationsUpdate(this);
 
 		//running the walking animations from the server to keep it from desyncing when stopping it in the AI tasks.
 		if(!this.isWorldRemote()) {
