@@ -1,5 +1,7 @@
 package mcpecommander.theOvercasted;
 
+import javax.vecmath.Vector3f;
+
 import net.minecraft.util.ResourceLocation;
 
 public class Reference {
@@ -11,6 +13,8 @@ public class Reference {
 	
 	public static final String CLIENT_PROXY_CLASS = "mcpecommander.theOvercasted.proxy.ClientProxy";
 	public static final String SERVER_PROXY_CLASS = "mcpecommander.theOvercasted.proxy.ServerProxy";
+	
+	public static final Vector3f EMPTY_VECTOR = new Vector3f();
 	
 	public enum ModEntities{
 		

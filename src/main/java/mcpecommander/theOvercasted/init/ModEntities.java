@@ -16,7 +16,7 @@ import mcpecommander.theOvercasted.entity.renderer.RenderLangolier;
 import mcpecommander.theOvercasted.entity.renderer.RenderManEater;
 import mcpecommander.theOvercasted.entity.renderer.RenderMushroomPerson;
 import mcpecommander.theOvercasted.entity.renderer.RenderSnowRat;
-import mcpecommander.theOvercasted.entity.renderer.RenderTest;
+import mcpecommander.theOvercasted.entity.renderer.RenderConjoinedSack;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -64,7 +64,7 @@ public class ModEntities {
 		RenderingRegistry.registerEntityRenderingHandler(EntityManEater.class, new RenderManEater.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityMushroomPerson.class, new RenderMushroomPerson.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntitySnowRat.class, new RenderSnowRat.Factory());
-		RenderingRegistry.registerEntityRenderingHandler(EntityTest.class, new RenderTest.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityTest.class, new RenderConjoinedSack.Factory());
 	}
 
 }

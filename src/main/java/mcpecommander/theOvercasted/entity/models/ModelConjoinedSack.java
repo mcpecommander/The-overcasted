@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 
+//Unused, Reference only.
 public class ModelConjoinedSack extends ModelBase {
 
 	ModelOvercastedRenderer Bottom;

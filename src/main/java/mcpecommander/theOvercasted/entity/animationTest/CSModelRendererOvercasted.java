@@ -1,7 +1,6 @@
 package mcpecommander.theOvercasted.entity.animationTest;
 
 import java.nio.FloatBuffer;
-import java.util.SortedMap;
 
 import javax.vecmath.Vector3f;
 
@@ -74,6 +73,60 @@ public class CSModelRendererOvercasted extends CSModelRenderer {
             }
 	}
 	
+	/**
+	 * 
+	 * @param angleToRotate The angle to rotate
+	 * @param tick Living age tick is recommended.
+	 * @param invert Invert the wave (sin to -sin).
+	 * @param flip Flip the slowness to the other half of the wave.
+	 * @return The rotated angle in floats.
+	 */
+	public static float unbalancedWave (float angleToRotate, float tick, boolean invert, boolean flip, float frequnecy) {
+		if(invert) {
+			if(flip ? Math.sin((double)tick/frequnecy) > 0 : Math.sin((double)tick/frequnecy) < 0) {
+				return angleToRotate = -(float) Math.toDegrees(Math.sin((double)tick/frequnecy))/(frequnecy/1.53f);
+	        }else {
+	        	return angleToRotate = -(float) Math.toDegrees(Math.sin((double)tick/frequnecy))/(frequnecy*1.53f);
+	        }
+		}else {
+			if(flip ? Math.sin((double)tick/frequnecy) < 0 : Math.sin((double)tick/frequnecy) > 0) {
+				return angleToRotate = (float) Math.toDegrees(Math.sin((double)tick/frequnecy))/(frequnecy/1.53f);
+	        }else {
+	        	return angleToRotate = (float) Math.toDegrees(Math.sin((double)tick/frequnecy))/(frequnecy*1.53f);
+	        }
+		}
+	}
+	
+	/**
+	 * 
+	 * @param originalAngle Original angle to add or subtract from.
+	 * @param tick Living age tick is recommended.
+	 * @param invert Invert the wave (sin to -sin).
+	 * @param frequnecy How intensive is the change.
+	 * @param range Multiplier to change it beyond the (-1, 1) range.
+	 * @return A sin wave
+	 */
+	public static float balancedWave (float originalAngle, float tick, boolean invert, float frequnecy, float range) {
+		if(invert) {
+			return (float) (originalAngle - Math.sin(tick/frequnecy) * range);
+		}else {
+			return (float) (originalAngle + Math.sin(tick/frequnecy) * range);
+		}
+	}
+	
+	/**
+	 * A helpful method to rotate one or more boxes at the same time.
+	 * @param x The X rotation wished to be applied.
+	 * @param y The Y rotation wished to be applied.
+	 * @param z The Z rotation wished to be applied.
+	 * @param boxes The ModelRender boxes to affected.
+	 */
+	public static void rotateBoxes(float x, float y, float z, CSModelRendererOvercasted... boxes) {
+		for(CSModelRendererOvercasted box : boxes) {
+			box.getRotationMatrix().set(new Vector3f(x, y, z));
+		}
+	}
+	
 	//Old animation test that works on one box at time.
 //	public void playAnimation(Animation animation, float tick) {
 //		if(currentTick == 0) {
@@ -99,9 +152,9 @@ public class CSModelRendererOvercasted extends CSModelRenderer {
 	 * @param translate The translation vector wished to be added to the current position.
 	 */
 	public void addTranslate(Vector3f translate) {
-		this.rotationPointX += translate.x;
-		this.rotationPointY += translate.y;
-		this.rotationPointZ += translate.z;
+		this.rotationPointX = this.getDefaultRotationPointX() + translate.x;
+		this.rotationPointY = this.getDefaultRotationPointY() + translate.y;
+		this.rotationPointZ = this.getDefaultRotationPointZ() + translate.z;
 	}
 	
 	public void compileDisplayList(float scale) {
@@ -116,12 +169,5 @@ public class CSModelRendererOvercasted extends CSModelRenderer {
         this.compiled = true;
     }
 
-
-	private void setRotationPoint(double x, double y, double z) {
-		this.rotationPointX = (float) x;
-        this.rotationPointY = (float) y;
-        this.rotationPointZ = (float) z;
-		
-	}
 
 }

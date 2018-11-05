@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumHandSide;
 
+//Unused, Reference only
 public class ModelFatty extends ModelBase {
 	ModelOvercastedRenderer Bottom;
 	ModelOvercastedRenderer RightLeg;
@@ -69,15 +70,15 @@ public class ModelFatty extends ModelBase {
 		this.Bottom.addChild(this.LeftLeg);
 		this.Chest.addChild(this.RightArm);
 		
-		KeyFrame frame1 = new KeyFrame(new Vector3f(-4, 1.5f, 17), 0);
-		KeyFrame frame2 = new KeyFrame(new Vector3f(11.19f, -36.67f, 69.16f), 5);
-		KeyFrame frame3 = new KeyFrame(new Vector3f(39.78f, 9.81f, 129.95f), 10);
-		KeyFrame frame4 = new KeyFrame(new Vector3f(-63.35f, 1.76f, 27.35f), 15);
-		KeyFrame frame5 = new KeyFrame(new Vector3f(-63.35f, 1.76f, -25.37f), 20);
-		KeyFrame frame6 = new KeyFrame(new Vector3f(-68.63f, 9.27f, 6.07f), 25);
-		KeyFrame frame7 = new KeyFrame(new Vector3f(-4.01f, 1.58f, 17.23f), 30);
-		
-		animation = Animation.BuildAnimation(false, 31, Animation.createAnimation(31, frame1, frame2, frame3, frame4, frame5, frame6, frame7));
+//		KeyFrame frame1 = new KeyFrame(new Vector3f(-4, 1.5f, 17), 0);
+//		KeyFrame frame2 = new KeyFrame(new Vector3f(11.19f, -36.67f, 69.16f), 5);
+//		KeyFrame frame3 = new KeyFrame(new Vector3f(39.78f, 9.81f, 129.95f), 10);
+//		KeyFrame frame4 = new KeyFrame(new Vector3f(-63.35f, 1.76f, 27.35f), 15);
+//		KeyFrame frame5 = new KeyFrame(new Vector3f(-63.35f, 1.76f, -25.37f), 20);
+//		KeyFrame frame6 = new KeyFrame(new Vector3f(-68.63f, 9.27f, 6.07f), 25);
+//		KeyFrame frame7 = new KeyFrame(new Vector3f(-4.01f, 1.58f, 17.23f), 30);
+//		
+//		animation = Animation.BuildAnimation(false, 31, Animation.createAnimation(31, frame1, frame2, frame3, frame4, frame5, frame6, frame7));
 
 		
 	}

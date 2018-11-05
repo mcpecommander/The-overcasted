@@ -13,6 +13,8 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import javax.annotation.Nullable;
+import javax.vecmath.Matrix4f;
+import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
 import org.apache.commons.io.Charsets;
@@ -24,6 +26,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.leviathanstudio.craftstudio.client.util.MathHelper;
 
+import mcpecommander.theOvercasted.Reference;
+import mcpecommander.theOvercasted.TheOvercasted;
 import mcpecommander.theOvercasted.entity.CraftStudioModelSon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResource;
@@ -39,17 +43,23 @@ public class Animation {
 	public int currentFrame;
 
 	private Animation(boolean looped, int length,
-			Set<ImmutablePair<String, SortedMap<Integer, KeyFrame>>> animations) {
+			Set<ImmutablePair<String, SortedMap<Integer, KeyFrame>>> boxAnimations) {
 		this.looped = looped;
 		this.length = length;
-		this.animations = animations;
+		this.animations = boxAnimations;
 	}
 
 	public static Animation BuildAnimation(boolean looped, int length,
-			Set<ImmutablePair<String, SortedMap<Integer, KeyFrame>>> animations) {
-		return new Animation(looped, length, animations);
+			Set<ImmutablePair<String, SortedMap<Integer, KeyFrame>>> boxAnimations) {
+		return new Animation(looped, length, boxAnimations);
 	}
 
+	/**
+	 * 
+	 * @param fps FPS to have this run at.
+	 * @param startingFrame	In case the animation start from a different frame other than 0.
+	 * @param model	The model wished to apply the animation to.
+	 */
 	public void playAnimation(int fps, int startingFrame, CraftStudioModelSon model) {
 		if(!hasFinished) {
 			if(firstFrame) {
@@ -78,6 +88,7 @@ public class Animation {
 	        		previousTime = currentTime;
 	        	}
 	        }
+	        //The animation loop
 	        for(ImmutablePair<String, SortedMap<Integer, KeyFrame>> animation : animations) {
 	        	CSModelRendererOvercasted box = model.getModelRendererFromName(animation.getLeft());
 	        	if(box != null) {
@@ -85,16 +96,31 @@ public class Animation {
 	        		if(frame == null) {
 	        			return;
 	        		}else {
-
+	        			//Does not really support multiple rotations on the same box from different animations.
 	        			box.addTranslate(frame.getTranslate());
-	        			box.setStretch(frame.getScale().x, frame.getScale().y, frame.getScale().z);
-	        			box.getRotationMatrix().set(MathHelper.quatFromEuler(frame.getRotation()));
+	        			//Do not have access to the default stretch.
+	        			box.resetStretch();
+	        			box.setStretch(box.getStretchAsVector().x + frame.getScale().x, box.getStretchAsVector().y + frame.getScale().y, box.getStretchAsVector().z + frame.getScale().z);
+	        			if(!frame.getRotation().equals(Reference.EMPTY_VECTOR)) {
+		        			Quat4f quat = box.getDefaultRotationAsQuaternion();
+		        			quat.mul(MathHelper.quatFromEuler(frame.getRotation()));
+		        			quat.inverse();
+		        			box.getRotationMatrix().set(quat);
+	        			}
 	        		}
 	        	}
 	        }
 		}
 	}
 
+	/**
+	 * A method to return a fully interpolated sub-animation from the given key frames.
+	 * 
+	 * @param length The animation length, note that it should be 1 frame larger than the last frame to insure a smooth lerp.
+	 * @param box The name of the modelRenderer that this sub-animation belongs to.
+	 * @param frames The frames 
+	 * @return An {@link ImmutablePair} with a the box name in the left and the interpolated animation in the right.
+	 */
 	@Nullable
 	public static ImmutablePair createAnimation(int length, String box, KeyFrame... frames) {
 		SortedMap<Integer, KeyFrame> animation = new TreeMap<>();
@@ -208,6 +234,11 @@ public class Animation {
 		return new ImmutablePair<String, SortedMap<Integer, KeyFrame>>(box, animation);
 	}
 	
+	/**
+	 * Oh god why.
+	 * @param location The animation file name with the extension {@code .csjsmodelanim} and the full location.
+	 * @return A fully interpolated animation ready to be used.
+	 */
 	public static Animation readAnim(ResourceLocation location) {
 		
 		int length;
@@ -226,7 +257,7 @@ public class Animation {
             Object object = jsonParser.parse(strBuilder.toString());
             json = (JsonObject) object;
         } catch (FileNotFoundException fnfe) {
-        	fnfe.printStackTrace();
+        	TheOvercasted.logger.fatal(location.toString() + " could not be found, check the spelling.");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -246,22 +277,22 @@ public class Animation {
 
             jsEl = json.get("title");
             if (jsEl == null) {
-            	System.out.println("whatever, naming is not yet supported");
+            	TheOvercasted.logger.error("Naming is missing but naming is not yet supported, continuing");
             }
-            System.out.println("Naming is not yet supported");
+            TheOvercasted.logger.info("Naming is not yet supported");
             
             jsEl = json.get("duration");
             if (jsEl == null) {
-            	System.out.println("need to have a length");
+            	TheOvercasted.logger.fatal("json file syntax is missing a length, add length.");
             	return null;
             }
             length = jsEl.getAsInt() + 1;
             
             jsEl = json.get("holdLastKeyframe");
             if (jsEl == null) {
-            	System.out.println("not yet supported");
+            	TheOvercasted.logger.error("Holding is missing but holding is not yet supported, continuing");
             }
-            System.out.println("holding is not yet supported");
+            TheOvercasted.logger.info("holding is not yet supported");
 
             jsEl = json.get("nodeAnimations");
             if (jsEl == null) {
@@ -283,11 +314,18 @@ public class Animation {
             return BuildAnimation(true, length, list);
         	
         }else {
+        	TheOvercasted.logger.fatal("json file is broken, check the syntax and structure!");
         	return null;
         }
 
 	}
 	
+	/**
+	 * 
+	 * @param entry The json object entries.
+	 * @param animLength The animation length and not just the length of this sun-animation.
+	 * @return A {@link ImmutablePair} that includes the full interpolated sub-animation for one block.
+	 */
 	private static ImmutablePair<String, SortedMap<Integer, KeyFrame>> readAnimBlock(Entry<String, JsonElement> entry, int animLength) {
 		
         JsonObject objBlock = entry.getValue().getAsJsonObject(), objFieldP, objFieldS, objFieldR;
@@ -298,13 +336,20 @@ public class Animation {
 
         objFieldS = objBlock.get("stretch").getAsJsonObject();
         
-        KeyFrame[] frames = AddFrames(objFieldR, objFieldP, objFieldS, animLength);
+        KeyFrame[] frames = AddFrames(objFieldR, objFieldP, objFieldS);
         
         return createAnimation(animLength , strNormalize(entry.getKey()), frames);
 
     }
 	
-	private static KeyFrame[] AddFrames(JsonObject objR, JsonObject objP, JsonObject objS, int length) {
+	/**
+	 * Deserialize the json arrays into usable key frames.
+	 * @param objR The json rotation array.
+	 * @param objP The json translate array.
+	 * @param objS The json scale array.
+	 * @return An array of key frames including no repeated key frames where a two key frames have the same number.
+	 */
+	private static KeyFrame[] AddFrames(JsonObject objR, JsonObject objP, JsonObject objS) {
         
 		List<KeyFrame> frames = new ArrayList<>();
 		JsonArray array;
@@ -316,6 +361,7 @@ public class Animation {
             frame.rotation = new Vector3f(array.get(0).getAsFloat(), -array.get(1).getAsFloat(), -array.get(2).getAsFloat());
             frames.add(frame);
         }
+        
         for (Entry<String, JsonElement> entry : objP.entrySet()) {
         	KeyFrame frame = new KeyFrame(Integer.parseInt(entry.getKey()));
             array = entry.getValue().getAsJsonArray();
@@ -338,7 +384,6 @@ public class Animation {
             }
             
         }
-//        System.out.println(frames);
         return frames.stream().toArray(KeyFrame[]::new);
     }
 	
@@ -360,6 +405,11 @@ public class Animation {
 
 	public int getLength() {
 		return length;
+	}
+	
+	@Override
+	public String toString() {
+		return this.animations.toString() + " Looped: " + this.looped + " Length: " + this.length;
 	}
 
 }

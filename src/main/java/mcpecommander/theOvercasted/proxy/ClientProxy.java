@@ -1,6 +1,8 @@
 package mcpecommander.theOvercasted.proxy;
 
 import mcpecommander.theOvercasted.Reference;
+import mcpecommander.theOvercasted.entity.animationTest.AnimationRegistryHelper;
+import mcpecommander.theOvercasted.init.ModAnimations;
 import mcpecommander.theOvercasted.init.ModEntities;
 import mcpecommander.theOvercasted.registryHandler.BlocksRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -15,12 +17,14 @@ public class ClientProxy extends CommonProxy{
 		super.preInit(e);
 		ModEntities.initModel();
 		OBJLoader.INSTANCE.addDomain(Reference.MODID);
+		AnimationRegistryHelper.init();
 	}
 
 	@Override
 	public void init(FMLInitializationEvent e) {
 		super.init(e);
 		BlocksRegistry.registerTileEntityRenderer();
+		ModAnimations.init();
 	}
 
 	@Override

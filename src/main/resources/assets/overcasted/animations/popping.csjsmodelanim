@@ -1,0 +1,37 @@
+{
+  "title": "Popping",
+  "duration": 60,
+  "holdLastKeyframe": false,
+  "nodeAnimations": {
+    "Head": {
+      "position": {
+      },
+      "offsetFromPivot": {
+      },
+      "size": {
+      },
+      "rotation": {
+        "0": [ 0, 0, 0.004382648 ],
+        "20": [ 0, 0, 5.877242 ],
+        "40": [ 0, 0, -3.728832 ]
+      },
+      "stretch": {
+      }
+    },
+    "Head1": {
+      "position": {
+        "0": [ 0, 0, 0 ],
+        "20": [ 0, 7, 0 ],
+        "40": [ 7, 7, 0 ]
+      },
+      "offsetFromPivot": {
+      },
+      "size": {
+      },
+      "rotation": {
+      },
+      "stretch": {
+      }
+    }
+  }
+}

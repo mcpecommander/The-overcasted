@@ -10,7 +10,7 @@ public class KeyFrame {
 
 	public KeyFrame(int num) {
 		this.num = num;
-		this.scale = new Vector3f(1, 1, 1);
+		this.scale = new Vector3f();
 		this.translate = new Vector3f();
 		this.rotation = new Vector3f();
 	}
@@ -24,7 +24,7 @@ public class KeyFrame {
 
 	public KeyFrame(Vector3f rotation, int num) {
 		this.rotation = rotation;
-		this.scale = new Vector3f(1, 1, 1);
+		this.scale = new Vector3f();
 		this.translate = new Vector3f();
 		this.num = num;
 	}

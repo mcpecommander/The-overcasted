@@ -1,5 +1,7 @@
 package mcpecommander.theOvercasted;
 
+import org.apache.logging.log4j.Logger;
+
 import mcpecommander.theOvercasted.block.tileEntity.TileEntityMushroomSprout;
 import mcpecommander.theOvercasted.proxy.CommonProxy;
 import net.minecraft.util.ResourceLocation;
@@ -23,10 +25,13 @@ public class TheOvercasted {
 	
 	public static TheOvercastedTab overcastedTab = new TheOvercastedTab();
 	
+	public static Logger logger;
+	
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
 		GameRegistry.registerTileEntity(TileEntityMushroomSprout.class, new ResourceLocation(Reference.MODID, "tile_entity_mushroom_sprout"));
 		proxy.preInit(e);
+		logger = e.getModLog();
 
 	}
 

@@ -298,23 +298,23 @@ public class ModelOvercastedRenderer extends ModelRenderer{
 		this.rotationPointZ += translate.z;
 	}
 	
-	public void playAnimation(Animation animation, float tick) {
-		if(currentTick == 0) {
-			currentTick = tick;
-		}
-		int tickInt = (int) (tick - currentTick);
-		for(SortedMap map : animation.getMaps()) {
-			KeyFrame currentFrame = (KeyFrame) map.get(tickInt);
-			if(currentFrame == null) {
-				currentTick = 0;
-			}else {
-				addTranslate(currentFrame.getTranslate());
-				setScale(currentFrame.getScale().x, currentFrame.getScale().y, currentFrame.getScale().z);
-				rotateBoxes((float)currentFrame.getRotation().x, (float)currentFrame.getRotation().y, (float)currentFrame.getRotation().z, this);
-			}
-		}
-		
-	}
+//	public void playAnimation(Animation animation, float tick) {
+//		if(currentTick == 0) {
+//			currentTick = tick;
+//		}
+//		int tickInt = (int) (tick - currentTick);
+//		for(SortedMap map : animation.getMaps()) {
+//			KeyFrame currentFrame = (KeyFrame) map.get(tickInt);
+//			if(currentFrame == null) {
+//				currentTick = 0;
+//			}else {
+//				addTranslate(currentFrame.getTranslate());
+//				setScale(currentFrame.getScale().x, currentFrame.getScale().y, currentFrame.getScale().z);
+//				rotateBoxes((float)currentFrame.getRotation().x, (float)currentFrame.getRotation().y, (float)currentFrame.getRotation().z, this);
+//			}
+//		}
+//		
+//	}
 	
 	//Changed to degrees
 	@Override
