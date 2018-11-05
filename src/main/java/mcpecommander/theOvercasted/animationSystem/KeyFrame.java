@@ -1,4 +1,4 @@
-package mcpecommander.theOvercasted.entity.animationTest;
+package mcpecommander.theOvercasted.animationSystem;
 
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;

@@ -6,8 +6,8 @@ import javax.vecmath.Quat4f;
 
 import com.leviathanstudio.craftstudio.client.util.MathHelper;
 
-import mcpecommander.theOvercasted.entity.CraftStudioModelSon;
-import mcpecommander.theOvercasted.entity.animationTest.CSModelRendererOvercasted;
+import mcpecommander.theOvercasted.entity.models.CSModelRendererOvercasted;
+import mcpecommander.theOvercasted.entity.models.CraftStudioModelSon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;

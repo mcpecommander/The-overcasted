@@ -9,7 +9,7 @@ import mcpecommander.theOvercasted.entity.entities.EntityLangolier;
 import mcpecommander.theOvercasted.entity.entities.EntityManEater;
 import mcpecommander.theOvercasted.entity.entities.EntityMushroomPerson;
 import mcpecommander.theOvercasted.entity.entities.EntitySnowRat;
-import mcpecommander.theOvercasted.entity.entities.EntityTest;
+import mcpecommander.theOvercasted.entity.entities.EntityConjoinedSack;
 import mcpecommander.theOvercasted.entity.renderer.RenderArmourStand;
 import mcpecommander.theOvercasted.entity.renderer.RenderBasilisk;
 import mcpecommander.theOvercasted.entity.renderer.RenderLangolier;
@@ -49,7 +49,7 @@ public class ModEntities {
 		EntityEntry rat = EntityEntryBuilder.create().entity(EntitySnowRat.class)
 				.id(Reference.ModEntities.SNOWRAT.getRegistryName(), id++).egg(354578, 233488)
 				.name(Reference.ModEntities.SNOWRAT.getName()).tracker(64, 3, true).build();
-		EntityEntry test = EntityEntryBuilder.create().entity(EntityTest.class)
+		EntityEntry test = EntityEntryBuilder.create().entity(EntityConjoinedSack.class)
 				.id(Reference.ModEntities.TEST.getRegistryName(), id++).egg(354578, 233488)
 				.name(Reference.ModEntities.TEST.getName()).tracker(64, 3, true).build();
 
@@ -64,7 +64,7 @@ public class ModEntities {
 		RenderingRegistry.registerEntityRenderingHandler(EntityManEater.class, new RenderManEater.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityMushroomPerson.class, new RenderMushroomPerson.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntitySnowRat.class, new RenderSnowRat.Factory());
-		RenderingRegistry.registerEntityRenderingHandler(EntityTest.class, new RenderConjoinedSack.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityConjoinedSack.class, new RenderConjoinedSack.Factory());
 	}
 
 }

@@ -1,4 +1,4 @@
-package mcpecommander.theOvercasted.entity.animationTest;
+package mcpecommander.theOvercasted.animationSystem;
 
 import java.util.HashMap;
 

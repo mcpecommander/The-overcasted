@@ -12,8 +12,6 @@ public abstract class EntityBaseAnimated extends EntityMob implements IAnimated 
 		super(worldIn);
 	}
 
-	@Override
-	public abstract <T extends IAnimated> AnimationHandler<T> getAnimationHandler();
 
 	@Override
 	public int getDimension() {

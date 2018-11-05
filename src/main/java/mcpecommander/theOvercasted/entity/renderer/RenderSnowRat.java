@@ -1,8 +1,8 @@
 package mcpecommander.theOvercasted.entity.renderer;
 
 import mcpecommander.theOvercasted.Reference;
-import mcpecommander.theOvercasted.entity.CraftStudioModelSon;
 import mcpecommander.theOvercasted.entity.entities.EntitySnowRat;
+import mcpecommander.theOvercasted.entity.models.CraftStudioModelSon;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;

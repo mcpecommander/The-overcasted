@@ -1,6 +1,6 @@
 package mcpecommander.theOvercasted.entity.renderer.layers;
 
-import mcpecommander.theOvercasted.entity.CraftStudioModelSon;
+import mcpecommander.theOvercasted.entity.models.CraftStudioModelSon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;

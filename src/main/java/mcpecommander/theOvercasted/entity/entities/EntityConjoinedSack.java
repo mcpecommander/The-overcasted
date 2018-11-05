@@ -11,11 +11,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityTest extends EntityBaseAnimated {
-	
-	protected static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(EntityTest.class);
+public class EntityConjoinedSack extends EntityBaseAnimated {
 
-	public EntityTest(World worldIn) {
+	public EntityConjoinedSack(World worldIn) {
 		super(worldIn);
 		this.setSize(1.1f, 1.3f);
 	}
@@ -26,15 +24,18 @@ public class EntityTest extends EntityBaseAnimated {
 		return super.onInitialSpawn(difficulty, livingdata);
 	}
 
-	@Override
-	public <T extends IAnimated> AnimationHandler<T> getAnimationHandler() {
-		return EntityTest.animHandler;
-	}
 
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		this.getAnimationHandler().animationsUpdate(this);
+
 	}
+
+	@Override
+	public <T extends IAnimated> AnimationHandler<T> getAnimationHandler() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

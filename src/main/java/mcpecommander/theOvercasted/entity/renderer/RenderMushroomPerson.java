@@ -1,8 +1,8 @@
 package mcpecommander.theOvercasted.entity.renderer;
 
 import mcpecommander.theOvercasted.Reference;
-import mcpecommander.theOvercasted.entity.CraftStudioModelSon;
 import mcpecommander.theOvercasted.entity.entities.EntityMushroomPerson;
+import mcpecommander.theOvercasted.entity.models.CraftStudioModelSon;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.Render;

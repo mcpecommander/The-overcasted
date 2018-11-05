@@ -1,4 +1,4 @@
-package mcpecommander.theOvercasted.entity;
+package mcpecommander.theOvercasted.entity.models;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,6 @@ import com.leviathanstudio.craftstudio.client.model.CSModelBox;
 import com.leviathanstudio.craftstudio.client.registry.RegistryHandler;
 import com.leviathanstudio.craftstudio.client.util.MathHelper;
 
-import mcpecommander.theOvercasted.entity.animationTest.CSModelRendererOvercasted;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.PositionTextureVertex;

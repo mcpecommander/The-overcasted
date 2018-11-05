@@ -1,4 +1,4 @@
-package mcpecommander.theOvercasted.entity.animationTest;
+package mcpecommander.theOvercasted.entity.models;
 
 import java.nio.FloatBuffer;
 

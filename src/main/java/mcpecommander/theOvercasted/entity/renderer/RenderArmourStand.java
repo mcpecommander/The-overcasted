@@ -1,8 +1,8 @@
 package mcpecommander.theOvercasted.entity.renderer;
 
 import mcpecommander.theOvercasted.Reference;
-import mcpecommander.theOvercasted.entity.CraftStudioModelSon;
 import mcpecommander.theOvercasted.entity.entities.EntityArmourStand;
+import mcpecommander.theOvercasted.entity.models.CraftStudioModelSon;
 import mcpecommander.theOvercasted.entity.renderer.layers.LayerHeldItemCraftStudio;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

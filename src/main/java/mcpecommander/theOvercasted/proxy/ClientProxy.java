@@ -1,7 +1,7 @@
 package mcpecommander.theOvercasted.proxy;
 
 import mcpecommander.theOvercasted.Reference;
-import mcpecommander.theOvercasted.entity.animationTest.AnimationRegistryHelper;
+import mcpecommander.theOvercasted.animationSystem.AnimationRegistryHelper;
 import mcpecommander.theOvercasted.init.ModAnimations;
 import mcpecommander.theOvercasted.init.ModEntities;
 import mcpecommander.theOvercasted.registryHandler.BlocksRegistry;

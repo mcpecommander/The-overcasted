@@ -1,7 +1,7 @@
 package mcpecommander.theOvercasted.init;
 
-import mcpecommander.theOvercasted.entity.animationTest.Animation;
-import mcpecommander.theOvercasted.entity.animationTest.AnimationRegistryHelper;
+import mcpecommander.theOvercasted.animationSystem.Animation;
+import mcpecommander.theOvercasted.animationSystem.AnimationRegistryHelper;
 
 public class ModAnimations {
 	
