@@ -7,6 +7,7 @@ import com.leviathanstudio.craftstudio.client.exception.CSResourceNotRegisteredE
 import com.leviathanstudio.craftstudio.client.json.CSReadedModel;
 import com.leviathanstudio.craftstudio.client.json.CSReadedModelBlock;
 import com.leviathanstudio.craftstudio.client.model.CSModelBox;
+import com.leviathanstudio.craftstudio.client.model.CSModelRenderer;
 import com.leviathanstudio.craftstudio.client.registry.RegistryHandler;
 import com.leviathanstudio.craftstudio.client.util.MathHelper;
 
@@ -19,34 +20,6 @@ import net.minecraft.util.ResourceLocation;
 
 public class CraftStudioModelSon extends ModelBase{
 
-	public CSModelRendererOvercasted getModelRendererFromName(String name) {
-        CSModelRendererOvercasted result;
-        for (CSModelRendererOvercasted parent : this.getParentBlocks()) {
-            result = CraftStudioModelSon.getModelRendererFromNameAndBlocks(name, parent);
-            if (result != null)
-                return result;
-        }
-        return null;
-    }
-	
-	public static CSModelRendererOvercasted getModelRendererFromNameAndBlocks(String name, CSModelRendererOvercasted block) {
-        CSModelRendererOvercasted childModel, result;
-
-        if (block.boxName.equals(name))
-            return block;
-        if(block.childModels != null && !block.childModels.isEmpty()){
-	        for (ModelRenderer child : block.childModels)
-	            if (child instanceof CSModelRendererOvercasted) {
-	                childModel = (CSModelRendererOvercasted) child;
-	                result = getModelRendererFromNameAndBlocks(name, childModel);
-	                if (result != null)
-	                    return result;
-	            }
-        }
-
-        return null;
-    }
-	
 	
 	private List<CSModelRendererOvercasted> parentBlocks = new ArrayList<>();
 
@@ -93,6 +66,7 @@ public class CraftStudioModelSon extends ModelBase{
         for (CSReadedModelBlock rBlock : rModel.getParents()) {
             modelRend = this.generateCSModelRend(rBlock);
             this.parentBlocks.add(modelRend);
+            this.boxList.add(modelRend);
             this.generateChild(rBlock, modelRend);
         }
     }
@@ -103,8 +77,43 @@ public class CraftStudioModelSon extends ModelBase{
         for (CSReadedModelBlock rBlock : rParent.getChilds()) {
             modelRend = this.generateCSModelRend(rBlock);
             parent.addChild(modelRend);
+            this.boxList.add(modelRend);
             this.generateChild(rBlock, modelRend);
         }
+    }
+    
+    public CSModelRendererOvercasted getModelRendererFromName(String name) {
+        CSModelRendererOvercasted result;
+        for (CSModelRendererOvercasted parent : this.getParentBlocks()) {
+            result = CraftStudioModelSon.getModelRendererFromNameAndBlocks(name, parent);
+            if (result != null)
+                return result;
+        }
+        return null;
+    }
+	
+	public static CSModelRendererOvercasted getModelRendererFromNameAndBlocks(String name, CSModelRendererOvercasted block) {
+        CSModelRendererOvercasted childModel, result;
+
+        if (block.boxName.equals(name))
+            return block;
+        if(block.childModels != null && !block.childModels.isEmpty()){
+	        for (ModelRenderer child : block.childModels)
+	            if (child instanceof CSModelRendererOvercasted) {
+	                childModel = (CSModelRendererOvercasted) child;
+	                result = getModelRendererFromNameAndBlocks(name, childModel);
+	                if (result != null)
+	                    return result;
+	            }
+        }
+
+        return null;
+    }
+    
+    public void resetAllRotations() {
+    	for(ModelRenderer model : this.boxList) {
+    		((CSModelRendererOvercasted) model).resetRotationMatrix();
+    	}
     }
 
     /** Generate CSModelRendererOvercasted from readed model block */

@@ -24,7 +24,9 @@ public class Reference {
 		MANEATER(new ResourceLocation(MODID, "man_eater")),
 		MUSHROOMPERSON(new ResourceLocation(MODID, "mushroom_person")),
 		SNOWRAT(new ResourceLocation(MODID, "snow_rat")),
-		TEST(new ResourceLocation(MODID, "test"));
+		CONJOINED_SACK(new ResourceLocation(MODID, "conjioned_sack")),
+		FLY(new ResourceLocation(MODID, "fly")),
+		FAT_SACK(new ResourceLocation(MODID, "fat_sack"));
 		
 		private ResourceLocation name;
 		

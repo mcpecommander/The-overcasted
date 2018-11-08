@@ -21,7 +21,9 @@ public class CraftStudioRegistry {
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "man_eater");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "mushroom_person");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "snow_rat");
-		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "test");
+		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "conjoined_sack");
+		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "fly");
+		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "fat_sack");
 		
 		//Blocks
 		e.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "mushroom_sprout");

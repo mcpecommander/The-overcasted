@@ -5,18 +5,22 @@ import java.awt.Color;
 import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.entity.entities.EntityArmourStand;
 import mcpecommander.theOvercasted.entity.entities.EntityBasilisk;
+import mcpecommander.theOvercasted.entity.entities.EntityFly;
 import mcpecommander.theOvercasted.entity.entities.EntityLangolier;
 import mcpecommander.theOvercasted.entity.entities.EntityManEater;
 import mcpecommander.theOvercasted.entity.entities.EntityMushroomPerson;
 import mcpecommander.theOvercasted.entity.entities.EntitySnowRat;
-import mcpecommander.theOvercasted.entity.entities.EntityConjoinedSack;
+import mcpecommander.theOvercasted.entity.entities.fatties.EntityConjoinedSack;
+import mcpecommander.theOvercasted.entity.entities.fatties.EntityFatSack;
 import mcpecommander.theOvercasted.entity.renderer.RenderArmourStand;
 import mcpecommander.theOvercasted.entity.renderer.RenderBasilisk;
+import mcpecommander.theOvercasted.entity.renderer.RenderFly;
 import mcpecommander.theOvercasted.entity.renderer.RenderLangolier;
 import mcpecommander.theOvercasted.entity.renderer.RenderManEater;
 import mcpecommander.theOvercasted.entity.renderer.RenderMushroomPerson;
 import mcpecommander.theOvercasted.entity.renderer.RenderSnowRat;
-import mcpecommander.theOvercasted.entity.renderer.RenderConjoinedSack;
+import mcpecommander.theOvercasted.entity.renderer.fattiesRenderer.RenderConjoinedSack;
+import mcpecommander.theOvercasted.entity.renderer.fattiesRenderer.RenderFatSack;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -49,11 +53,17 @@ public class ModEntities {
 		EntityEntry rat = EntityEntryBuilder.create().entity(EntitySnowRat.class)
 				.id(Reference.ModEntities.SNOWRAT.getRegistryName(), id++).egg(354578, 233488)
 				.name(Reference.ModEntities.SNOWRAT.getName()).tracker(64, 3, true).build();
-		EntityEntry test = EntityEntryBuilder.create().entity(EntityConjoinedSack.class)
-				.id(Reference.ModEntities.TEST.getRegistryName(), id++).egg(354578, 233488)
-				.name(Reference.ModEntities.TEST.getName()).tracker(64, 3, true).build();
+		EntityEntry conjoinedSack = EntityEntryBuilder.create().entity(EntityConjoinedSack.class)
+				.id(Reference.ModEntities.CONJOINED_SACK.getRegistryName(), id++).egg(354578, 233488)
+				.name(Reference.ModEntities.CONJOINED_SACK.getName()).tracker(64, 3, true).build();
+		EntityEntry fly = EntityEntryBuilder.create().entity(EntityFly.class)
+				.id(Reference.ModEntities.FLY.getRegistryName(), id++).egg(344578, 23288)
+				.name(Reference.ModEntities.FLY.getName()).tracker(64, 3, true).build();
+		EntityEntry fat_sack = EntityEntryBuilder.create().entity(EntityFatSack.class)
+				.id(Reference.ModEntities.FAT_SACK.getRegistryName(), id++).egg(122578, 23288)
+				.name(Reference.ModEntities.FAT_SACK.getName()).tracker(64, 3, true).build();
 
-		e.getRegistry().registerAll(stand, langolier, basilisk, eater, mushroom, rat, test);
+		e.getRegistry().registerAll(stand, langolier, basilisk, eater, mushroom, rat, conjoinedSack, fly, fat_sack);
 
 	}
 
@@ -65,6 +75,8 @@ public class ModEntities {
 		RenderingRegistry.registerEntityRenderingHandler(EntityMushroomPerson.class, new RenderMushroomPerson.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntitySnowRat.class, new RenderSnowRat.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityConjoinedSack.class, new RenderConjoinedSack.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityFly.class, new RenderFly.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityFatSack.class, new RenderFatSack.Factory());
 	}
 
 }

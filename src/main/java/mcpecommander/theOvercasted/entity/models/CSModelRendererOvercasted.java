@@ -2,6 +2,7 @@ package mcpecommander.theOvercasted.entity.models;
 
 import java.nio.FloatBuffer;
 
+import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
 import org.lwjgl.opengl.GL11;
@@ -73,6 +74,39 @@ public class CSModelRendererOvercasted extends CSModelRenderer {
             }
 	}
 	
+	public float getDefualtXRotation() {
+		Quat4f q = this.getDefaultRotationAsQuaternion();
+		return (float) -Math.toDegrees(Math.atan2(2 * q.x * q.w - 2 * q.y * q.z, 1 - 2 * q.x * q.x - 2 * q.z * q.z));
+	}
+	
+	public float getDefualtZRotation() {
+		Quat4f q = this.getDefaultRotationAsQuaternion();
+		return (float) -Math.toDegrees(Math.asin(2 * q.x * q.y + 2 * q.z * q.w));
+	}
+	
+	public float getDefualtYRotation() {
+		Quat4f q = this.getDefaultRotationAsQuaternion();
+		return (float) -Math.toDegrees(Math.atan2(2 * q.y * q.w - 2 * q.x * q.z, 1 - 2 * q.y * q.y - 2 * q.z * q.z));
+	}
+	
+	public float getXRotation() {
+		Quat4f q = new Quat4f();
+		this.getRotationMatrix().get(q);
+		return (float) -Math.toDegrees(Math.atan2(2 * q.x * q.w - 2 * q.y * q.z, 1 - 2 * q.x * q.x - 2 * q.z * q.z));
+	}
+	
+	public float getZRotation() {
+		Quat4f q = new Quat4f();
+		this.getRotationMatrix().get(q);
+		return (float) -Math.toDegrees(Math.asin(2 * q.x * q.y + 2 * q.z * q.w));
+	}
+	
+	public float getYRotation() {
+		Quat4f q = new Quat4f();
+		this.getRotationMatrix().get(q);
+		return (float) -Math.toDegrees(Math.atan2(2 * q.y * q.w - 2 * q.x * q.z, 1 - 2 * q.y * q.y - 2 * q.z * q.z));
+	}
+	
 	/**
 	 * 
 	 * @param angleToRotate The angle to rotate
@@ -123,7 +157,7 @@ public class CSModelRendererOvercasted extends CSModelRenderer {
 	 */
 	public static void rotateBoxes(float x, float y, float z, CSModelRendererOvercasted... boxes) {
 		for(CSModelRendererOvercasted box : boxes) {
-			box.getRotationMatrix().set(new Vector3f(x, y, z));
+			box.getRotationMatrix().set(MathHelper.quatFromEuler(x, y, z));
 		}
 	}
 	

@@ -1,0 +1,90 @@
+{
+  "title": "FatSack",
+  "tree": [
+    {
+      "name": "Bottom",
+      "position": [ 0, 7, 0 ],
+      "offsetFromPivot": [ 0, 0, 0 ],
+      "size": [ 12, 6, 10 ],
+      "rotation": [ 0, 0, 0 ],
+      "texOffset": [ 0, 48 ],
+      "children": [
+        {
+          "name": "RightLeg",
+          "position": [ -4, -3, 0 ],
+          "offsetFromPivot": [ 0, -2, 0 ],
+          "size": [ 3, 4, 3 ],
+          "rotation": [ 0, 0, 0 ],
+          "texOffset": [ 52, 57 ],
+          "children": []
+        },
+        {
+          "name": "LeftLeg",
+          "position": [ 4, -3, 0 ],
+          "offsetFromPivot": [ 0, -2, 0 ],
+          "size": [ 3, 4, 3 ],
+          "rotation": [ 0, 0, 0 ],
+          "texOffset": [ 52, 57 ],
+          "children": []
+        },
+        {
+          "name": "Chest",
+          "position": [ 0, 3, 0 ],
+          "offsetFromPivot": [ 0, 3, 0 ],
+          "size": [ 12, 6, 10 ],
+          "rotation": [ 0, 0, 0 ],
+          "texOffset": [ 0, 32 ],
+          "children": [
+            {
+              "name": "RightArm",
+              "position": [ -6, 0.75, 0 ],
+              "offsetFromPivot": [ 0, -3, 0 ],
+              "size": [ 3, 6, 3 ],
+              "rotation": [ -5.794178, 8.186433, -54.9416 ],
+              "vertexCoords": [
+                [ 1.5, 3, -1.5 ],
+                [ -1.5, 3, -1.5 ],
+                [ -1.5, -3, -1.5 ],
+                [ 1.5, -3, -1.5 ],
+                [ -1.5, 3, 1.5 ],
+                [ 1.5, 3, 1.5 ],
+                [ 1.5, -3, 1.5 ],
+                [ -1.5, -3, 1.5 ]
+              ],
+              "texOffset": [ 52, 48 ],
+              "children": []
+            },
+            {
+              "name": "LeftArm",
+              "position": [ 6, 0.75, 0 ],
+              "offsetFromPivot": [ 0, -3, 0 ],
+              "size": [ 3, 6, 3 ],
+              "rotation": [ -5.794178, -8.186433, 54.9416 ],
+              "texOffset": [ 52, 48 ],
+              "children": []
+            },
+            {
+              "name": "Head",
+              "position": [ 0, 3, 0 ],
+              "offsetFromPivot": [ 0, 4, 0 ],
+              "size": [ 16, 16, 16 ],
+              "rotation": [ 0, 0, 0 ],
+              "vertexCoords": [
+                [ -4, 4, -4 ],
+                [ 4, 4, -4 ],
+                [ 4, -4, -4 ],
+                [ -4, -4, -4 ],
+                [ 4, 4, 4 ],
+                [ -4, 4, 4 ],
+                [ -4, -4, 4 ],
+                [ 4, -4, 4 ]
+              ],
+              "texOffset": [ 0, 0 ],
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

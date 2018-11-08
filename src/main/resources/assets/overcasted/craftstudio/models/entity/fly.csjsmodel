@@ -1,0 +1,53 @@
+{
+  "title": "Fly",
+  "tree": [
+    {
+      "name": "Body",
+      "position": [ 0, 1, 0 ],
+      "offsetFromPivot": [ 0, 0, 0 ],
+      "size": [ 2, 2, 2 ],
+      "rotation": [ 0, 0, 0 ],
+      "texOffset": [ 0, 4 ],
+      "children": [
+        {
+          "name": "LeftWing",
+          "position": [ 1, 1, 0 ],
+          "offsetFromPivot": [ 1, 0, 0 ],
+          "size": [ 2, 2, 2 ],
+          "rotation": [ 0, 0, 45 ],
+          "vertexCoords": [
+            [ -1, 0.03, -1 ],
+            [ 1, 0.03, -1 ],
+            [ 1, -0.03, -1 ],
+            [ -1, -0.03, -1 ],
+            [ 1, 0.03, 1 ],
+            [ -1, 0.03, 1 ],
+            [ -1, -0.03, 1 ],
+            [ 1, -0.03, 1 ]
+          ],
+          "texOffset": [ 0, 0 ],
+          "children": []
+        },
+        {
+          "name": "RightWing",
+          "position": [ -1, 1, 0 ],
+          "offsetFromPivot": [ -1, 0, 0 ],
+          "size": [ 2, 2, 2 ],
+          "rotation": [ 0, 0, -45 ],
+          "vertexCoords": [
+            [ -1, 0.03, -1 ],
+            [ 1, 0.03, -1 ],
+            [ 1, -0.03, -1 ],
+            [ -1, -0.03, -1 ],
+            [ 1, 0.03, 1 ],
+            [ -1, 0.03, 1 ],
+            [ -1, -0.03, 1 ],
+            [ 1, -0.03, 1 ]
+          ],
+          "texOffset": [ 0, 0 ],
+          "children": []
+        }
+      ]
+    }
+  ]
+}
