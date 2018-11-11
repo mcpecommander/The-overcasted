@@ -3,6 +3,7 @@ package mcpecommander.theOvercasted;
 import org.apache.logging.log4j.Logger;
 
 import mcpecommander.theOvercasted.block.tileEntity.TileEntityMushroomSprout;
+import mcpecommander.theOvercasted.command.TeleportCommand;
 import mcpecommander.theOvercasted.proxy.CommonProxy;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
@@ -10,6 +11,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, 
@@ -46,5 +48,10 @@ public class TheOvercasted {
 		proxy.postInit(e);
 
 	}
+	
+	@Mod.EventHandler
+    public void serverLoad(FMLServerStartingEvent event) {
+        event.registerServerCommand(new TeleportCommand());
+    }
 
 }

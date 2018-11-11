@@ -8,13 +8,19 @@ import mcpecommander.theOvercasted.block.renderer.TileEntityItemMushroomSproutRe
 import mcpecommander.theOvercasted.block.renderer.TileEntityMushroomSproutRenderer;
 import mcpecommander.theOvercasted.block.tileEntity.TileEntityMushroomSprout;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoor;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BuiltInModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -53,6 +59,15 @@ public class BlocksRegistry {
 			setTileEntityItemStackRenderer(new TileEntityItemMushroomSproutRenderer());
 			
 			
+		}
+		
+		@Override
+		public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+			IBlockState state = world.getBlockState(pos);
+			if(state != null && state.getBlock() instanceof BlockDoor) {
+				System.out.println(state.getProperties());
+			}
+			return super.canDestroyBlockInCreative(world, pos, stack, player);
 		}
 		
 	}

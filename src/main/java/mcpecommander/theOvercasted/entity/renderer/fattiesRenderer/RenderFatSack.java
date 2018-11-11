@@ -39,11 +39,13 @@ public class RenderFatSack extends RenderBasicChampion<EntityFatSack> {
 		}
 		CSModelRendererOvercasted head = model.getModelRendererFromName("Head");
 		CSModelRendererOvercasted.rotateBoxes(0f, 0f, (float)(head.getDefualtZRotation() + Math.sin(ageInTicks / 10f)), head);
-		if(entitylivingbaseIn.getHealth() < 26f) {
+		if(entitylivingbaseIn.getSackType() == 2) {
 			head.isHidden = true;
-			if(entitylivingbaseIn.getHealth() < 10f) {
-				model.getModelRendererFromName("Chest").isHidden = true;
-			}
+		}else if (entitylivingbaseIn.getSackType() == 3){
+			model.getModelRendererFromName("Chest").isHidden = true;
+		} else {
+			head.isHidden = false;
+			model.getModelRendererFromName("Chest").isHidden = false;
 		}
 		super.renderModel(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch,
 				scaleFactor);
@@ -51,7 +53,10 @@ public class RenderFatSack extends RenderBasicChampion<EntityFatSack> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityFatSack entity) {
-		return new ResourceLocation(Reference.MODID, "textures/entity/fat_sack.png");
+		if(entity.getSackType() == 0) {
+			return new ResourceLocation(Reference.MODID, "textures/entity/fat_sack.png");
+		}
+		return new ResourceLocation(Reference.MODID, "textures/entity/pale_sack.png");
 	}
 
 	public static class Factory<T extends EntityFatSack> implements IRenderFactory<T> {

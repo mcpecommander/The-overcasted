@@ -21,6 +21,8 @@ import mcpecommander.theOvercasted.entity.renderer.RenderMushroomPerson;
 import mcpecommander.theOvercasted.entity.renderer.RenderSnowRat;
 import mcpecommander.theOvercasted.entity.renderer.fattiesRenderer.RenderConjoinedSack;
 import mcpecommander.theOvercasted.entity.renderer.fattiesRenderer.RenderFatSack;
+import mcpecommander.theOvercasted.registryHandler.BiomeRegistry;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -61,7 +63,7 @@ public class ModEntities {
 				.name(Reference.ModEntities.FLY.getName()).tracker(64, 3, true).build();
 		EntityEntry fat_sack = EntityEntryBuilder.create().entity(EntityFatSack.class)
 				.id(Reference.ModEntities.FAT_SACK.getRegistryName(), id++).egg(122578, 23288)
-				.name(Reference.ModEntities.FAT_SACK.getName()).tracker(64, 3, true).build();
+				.name(Reference.ModEntities.FAT_SACK.getName()).tracker(64, 3, true).spawn(EnumCreatureType.MONSTER, 100, 1, 3, BiomeRegistry.biomeMaze).build();
 
 		e.getRegistry().registerAll(stand, langolier, basilisk, eater, mushroom, rat, conjoinedSack, fly, fat_sack);
 
