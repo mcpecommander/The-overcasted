@@ -42,7 +42,7 @@ public class TestWorldProvider extends WorldProvider {
 		WorldBorder border = new WorldBorder();
 		border.setCenter(12 * 8, 12 * 8);
 		border.setSize(13*16);
-		return super.createWorldBorder();
+		return border;
 	}
 
     @Override

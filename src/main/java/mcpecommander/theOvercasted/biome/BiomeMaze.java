@@ -16,5 +16,7 @@ public class BiomeMaze extends Biome {
 	public boolean ignorePlayerSpawnSuitability() {
 		return true;
 	}
+	
+	
 
 }
