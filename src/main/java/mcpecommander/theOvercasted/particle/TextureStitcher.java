@@ -11,6 +11,8 @@ public class TextureStitcher {
 	public void stitcherEventPre(TextureStitchEvent event) {
 		ResourceLocation lava = new ResourceLocation(Reference.MODID ,"particle/lava_particle");
 	    event.getMap().registerSprite(lava);
+	    ResourceLocation stinky = new ResourceLocation(Reference.MODID ,"particle/stink_particle");
+	    event.getMap().registerSprite(stinky);
 	}
 
 }

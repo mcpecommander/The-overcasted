@@ -2,6 +2,7 @@ package mcpecommander.theOvercasted.entity.entities;
 
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -10,6 +11,7 @@ import net.minecraft.world.World;
 
 public abstract class EntityBasicChampion extends EntityMob{
 	
+	private int spawnChunkX, spawnChunkZ;
 	private static final DataParameter<Integer> TYPE = EntityDataManager.<Integer>createKey(EntityBasicChampion.class, DataSerializers.VARINT);
 
 	public EntityBasicChampion(World worldIn) {
@@ -34,9 +36,44 @@ public abstract class EntityBasicChampion extends EntityMob{
 	}
 	
 	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setInteger("spawnChunkX", this.spawnChunkX);
+		compound.setInteger("spawnChunkZ", this.spawnChunkZ);
+	}
+	
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		if(compound.hasKey("spawnChunkX", 3)) {
+			this.spawnChunkX = compound.getInteger("spawnChunkX");
+		}
+		if(compound.hasKey("spawnChunkZ", 3)) {
+			this.spawnChunkZ = compound.getInteger("spawnChunkZ");
+		}
+		
+	}
+	
+	@Override
 	protected void entityInit() {
 		super.entityInit();
 		this.dataManager.register(TYPE, -1);
+	}
+
+	public int getSpawnChunkX() {
+		return spawnChunkX;
+	}
+
+	public void setSpawnChunkX(int spawnChunkX) {
+		this.spawnChunkX = spawnChunkX;
+	}
+
+	public int getSpawnChunkZ() {
+		return spawnChunkZ;
+	}
+
+	public void setSpawnChunkZ(int spawnChunkZ) {
+		this.spawnChunkZ = spawnChunkZ;
 	}
 
 }

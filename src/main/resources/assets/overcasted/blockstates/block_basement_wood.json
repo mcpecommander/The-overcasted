@@ -1,0 +1,12 @@
+{
+	"forge_marker": 1,
+	"variants": {
+        "normal": [ 
+			{"model": "overcasted:block_basement_wood" },
+			{"model": "overcasted:block_basement_wood_1"},
+			{"model": "overcasted:block_basement_wood_2"},
+			{"model": "overcasted:block_basement_wood_3"},
+			{"model": "overcasted:block_basement_wood_4"}
+					]
+    }
+}

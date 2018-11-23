@@ -1,13 +1,13 @@
 package mcpecommander.theOvercasted.init;
 
 import mcpecommander.theOvercasted.Reference;
-import mcpecommander.theOvercasted.maze.TestWorldProvider;
+import mcpecommander.theOvercasted.maze.DungeonWorldProvider;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.common.DimensionManager;
 
 public class ModDimensions {
 	
-	public static DimensionType testDimensionType;
+	public static DimensionType dungeonDimensionType;
 
     public static void init() {
         registerDimensionTypes();
@@ -15,11 +15,11 @@ public class ModDimensions {
     }
 
     private static void registerDimensionTypes() {
-        testDimensionType = DimensionType.register(Reference.MODID, "_test", 100, TestWorldProvider.class, false);
+        dungeonDimensionType = DimensionType.register(Reference.MODID, "_test", 100, DungeonWorldProvider.class, false);
     }
 
     private static void registerDimensions() {
-        DimensionManager.registerDimension(100, testDimensionType);
+        DimensionManager.registerDimension(100, dungeonDimensionType);
     }
 
 }

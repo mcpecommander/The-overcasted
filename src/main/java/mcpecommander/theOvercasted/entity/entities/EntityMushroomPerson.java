@@ -131,15 +131,7 @@ public class EntityMushroomPerson extends EntityBaseAnimated {
 		this.motionY = 0;
 		this.motionZ = 0;
 		if (isWorldRemote()) {
-			for (int i = 0; i < 5; i++) {
-				this.world.spawnParticle(EnumParticleTypes.BLOCK_DUST,
-						this.posX + this.getRNG().nextGaussian() / 2 - .25,
-						(this.getEntityBoundingBox().maxY - this.getEntityBoundingBox().minY) / 2 + this.posY
-								+ this.getRNG().nextGaussian() / 2 - .25,
-						this.posZ + this.getRNG().nextGaussian() / 2 - .25, (this.getRNG().nextGaussian() - .5) / 15,
-						(this.getRNG().nextGaussian() - .5) / 15, (this.getRNG().nextGaussian() - .5) / 15,
-						Block.getStateId(ModBlocks.mushroomBlock.getDefaultState()));
-			}
+
 		}
 
 		if (this.deathTime == 10) {
@@ -156,19 +148,7 @@ public class EntityMushroomPerson extends EntityBaseAnimated {
 				}
 
 				if (this.isBaby()) {
-					BlockPos pos = this.getPosition();
-					if (ModBlocks.mushroomBlock.canPlaceBlockAt(world, pos)) {
-						world.setBlockState(pos, ModBlocks.mushroomBlock.getDefaultState());
-						WorldServer worldS = (WorldServer) world;
-						double d0 = this.getRNG().nextGaussian() * 0.02D;
-						double d1 = this.getRNG().nextGaussian() * 0.02D;
-						double d2 = this.getRNG().nextGaussian() * 0.02D;
-						worldS.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY,
-								(double) ((float) pos.getX() + this.getRNG().nextFloat()),
-								(double) pos.getY() + (double) this.getRNG().nextFloat()
-										* world.getBlockState(pos).getBoundingBox(world, pos).maxY,
-								(double) ((float) pos.getZ() + this.getRNG().nextFloat()), 5, d0, d1, d2, 0.1d);
-					}
+					
 				} else {
 					for (int i = 0; i < 2; i++) {
 						EntityMushroomPerson mushroom = new EntityMushroomPerson(world);

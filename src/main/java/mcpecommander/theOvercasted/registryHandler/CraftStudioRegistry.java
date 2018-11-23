@@ -25,39 +25,6 @@ public class CraftStudioRegistry {
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "fly");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "fat_sack");
 		
-		//Blocks
-		e.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "mushroom_sprout");
-		
-		//Armour stand animations
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "stand_set");
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "stand_slash");
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "walk");
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "walk_hands");
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "sword_slash");
-		
-		//Langolier animations
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "langolier_idle");
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "eat");
-		
-		//Basilisk animations
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "basilisk_idle");
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "basilisk_jump");
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "basilisk_walk");
-		
-		//Maneater animations
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "man_eat");
-		
-		//Mushroom Person animations
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "mushroom_walk");
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "mushroom_hide");
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "mushroom_punch");
-		
-		//Mushroom sprout animations
-		e.register(EnumResourceType.ANIM, EnumRenderType.BLOCK, "mushroom_grow");
-		
-		//Snow Rat animations
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "rat_idle");
-		e.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "rat_walk");
 	}
 
 }

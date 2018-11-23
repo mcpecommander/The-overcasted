@@ -2,17 +2,14 @@ package mcpecommander.theOvercasted;
 
 import org.apache.logging.log4j.Logger;
 
-import mcpecommander.theOvercasted.block.tileEntity.TileEntityMushroomSprout;
 import mcpecommander.theOvercasted.command.TeleportCommand;
 import mcpecommander.theOvercasted.proxy.CommonProxy;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, 
 	acceptedMinecraftVersions = Reference.ACCEPTED_MINECRAFT_VERSIONS, useMetadata = true, certificateFingerprint = "4fe096bf3ddb2da90a69bb82abd57398549af8a5")
@@ -31,7 +28,6 @@ public class TheOvercasted {
 	
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
-		GameRegistry.registerTileEntity(TileEntityMushroomSprout.class, new ResourceLocation(Reference.MODID, "tile_entity_mushroom_sprout"));
 		proxy.preInit(e);
 		logger = e.getModLog();
 

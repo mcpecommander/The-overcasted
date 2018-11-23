@@ -88,6 +88,11 @@ public class EntityFatSack extends EntityBasicChampion{
 	}
 	
 	@Override
+	protected boolean canDespawn() {
+		return false;
+	}
+	
+	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 		if(this.world.isRemote) {

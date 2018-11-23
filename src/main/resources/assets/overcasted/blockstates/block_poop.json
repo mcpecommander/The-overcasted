@@ -1,0 +1,20 @@
+{
+	"forge_marker": 1,
+	"variants": {
+		"color=brown,phase=full": {"model": "overcasted:block_poop_full"},
+		"color=brown,phase=half": {"model": "overcasted:block_poop_half"},
+		"color=brown,phase=quarter": {"model": "overcasted:block_poop_quarter"},
+		"color=black,phase=full": {"model": "overcasted:block_poop_full"},
+		"color=black,phase=half": {"model": "overcasted:block_poop_half"},
+		"color=black,phase=quarter": {"model": "overcasted:block_poop_quarter"},
+		"color=pink,phase=full": {"model": "overcasted:block_poop_full"},
+		"color=pink,phase=half": {"model": "overcasted:block_poop_half"},
+		"color=pink,phase=quarter": {"model": "overcasted:block_poop_quarter"},
+		"color=golden,phase=full": {"model": "overcasted:block_poop_full"},
+		"color=golden,phase=half": {"model": "overcasted:block_poop_half"},
+		"color=golden,phase=quarter": {"model": "overcasted:block_poop_quarter"},
+		"color=white,phase=full": {"model": "overcasted:block_poop_full"},
+		"color=white,phase=half": {"model": "overcasted:block_poop_half"},
+		"color=white,phase=quarter": {"model": "overcasted:block_poop_quarter"}
+	}
+}

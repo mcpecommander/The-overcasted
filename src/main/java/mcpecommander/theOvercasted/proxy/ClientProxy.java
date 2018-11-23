@@ -5,7 +5,7 @@ import mcpecommander.theOvercasted.animationSystem.AnimationRegistryHelper;
 import mcpecommander.theOvercasted.init.ModAnimations;
 import mcpecommander.theOvercasted.init.ModEntities;
 import mcpecommander.theOvercasted.particle.TextureStitcher;
-import mcpecommander.theOvercasted.registryHandler.BlocksRegistry;
+import mcpecommander.theOvercasted.registryHandler.Registry;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -18,7 +18,6 @@ public class ClientProxy extends CommonProxy{
 	public void preInit(FMLPreInitializationEvent e) {
 		super.preInit(e);
 		ModEntities.initModel();
-		OBJLoader.INSTANCE.addDomain(Reference.MODID);
 		AnimationRegistryHelper.init();
 		MinecraftForge.EVENT_BUS.register(new TextureStitcher());
 	}
@@ -26,7 +25,6 @@ public class ClientProxy extends CommonProxy{
 	@Override
 	public void init(FMLInitializationEvent e) {
 		super.init(e);
-		BlocksRegistry.registerTileEntityRenderer();
 		ModAnimations.init();
 	}
 
