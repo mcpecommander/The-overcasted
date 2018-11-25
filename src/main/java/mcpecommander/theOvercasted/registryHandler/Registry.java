@@ -7,6 +7,7 @@ import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.block.BlockBasementWood;
 import mcpecommander.theOvercasted.block.BlockPoop;
 import mcpecommander.theOvercasted.block.BlockRock;
+import mcpecommander.theOvercasted.block.BlockTNT;
 import mcpecommander.theOvercasted.block.BlockVase;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -26,6 +27,7 @@ public class Registry {
 	public static final Block BASEMENT_WOOD = new BlockBasementWood();
 	public static final Block ROCK = new BlockRock();
 	public static final Block VASE = new BlockVase();
+	public static final BlockTNT TNT = new BlockTNT();
 	
 	@SubscribeEvent
 	public static void onBlockRegister(Register<Block> event) {

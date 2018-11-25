@@ -298,6 +298,7 @@ public class DungeonGenerator {
 			list.add(Reference.RoomLayouts.BASEMENT6);
 			list.add(Reference.RoomLayouts.BASEMENT7);
 			list.add(Reference.RoomLayouts.BASEMENT8);
+			list.add(Reference.RoomLayouts.BASEMENT9);
 			return list;
 		case CELLAR:
 			break;

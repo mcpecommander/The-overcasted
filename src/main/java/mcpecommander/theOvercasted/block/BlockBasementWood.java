@@ -23,6 +23,7 @@ public class BlockBasementWood extends Block implements IHasModel{
 		setUnlocalizedName(Reference.ModBlocks.BASEMENT_WOOD.getName());
 		setCreativeTab(TheOvercasted.overcastedTab);
 		setBlockUnbreakable();
+		setResistance(6000000.0F);
 		Registry.BLOCKS.add(this);
 		Registry.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
 	}

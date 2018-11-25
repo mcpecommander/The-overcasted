@@ -1,0 +1,17 @@
+{
+	"forge_marker": 1,
+	"variants": {
+		"facing=north,ready=false": { "model": "overcasted:block_tnt" },
+        "facing=south,ready=false": { "model": "overcasted:block_tnt", "y": 180 },
+        "facing=west,ready=false":  { "model": "overcasted:block_tnt", "y": 270 },
+        "facing=east,ready=false":  { "model": "overcasted:block_tnt", "y": 90 },
+        "facing=up,ready=false":  { "model": "overcasted:block_tnt" },
+        "facing=down,ready=false":  { "model": "overcasted:block_tnt" },
+		"facing=north,ready=true": { "model": "overcasted:block_tnt" },
+        "facing=south,ready=true": { "model": "overcasted:block_tnt", "y": 180 },
+        "facing=west,ready=true":  { "model": "overcasted:block_tnt", "y": 270 },
+        "facing=east,ready=true":  { "model": "overcasted:block_tnt", "y": 90 },
+        "facing=up,ready=true":  { "model": "overcasted:block_tnt" },
+        "facing=down,ready=true":  { "model": "overcasted:block_tnt" }
+    }
+}

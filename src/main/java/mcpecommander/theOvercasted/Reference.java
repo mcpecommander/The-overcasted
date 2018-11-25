@@ -1,9 +1,5 @@
 package mcpecommander.theOvercasted;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import javax.vecmath.Vector3f;
 
 import net.minecraft.util.ResourceLocation;
@@ -74,7 +70,8 @@ public class Reference {
 		POOP(new ResourceLocation(MODID, "block_poop")),
 		BASEMENT_WOOD(new ResourceLocation(MODID, "block_basement_wood")),
 		ROCK(new ResourceLocation(MODID, "block_rock")),
-		VASE(new ResourceLocation(MODID, "block_vase"));
+		VASE(new ResourceLocation(MODID, "block_vase")),
+		TNT(new ResourceLocation(MODID, "block_tnt"));
 		
 		private ResourceLocation name;
 		
@@ -281,6 +278,25 @@ public class Reference {
 				{0,0,0,0,0,0, 0,0, 0,0,0,0,0,0},
 				{0,0,0,0,0,0, 0,0, 0,0,0,0,0,0},
 				{0,0,0,0,0,0, 0,0, 0,0,0,0,0,0}
+				};
+		
+		public static final byte[][] BASEMENT9 =  {
+				{0,5,0,0,5,0, 0,0, 0,5,0,0,5,0},
+				{0,0,0,0,0,0, 0,0, 0,0,0,0,0,0},
+				{0,0,5,5,0,0, 0,0, 0,0,5,5,0,0},
+				{0,0,0,0,0,0, 0,0, 0,0,0,0,0,0},
+				{0,5,0,0,5,0, 0,0, 0,5,0,0,5,0},
+				{0,0,0,0,0,0, 0,0, 0,0,0,0,0,0},
+				
+				{0,0,5,5,0,0, 0,0, 0,0,5,5,0,0},
+				{0,0,0,0,0,0, 0,0, 0,0,0,0,0,0},
+				
+				{0,5,0,0,5,0, 0,0, 0,5,0,0,5,0},
+				{0,0,0,0,0,0, 0,0, 0,0,0,0,0,0},
+				{0,0,0,0,0,0, 0,0, 0,0,0,0,0,0},
+				{0,0,0,0,0,0, 0,0, 0,0,0,0,0,0},
+				{0,0,0,0,0,0, 0,0, 0,0,0,0,0,0},
+				{1,0,0,1,0,0, 0,0, 0,0,1,0,0,1}
 				};
 		
 	}

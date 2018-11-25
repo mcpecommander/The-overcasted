@@ -66,6 +66,9 @@ public class DungeonDecorator {
 				case 4:
 					world.setBlockState(pos, Blocks.WEB.getDefaultState());
 					break;
+				case 5:
+					world.setBlockState(pos, Registry.TNT.getRandomHorizontalDirection());
+					break;
 				}
 			}
 		}

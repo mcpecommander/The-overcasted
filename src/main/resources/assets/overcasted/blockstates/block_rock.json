@@ -1,6 +1,11 @@
 {
 	"forge_marker": 1,
 	"variants": {
-        "normal": {"model": "overcasted:block_rock" }
+        "normal":[ 
+			{"model": "overcasted:block_rock" },
+			{"model": "overcasted:block_rock_1" },
+			{"model": "overcasted:block_rock_2" },
+			{"model": "overcasted:block_rock_3" }
+		]
     }
 }
