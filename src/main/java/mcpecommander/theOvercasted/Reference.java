@@ -16,6 +16,8 @@ public class Reference {
 	
 	public static final Vector3f EMPTY_VECTOR = new Vector3f();
 	
+	public static final ResourceLocation PICKUPS_CAP = new ResourceLocation(MODID, "pickups");
+	
 	public enum ModEntities{
 		
 		ARMOURSTAND(new ResourceLocation(MODID, "armour_stand")),
@@ -26,7 +28,8 @@ public class Reference {
 		SNOWRAT(new ResourceLocation(MODID, "snow_rat")),
 		CONJOINED_SACK(new ResourceLocation(MODID, "conjioned_sack")),
 		FLY(new ResourceLocation(MODID, "fly")),
-		FAT_SACK(new ResourceLocation(MODID, "fat_sack"));
+		FAT_SACK(new ResourceLocation(MODID, "fat_sack")),
+		BOMB(new ResourceLocation(MODID, "bomb"));
 		
 		private ResourceLocation name;
 		
@@ -83,6 +86,24 @@ public class Reference {
 			return name;
 		}
 		
+		public String getName() {
+			return name.toString();
+		}
+	}
+	
+	public enum ModItems{
+		BOMB(new ResourceLocation(MODID, "item_bomb"));
+		
+		private ResourceLocation name;
+
+		private ModItems(ResourceLocation name) {
+			this.name = name;
+		}
+
+		public ResourceLocation getRegistryName() {
+			return name;
+		}
+
 		public String getName() {
 			return name.toString();
 		}

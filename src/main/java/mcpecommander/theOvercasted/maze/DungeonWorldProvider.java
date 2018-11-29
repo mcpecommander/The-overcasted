@@ -1,5 +1,6 @@
 package mcpecommander.theOvercasted.maze;
 
+import mcpecommander.theOvercasted.events.DimensionEvents;
 import mcpecommander.theOvercasted.init.ModDimensions;
 import mcpecommander.theOvercasted.maze.DungeonGenerator.EnumDungeonType;
 import mcpecommander.theOvercasted.registryHandler.BiomeRegistry;
@@ -27,7 +28,10 @@ public class DungeonWorldProvider extends WorldProvider {
 			} else {
 				dungeon = DungeonGenerator.createDungeon(6, 13, 13, 10, 65, EnumDungeonType.BASEMENT);
 			}
+			this.setSpawnPoint(DimensionEvents.spawnPos);
 		}
+		
+		
 	}
 	
 	@Override
@@ -40,8 +44,6 @@ public class DungeonWorldProvider extends WorldProvider {
 		this.world.getWorldInfo().setDimensionData(100, nbttagcompound);
 
 	}
-	
-	
 	
 	private NBTTagCompound toNBT(NBTTagCompound nbttagcompound, DungeonGenerator dungeon) {
 		for(int x = 0; x < dungeon.getLayout().length; x++) {

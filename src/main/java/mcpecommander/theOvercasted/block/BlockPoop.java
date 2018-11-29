@@ -36,6 +36,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -105,14 +106,6 @@ public class BlockPoop extends Block implements IHasModel {
 	}
 	
 	@Override
-	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
-		if(state.getValue(COLOR) == EnumColor.WHITE) {
-			return 5;
-		}
-		return super.getLightValue(state, world, pos);
-	}
-	
-	@Override
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {}
 
 	@Override
@@ -142,6 +135,11 @@ public class BlockPoop extends Block implements IHasModel {
 	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
+	}
+	
+	@Override
+	public boolean canDropFromExplosion(Explosion explosionIn) {
+		return false;
 	}
 	
 	@Override

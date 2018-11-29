@@ -9,6 +9,7 @@ import mcpecommander.theOvercasted.block.BlockPoop;
 import mcpecommander.theOvercasted.block.BlockRock;
 import mcpecommander.theOvercasted.block.BlockTNT;
 import mcpecommander.theOvercasted.block.BlockVase;
+import mcpecommander.theOvercasted.item.ItemBomb;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent.Register;
@@ -25,9 +26,11 @@ public class Registry {
 	
 	public static final BlockPoop POOP = new BlockPoop();
 	public static final Block BASEMENT_WOOD = new BlockBasementWood();
-	public static final Block ROCK = new BlockRock();
+	public static final BlockRock ROCK = new BlockRock();
 	public static final Block VASE = new BlockVase();
 	public static final BlockTNT TNT = new BlockTNT();
+	
+	public static final Item BOMB = new ItemBomb();
 	
 	@SubscribeEvent
 	public static void onBlockRegister(Register<Block> event) {

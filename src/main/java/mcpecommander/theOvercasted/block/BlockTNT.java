@@ -20,6 +20,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -39,6 +40,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockTNT extends Block implements IHasModel{
 	
 	public static final PropertyDirection FACING = BlockDirectional.FACING;
+	/**
+	 * Used internally to delay the explosion.
+	 */
 	public static final PropertyBool READY = PropertyBool.create("ready");
 
 	public BlockTNT() {
@@ -70,6 +74,9 @@ public class BlockTNT extends Block implements IHasModel{
 	}
 	
 	@Override
+	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {}
+	
+	@Override
 	public float getExplosionResistance(World world, BlockPos pos, Entity exploder, Explosion explosion) {
 		return 0f;
 	}
@@ -79,25 +86,23 @@ public class BlockTNT extends Block implements IHasModel{
 		return false;
 	}
 	
-//	@Override
-//	public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
-//		Explosion explosion = new Explosion(worldIn, null, pos.getX(), pos.getY(), pos.getZ(), 2f, false, true);
-//		explosion.doExplosionA();
-//		explosion.doExplosionB(false);
-//	}
-
 	@Override
-	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
-		RayTracedExplosion explosion = new RayTracedExplosion(pos, worldIn, 3);
-		explosion.doExplosionA();
-		explosion.doExplosionB();
-//		Explosion explosion = new Explosion(worldIn, null, pos.getX(), pos.getY(), pos.getZ(), 2f, false, true);
-//		explosion.doExplosionA();
-//		explosion.doExplosionB(false);
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player,
+			boolean willHarvest) {
+		boolean flag = super.removedByPlayer(state, world, pos, player, willHarvest);
+		if(flag) {
+			RayTracedExplosion explosion = new RayTracedExplosion(pos, world, 3);
+			explosion.causer = player;
+			explosion.doExplosionA();
+			explosion.doExplosionB();
+		}
+
+		return flag;
 	}
 	
 	@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+		//this should not tick unless forced by a scheduled update and even then, it should not explode unless it was set to ready.
 		if(worldIn.getBlockState(pos).getBlock() == this) {
 			if(state.getValue(READY)) {
 				worldIn.setBlockToAir(pos);
@@ -108,8 +113,6 @@ public class BlockTNT extends Block implements IHasModel{
 			}
 		}
 	}
-	
-	
 	
 	/**
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
@@ -153,6 +156,7 @@ public class BlockTNT extends Block implements IHasModel{
 	/**
      * Convert the given metadata into a BlockState for this Block
      */
+	@Override
 	public IBlockState getStateFromMeta(int meta)
     {
         return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(READY, Boolean.valueOf((meta & 8) != 0));

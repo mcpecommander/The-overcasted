@@ -12,6 +12,7 @@ import mcpecommander.theOvercasted.entity.entities.EntityMushroomPerson;
 import mcpecommander.theOvercasted.entity.entities.EntitySnowRat;
 import mcpecommander.theOvercasted.entity.entities.fatties.EntityConjoinedSack;
 import mcpecommander.theOvercasted.entity.entities.fatties.EntityFatSack;
+import mcpecommander.theOvercasted.entity.entities.pickups.EntityBomb;
 import mcpecommander.theOvercasted.entity.renderer.RenderArmourStand;
 import mcpecommander.theOvercasted.entity.renderer.RenderBasilisk;
 import mcpecommander.theOvercasted.entity.renderer.RenderFly;
@@ -21,8 +22,7 @@ import mcpecommander.theOvercasted.entity.renderer.RenderMushroomPerson;
 import mcpecommander.theOvercasted.entity.renderer.RenderSnowRat;
 import mcpecommander.theOvercasted.entity.renderer.fattiesRenderer.RenderConjoinedSack;
 import mcpecommander.theOvercasted.entity.renderer.fattiesRenderer.RenderFatSack;
-import mcpecommander.theOvercasted.registryHandler.BiomeRegistry;
-import net.minecraft.entity.EnumCreatureType;
+import mcpecommander.theOvercasted.entity.renderer.pickupsRenderer.RenderBomb;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -63,9 +63,12 @@ public class ModEntities {
 				.name(Reference.ModEntities.FLY.getName()).tracker(64, 3, true).build();
 		EntityEntry fat_sack = EntityEntryBuilder.create().entity(EntityFatSack.class)
 				.id(Reference.ModEntities.FAT_SACK.getRegistryName(), id++).egg(122578, 23288)
-				.name(Reference.ModEntities.FAT_SACK.getName()).tracker(64, 3, true).spawn(EnumCreatureType.MONSTER, 100, 1, 3, BiomeRegistry.biomeMaze).build();
-
-		e.getRegistry().registerAll(stand, langolier, basilisk, eater, mushroom, rat, conjoinedSack, fly, fat_sack);
+				.name(Reference.ModEntities.FAT_SACK.getName()).tracker(64, 3, true).build();
+		EntityEntry bomb = EntityEntryBuilder.create().entity(EntityBomb.class)
+				.id(Reference.ModEntities.BOMB.getRegistryName(), id++).egg(122578, 23288)
+				.name(Reference.ModEntities.BOMB.getName()).tracker(64, 3, true).build();
+		
+		e.getRegistry().registerAll(stand, langolier, basilisk, eater, mushroom, rat, conjoinedSack, fly, fat_sack, bomb);
 
 	}
 
@@ -79,6 +82,7 @@ public class ModEntities {
 		RenderingRegistry.registerEntityRenderingHandler(EntityConjoinedSack.class, new RenderConjoinedSack.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityFly.class, new RenderFly.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityFatSack.class, new RenderFatSack.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityBomb.class, new RenderBomb.Factory());
 	}
 
 }

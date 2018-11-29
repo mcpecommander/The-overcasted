@@ -1,0 +1,118 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "overcasted:block/bomb_skull",
+		"1": "overcasted:block/bomb",
+		"2": "blocks/planks_oak"
+	},
+	"elements": [
+		{
+			"name": "Bomb",
+			"from": [3.5, 0, 3.5],
+			"to": [12.5, 9, 12.5],
+			"faces": {
+				"north": {"uv": [0, 1.5, 16, 15.5], "texture": "#0"},
+				"east": {"uv": [0, 1.5, 16, 15.5], "texture": "#0"},
+				"south": {"uv": [0, 1.5, 16, 15.5], "texture": "#0"},
+				"west": {"uv": [0, 1.5, 16, 15.5], "texture": "#0"},
+				"up": {"uv": [0, 0.5, 16, 15.5], "texture": "#1"},
+				"down": {"uv": [0, 1.5, 16, 15.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Bomb1",
+			"from": [6.5, 9, 6.5],
+			"to": [9.5, 9.5, 9.5],
+			"faces": {
+				"north": {"uv": [0, 0, 3, 1], "texture": "#1"},
+				"east": {"uv": [0, 0, 3, 1], "texture": "#1"},
+				"south": {"uv": [0, 0, 4, 1.5], "texture": "#1"},
+				"west": {"uv": [0, 0, 3, 1], "texture": "#1"},
+				"up": {"uv": [6, 6, 9, 9], "texture": "#1"},
+				"down": {"uv": [0, 0, 3, 3], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Fuse",
+			"from": [7.6, 9.5, 7.6],
+			"to": [8.4, 11.5, 8.4],
+			"faces": {
+				"north": {"uv": [4, 4, 10, 7], "texture": "#2"},
+				"east": {"uv": [4, 4, 10, 7], "texture": "#2"},
+				"south": {"uv": [4, 4, 10, 7], "texture": "#2"},
+				"west": {"uv": [4, 4, 10, 7], "texture": "#2"},
+				"up": {"uv": [0, 0, 1, 2], "texture": "#2"},
+				"down": {"uv": [0, 0, 1, 2], "texture": "#2"}
+			}
+		},
+		{
+			"name": "Fuse1",
+			"from": [7.42, 11.3, 7.64],
+			"to": [8.14, 13.3, 8.36],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [8, 12, 8]},
+			"faces": {
+				"north": {"uv": [4, 4, 10, 7], "texture": "#2"},
+				"east": {"uv": [4, 4, 10, 7], "texture": "#2"},
+				"south": {"uv": [4, 4, 10, 7], "texture": "#2"},
+				"west": {"uv": [4, 4, 10, 7], "texture": "#2"},
+				"up": {"uv": [0, 0, 1, 2], "texture": "#2"},
+				"down": {"uv": [0, 0, 1, 2], "texture": "#2"}
+			}
+		},
+		{
+			"name": "Fuse2",
+			"from": [6.5417, 12.85, 7.676],
+			"to": [7.1897, 14.85, 8.324],
+			"rotation": {"angle": 45, "axis": "z", "origin": [7.03564, 13.58686, 8]},
+			"faces": {
+				"north": {"uv": [4, 4, 10, 7], "texture": "#2"},
+				"east": {"uv": [4, 4, 10, 7], "texture": "#2"},
+				"south": {"uv": [4, 4, 10, 7], "texture": "#2"},
+				"west": {"uv": [4, 4, 10, 7], "texture": "#2"},
+				"up": {"uv": [0, 0, 1, 2], "texture": "#2"},
+				"down": {"uv": [0, 0, 1, 2], "texture": "#2"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"scale": [0.5, 0.5, 0.5],
+			"translation": [0, 1.5, 1.5],
+			"rotation": [48, 0, 0]
+		},
+		"thirdperson_lefthand": {
+			"scale": [0.5, 0.5, 0.5],
+			"rotation": [48, 0, 0],
+			"translation": [0, 1.5, 1.5]
+		},
+		"firstperson_righthand": {
+			"scale": [0.5, 0.5, 0.5],
+			"translation": [0, 4.5, 1.5],
+			"rotation": [0, 45, 0]
+		},
+		"firstperson_lefthand": {
+			"scale": [0.5, 0.5, 0.5],
+			"rotation": [0, 45, 0],
+			"translation": [0, 4.5, 1.5]
+		},
+		"head": {
+			"translation": [0, 15, 0],
+			"scale": [1.6, 1.6, 1.6]
+		},
+		"ground": {
+			"scale": [0.675, 0.675, 0.675],
+			"translation": [0, 1.5, 0]
+		},
+		"gui": {
+			"scale": [0.75, 0.75, 0.75],
+			"rotation": [45, 30, 0],
+			"translation": [0, 2, 0]
+		}
+	},
+	"groups": [0, 1,
+		{
+			"name": "Fuses",
+			"children": [2, 3, 4]
+		}
+	]
+}

@@ -1,11 +1,44 @@
 {
-	"forge_marker": 1,
 	"variants": {
-        "normal":[ 
+        "ready=false,type=normal":[ 
 			{"model": "overcasted:block_rock" },
 			{"model": "overcasted:block_rock_1" },
 			{"model": "overcasted:block_rock_2" },
-			{"model": "overcasted:block_rock_3" }
-		]
+			{"model": "overcasted:block_rock_3" },
+			{"model": "overcasted:block_rock" , "y": 180},
+			{"model": "overcasted:block_rock_1" , "y": 180},
+			{"model": "overcasted:block_rock_2" , "y": 180},
+			{"model": "overcasted:block_rock_3" , "y": 180},
+			{"model": "overcasted:block_rock" , "y": 270},
+			{"model": "overcasted:block_rock_1" , "y": 270},
+			{"model": "overcasted:block_rock_2" , "y": 270},
+			{"model": "overcasted:block_rock_3" , "y": 270},
+			{"model": "overcasted:block_rock" , "y": 90},
+			{"model": "overcasted:block_rock_1" , "y": 90},
+			{"model": "overcasted:block_rock_2" , "y": 90},
+			{"model": "overcasted:block_rock_3" , "y": 90}
+		],
+		"ready=true,type=normal":[ 
+			{"model": "overcasted:block_rock" },
+			{"model": "overcasted:block_rock_1" },
+			{"model": "overcasted:block_rock_2" },
+			{"model": "overcasted:block_rock_3" },
+			{"model": "overcasted:block_rock" , "y": 180},
+			{"model": "overcasted:block_rock_1" , "y": 180},
+			{"model": "overcasted:block_rock_2" , "y": 180},
+			{"model": "overcasted:block_rock_3" , "y": 180},
+			{"model": "overcasted:block_rock" , "y": 270},
+			{"model": "overcasted:block_rock_1" , "y": 270},
+			{"model": "overcasted:block_rock_2" , "y": 270},
+			{"model": "overcasted:block_rock_3" , "y": 270},
+			{"model": "overcasted:block_rock" , "y": 90},
+			{"model": "overcasted:block_rock_1" , "y": 90},
+			{"model": "overcasted:block_rock_2" , "y": 90},
+			{"model": "overcasted:block_rock_3" , "y": 90}
+		],
+		"ready=false,type=marked": {"model": "overcasted:block_rock_x"},
+		"ready=false,type=bomb": {"model": "overcasted:block_rock_bomb"},
+		"ready=true,type=marked": {"model": "overcasted:block_rock_x"},
+		"ready=true,type=bomb": {"model": "overcasted:block_rock_bomb"}
     }
 }
