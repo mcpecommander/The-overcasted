@@ -1,8 +1,8 @@
 package mcpecommander.theOvercasted.entity.entities.pickups;
 
+import mcpecommander.theOvercasted.capability.pickups.IPickups;
+import mcpecommander.theOvercasted.capability.pickups.PickupsProvider;
 import mcpecommander.theOvercasted.networking.PacketSendVec3i;
-import mcpecommander.theOvercasted.pickupsSystem.IPickups;
-import mcpecommander.theOvercasted.pickupsSystem.PickupsProvider;
 import mcpecommander.theOvercasted.proxy.CommonProxy;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;

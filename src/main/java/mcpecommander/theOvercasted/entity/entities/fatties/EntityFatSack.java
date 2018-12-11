@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 
 public class EntityFatSack extends EntityBasicChampion{
 	
-	private static final DataParameter<Byte> TYPE = EntityDataManager.<Byte>createKey(EntityBasicChampion.class, DataSerializers.BYTE);
+	private static final DataParameter<Byte> TYPE = EntityDataManager.<Byte>createKey(EntityFatSack.class, DataSerializers.BYTE);
 	
 	public EntityFatSack(World worldIn) {
 		super(worldIn);

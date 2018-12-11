@@ -16,6 +16,7 @@ public abstract class EntityBasicChampion extends EntityMob{
 
 	public EntityBasicChampion(World worldIn) {
 		super(worldIn);
+		this.maxHurtResistantTime = 0;
 	}
 	
 	@Override

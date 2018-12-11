@@ -46,12 +46,6 @@ public class EntityArmourStand extends EntityBaseAnimated {
 	}
 	
 	@Override
-	public boolean getCanSpawnHere() {
-		// TODO Auto-generated method stub
-		return super.getCanSpawnHere();
-	}
-	
-	@Override
 	public void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20D);

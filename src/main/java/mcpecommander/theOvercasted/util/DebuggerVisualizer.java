@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 
@@ -105,6 +106,66 @@ public class DebuggerVisualizer {
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glPopMatrix();
 		
+	}
+	
+	/**
+	 * Renders a beam with a texture repeated according to length.
+	 * @param start Start position (a block position) relative to 0, 0, 0.
+	 * @param length Length in blocks.
+	 * @param partialTicks
+	 * @param texture Texture that will be repeated each block.
+	 */
+	public static void renderBeam(Vec3d start, int length, float partialTicks, ResourceLocation texture) {
+		Vec3d end = start.addVector(length, .5, 0);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableBlend();
+		
+		EntityPlayerSP player = Minecraft.getMinecraft().player;
+		double tempX = player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTicks;
+		double tempY = player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTicks;
+		double tempZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTicks;
+		GlStateManager.rotate(-90, 0, 1, 0);
+		GlStateManager.rotate(-player.getRotationYawHead(), 0, 1, 0);
+		GlStateManager.translate(0, 1, 0);
+		GlStateManager.rotate(-player.ticksExisted * 30f, 1, 0, 0);
+		GlStateManager.translate(0, -.5, 0);
+		
+		GlStateManager.translate(-tempX, -tempY, -tempZ);
+		GlStateManager.color(255, 255, 255);
+		
+
+		Tessellator tess = Tessellator.getInstance();
+		BufferBuilder buffer = tess.getBuffer();
+		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		
+		buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+
+		float texturePosX = length;
+		float texturePosY = 1f;
+		buffer.pos(start.x , end.y + 0.25, start.z - 0.25).tex(0, texturePosY).endVertex();
+		buffer.pos(end.x , end.y + 0.25, start.z - 0.25).tex(texturePosX, texturePosY).endVertex();
+		buffer.pos(end.x, start.y + 0.25, start.z - 0.25).tex(texturePosX, 0).endVertex();
+		buffer.pos(start.x , start.y + 0.25, start.z - 0.25).tex(0, 0).endVertex();
+		
+		buffer.pos(start.x , start.y + 0.25, start.z + 0.25).tex(0, texturePosY).endVertex();
+		buffer.pos(end.x, start.y + 0.25, start.z + 0.25).tex(texturePosX, texturePosY).endVertex();
+		buffer.pos(end.x , end.y + 0.25, start.z + 0.25).tex(texturePosX, 0).endVertex();
+		buffer.pos(start.x , end.y + 0.25, start.z + 0.25).tex(0, 0).endVertex();
+		
+		buffer.pos(start.x , end.y + 0.25, start.z + 0.25).tex(0, texturePosY).endVertex();
+		buffer.pos(end.x, end.y + 0.25, start.z + 0.25).tex(texturePosX, texturePosY).endVertex();
+		buffer.pos(end.x , end.y + 0.25, start.z - 0.25).tex(texturePosX, 0).endVertex();
+		buffer.pos(start.x , end.y + 0.25, start.z - 0.25).tex(0, 0).endVertex();
+		
+		buffer.pos(start.x, start.y + 0.25, start.z - 0.25).tex(0, texturePosY).endVertex();
+		buffer.pos(end.x, start.y + 0.25, start.z - 0.25).tex(texturePosX, texturePosY).endVertex();
+		buffer.pos(end.x , start.y + 0.25, start.z + 0.25).tex(texturePosX, 0).endVertex();
+		buffer.pos(start.x , start.y + 0.25, start.z + 0.25).tex(0, 0).endVertex();
+		
+		tess.draw();
+		
+		GlStateManager.disableBlend();
+		GlStateManager.popMatrix();
 	}
 
 }

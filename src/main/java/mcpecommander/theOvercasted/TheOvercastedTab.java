@@ -1,5 +1,6 @@
 package mcpecommander.theOvercasted;
 
+import mcpecommander.theOvercasted.registryHandler.Registry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -12,7 +13,7 @@ public class TheOvercastedTab extends CreativeTabs{
 
 	@Override
 	public ItemStack getTabIconItem() {
-		return new ItemStack(Items.AIR);
+		return new ItemStack(Registry.BOMB);
 	}
 
 }

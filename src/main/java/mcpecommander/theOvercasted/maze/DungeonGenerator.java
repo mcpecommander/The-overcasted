@@ -39,6 +39,7 @@ public class DungeonGenerator {
 		this.type = type;
 		this.possibleRooms = getPossibleRoomLayouts();
 		layout = this.createMap(maxRows, maxColumns, maxLength, maxTunnels);
+		generateNarrowRooms();
 		generateWideRooms();
 		specialRoomList = generateSpecialRoomsList();
 		addSpecialRoom(7, 2);
@@ -132,11 +133,7 @@ public class DungeonGenerator {
 						|| ((currentColumn == column - 1) && (randomDirection.column == 1))) {
 					break;
 				} else {
-					if(currentRow == xChunkSpawn && currentColumn == zChunkSpawn) {
-						array[currentRow][currentColumn] = 1; 
-					}else {
-						array[currentRow][currentColumn] = this.random.nextFloat() > 0.8f ? 1 : 2; 
-					}
+					array[currentRow][currentColumn] = 1; 
 					// set the value of the index in map to 1 (a tunnel, making it one longer)
 					
 					
@@ -154,14 +151,7 @@ public class DungeonGenerator {
 				maxTunnels--; // we created a whole tunnel so lets decrement how many we have left to create
 			}
 		}
-		//Clean impossible narrow rooms.
-		for(int x = 0; x < array.length; x++) {
-			for(int y = 0; y < array[x].length; y++) {
-				if(array[x][y] == 2 && !canBeNarrowTunnel(array, x, y)) {
-					array[x][y] = 1;
-				}
-			}
-		}
+
 		return array; // all our tunnels have been created and our map is complete, so lets return it
 	
 	}
@@ -179,6 +169,60 @@ public class DungeonGenerator {
 			Arrays.fill(array[i], num);
 		}
 		return array;
+	}
+	
+	public void generateNarrowRooms() {
+		for(int x = 1; x < this.layout.length - 1; x++) {
+			for(int z = 1; z < this.layout.length - 1; z++) {
+				//Check if this chunk can be narrow
+				if(canBeNarrowTunnel(x, z) && this.random.nextFloat() > 0.5f) {
+					//if it can be narrow, and it passed the chance then check what rotation it will be.
+					if(isNarrowSouthNorth(x, z)) {
+						//if it is south-north then check the Z neighboring chunks if they are within narrow room possibilities.
+						if(z + 1 < this.layout.length - 1 && z - 1 > 1 ) {
+							//if it is within the limits then check if they are not already narrow
+							if(layout[x][z + 1] != 2 && layout[x][z -1] != 2) {
+								//if both neighboring chunks are normal rooms then make it a narrow room.
+								this.layout[x][z] = 2;
+							}else if (layout[x][z + 1] == 2 && layout[x][z -1] != 2) {
+								//else if the north one is narrow so check the one two norths of it.
+								if(z + 2 < this.layout.length - 1 && layout[x][z + 2] != 2) {
+									//That means this room has one narrow neighbor and can be narrow.
+									this.layout[x][z] = 2;
+								}
+							}else if (layout[x][z -1] == 2 && layout[x][z + 1] != 2) {
+								//else if the south one is narrow so check the one two souths of it.
+								if(z - 2 > 1 && layout[x][z - 2] != 2) {
+									//That means this room has one narrow neighbor and can be narrow.
+									this.layout[x][z] = 2;
+								}
+							}
+						}
+					}else {
+						//if it is not south-north then check the X neighboring chunks if they are within narrow room possibilities.
+						if(x + 1 < this.layout.length - 1 && x - 1 > 1 ) {
+							//if it is within the limits then check if they are not already narrow
+							if(layout[x + 1][z] != 2 && layout[x - 1][z] != 2) {
+								//if both neighboring chunks are normal rooms then make it a narrow room.
+								this.layout[x][z] = 2;
+							}else if (layout[x + 1][z] == 2 && layout[x -1][z] != 2) {
+								//else if the east one is narrow so check the one two easts of it.
+								if(x + 2 < this.layout.length - 1 && layout[x + 2][z] != 2) {
+									//That means this room has one narrow neighbor and can be narrow.
+									this.layout[x][z] = 2;
+								}
+							}else if (layout[x -1][z] == 2 && layout[x + 1][z] != 2) {
+								//else if the west one is narrow so check the one two wests of it.
+								if(x - 2 > 1 && layout[x - 2][z] != 2) {
+									//That means this room has one narrow neighbor and can be narrow.
+									this.layout[x][z] = 2;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	/**
@@ -266,13 +310,13 @@ public class DungeonGenerator {
 	 * @param z Chunk coords
 	 * @return true if this room can be a narrow room 
 	 */
-	private boolean canBeNarrowTunnel(int[][] array, int x, int z) {
-		if(array[x][z] != 2) return false;
+	private boolean canBeNarrowTunnel(int x, int z) {
+		if(x == xChunkSpawn && z == zChunkSpawn) return false;
 		if(x == 0 || x == maxRows - 1 || z == 0 || z == maxColumns - 1) return false;
-		return (array[x + Direction.LEFT.row][z] != 0 && array[x + Direction.RIGHT.row][z] != 0) //can be Right Left narrow and does not have a room up or down.
-				&& !(array[x][z + Direction.DOWN.column] != 0 || array[x][z + Direction.UP.column] != 0) || 
-				!(array[x + Direction.LEFT.row][z] != 0 || array[x + Direction.RIGHT.row][z] != 0) //can be Up Down narrow and does not have a room to the right or left.
-				&& (array[x][z + Direction.DOWN.column] != 0 && array[x][z + Direction.UP.column] != 0);
+		return (layout[x + Direction.LEFT.row][z] != 0 && layout[x + Direction.RIGHT.row][z] != 0) //can be Right Left narrow and does not have a room up or down.
+				&& !(layout[x][z + Direction.DOWN.column] != 0 || layout[x][z + Direction.UP.column] != 0) || 
+				!(layout[x + Direction.LEFT.row][z] != 0 || layout[x + Direction.RIGHT.row][z] != 0) //can be Up Down narrow and does not have a room to the right or left.
+				&& (layout[x][z + Direction.DOWN.column] != 0 && layout[x][z + Direction.UP.column] != 0);
 	}
 	
 	/**

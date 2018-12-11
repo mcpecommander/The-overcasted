@@ -26,6 +26,9 @@ public class CraftStudioRegistry {
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "fat_sack");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "bomb");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "bomb_layer");
+		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "projectile");
+		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "tear");
+		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "block_pedestal");
 		
 	}
 

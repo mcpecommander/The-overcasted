@@ -102,9 +102,4 @@ public class DungeonWorldProvider extends WorldProvider {
 	public DungeonGenerator getDungeon() {
 		return dungeon;
 	}
-    
-//    @Override
-//    public int getRespawnDimension(EntityPlayerMP player) {
-//    	return 100;
-//    }
 }

@@ -1,18 +1,22 @@
 package mcpecommander.theOvercasted.proxy;
 
+import org.lwjgl.input.Keyboard;
+
 import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.animationSystem.AnimationRegistryHelper;
 import mcpecommander.theOvercasted.init.ModAnimations;
 import mcpecommander.theOvercasted.init.ModEntities;
 import mcpecommander.theOvercasted.particle.TextureStitcher;
-import mcpecommander.theOvercasted.registryHandler.Registry;
-import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class ClientProxy extends CommonProxy{
+	
+	public static KeyBinding yKey;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent e) {
@@ -26,6 +30,8 @@ public class ClientProxy extends CommonProxy{
 	public void init(FMLInitializationEvent e) {
 		super.init(e);
 		ModAnimations.init();
+	    yKey = new KeyBinding("key.tutorial", Keyboard.KEY_Y, "key.categories." + Reference.MODID);
+	    ClientRegistry.registerKeyBinding(yKey);
 	}
 
 	@Override

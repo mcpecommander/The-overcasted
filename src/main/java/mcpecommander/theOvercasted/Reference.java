@@ -17,6 +17,9 @@ public class Reference {
 	public static final Vector3f EMPTY_VECTOR = new Vector3f();
 	
 	public static final ResourceLocation PICKUPS_CAP = new ResourceLocation(MODID, "pickups");
+	public static final ResourceLocation STATS_CAP = new ResourceLocation(MODID, "stats");
+	
+	public static final int PICKUPS_GUI_ID = 1;
 	
 	public enum ModEntities{
 		
@@ -29,7 +32,8 @@ public class Reference {
 		CONJOINED_SACK(new ResourceLocation(MODID, "conjioned_sack")),
 		FLY(new ResourceLocation(MODID, "fly")),
 		FAT_SACK(new ResourceLocation(MODID, "fat_sack")),
-		BOMB(new ResourceLocation(MODID, "bomb"));
+		BOMB(new ResourceLocation(MODID, "bomb")),
+		TEAR(new ResourceLocation(MODID, "tear"));
 		
 		private ResourceLocation name;
 		
@@ -74,7 +78,8 @@ public class Reference {
 		BASEMENT_WOOD(new ResourceLocation(MODID, "block_basement_wood")),
 		ROCK(new ResourceLocation(MODID, "block_rock")),
 		VASE(new ResourceLocation(MODID, "block_vase")),
-		TNT(new ResourceLocation(MODID, "block_tnt"));
+		TNT(new ResourceLocation(MODID, "block_tnt")),
+		PEDESTAL(new ResourceLocation(MODID, "block_pedestal"));
 		
 		private ResourceLocation name;
 		
@@ -92,7 +97,10 @@ public class Reference {
 	}
 	
 	public enum ModItems{
-		BOMB(new ResourceLocation(MODID, "item_bomb"));
+		BOMB(new ResourceLocation(MODID, "item_bomb")),
+		LASER_BEAM(new ResourceLocation(MODID, "item_laser_beam")),
+		TEAR(new ResourceLocation(MODID, "item_tear")),
+		ITEM(new ResourceLocation(MODID, "item_item"));
 		
 		private ResourceLocation name;
 
@@ -107,6 +115,18 @@ public class Reference {
 		public String getName() {
 			return name.toString();
 		}
+	}
+	
+	public static class GuiTextures{
+		public static final ResourceLocation BOMB = new ResourceLocation(Reference.MODID, "textures/gui/bomb.png");
+		public static final ResourceLocation COIN = new ResourceLocation(Reference.MODID, "textures/gui/coin.png");
+		public static final ResourceLocation KEY = new ResourceLocation(Reference.MODID, "textures/gui/key.png");
+		public static final ResourceLocation SPEED = new ResourceLocation(Reference.MODID, "textures/gui/speed.png");
+		public static final ResourceLocation RANGE = new ResourceLocation(Reference.MODID, "textures/gui/range.png");
+		public static final ResourceLocation FIRE_RATE = new ResourceLocation(Reference.MODID, "textures/gui/fire_rate.png");
+		public static final ResourceLocation PROJECTILE_SPEED = new ResourceLocation(Reference.MODID, "textures/gui/projectile_speed.png");
+		public static final ResourceLocation DAMAGE = new ResourceLocation(Reference.MODID, "textures/gui/damage.png");
+		public static final ResourceLocation CROSS = new ResourceLocation(Reference.MODID, "textures/gui/cross.png");
 	}
 	
 	public static class RoomLayouts{
@@ -321,5 +341,7 @@ public class Reference {
 				};
 		
 	}
+
+	
 	
 }

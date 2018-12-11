@@ -4,9 +4,9 @@ import java.util.Random;
 
 import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.TheOvercasted;
+import mcpecommander.theOvercasted.capability.pickups.IPickups;
+import mcpecommander.theOvercasted.capability.pickups.PickupsProvider;
 import mcpecommander.theOvercasted.networking.PacketSendVec3i;
-import mcpecommander.theOvercasted.pickupsSystem.IPickups;
-import mcpecommander.theOvercasted.pickupsSystem.PickupsProvider;
 import mcpecommander.theOvercasted.proxy.CommonProxy;
 import mcpecommander.theOvercasted.registryHandler.Registry;
 import mcpecommander.theOvercasted.util.IHasModel;

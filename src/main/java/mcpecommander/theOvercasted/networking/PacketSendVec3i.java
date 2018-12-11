@@ -1,7 +1,7 @@
 package mcpecommander.theOvercasted.networking;
 
 import io.netty.buffer.ByteBuf;
-import mcpecommander.theOvercasted.pickupsSystem.PickupsProvider;
+import mcpecommander.theOvercasted.capability.pickups.PickupsProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

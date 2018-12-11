@@ -1,0 +1,95 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "builtin/generated",
+		"transform": "forge:default-item"
+	},
+	"variants": {
+		"meta": {
+			"0": {
+				"textures": {
+					"layer0": "overcasted:item/sad_onion"
+				}
+			},
+			"1": {
+				"textures": {
+					"layer0": "overcasted:item/inner_eye"
+				}
+			},
+			"2": {
+				"textures": {
+					"layer0": "overcasted:item/spoon"
+				}
+			},
+			"3": {
+				"textures": {
+					"layer0": "overcasted:item/cricket_head"
+				}
+			},
+			"4": {
+				"textures": {
+					"layer0": "overcasted:item/my_reflection"
+				}
+			},
+			"5": {
+				"textures": {
+					"layer0": "overcasted:item/number_one"
+				}
+			},
+			"6": {
+				"textures": {
+					"layer0": "overcasted:item/sad_onion"
+				}
+			},
+			"7": {
+				"textures": {
+					"layer0": "overcasted:item/sad_onion"
+				}
+			},
+			"8": {
+				"textures": {
+					"layer0": "overcasted:item/sad_onion"
+				}
+			},
+			"9": {
+				"textures": {
+					"layer0": "overcasted:item/sad_onion"
+				}
+			},
+			"10": {
+				"textures": {
+					"layer0": "overcasted:item/sad_onion"
+				}
+			},
+			"11": {
+				"textures": {
+					"layer0": "overcasted:item/sad_onion"
+				}
+			},
+			"12": {
+				"textures": {
+					"layer0": "overcasted:item/sad_onion"
+				}
+			},
+			"13": {
+				"textures": {
+					"layer0": "overcasted:item/sad_onion"
+				}
+			},
+			"14": {
+				"textures": {
+					"layer0": "overcasted:item/sad_onion"
+				}
+			},
+			"15": {
+				"textures": {
+					"layer0": "overcasted:item/sad_onion"
+				}
+			}
+
+
+
+
+		}
+	}
+}
