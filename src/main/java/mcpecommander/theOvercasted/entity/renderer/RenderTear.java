@@ -1,17 +1,15 @@
 package mcpecommander.theOvercasted.entity.renderer;
 
 import mcpecommander.theOvercasted.Reference;
-import mcpecommander.theOvercasted.entity.entities.pickups.EntityBomb;
 import mcpecommander.theOvercasted.entity.entities.projectiles.EntityTear;
 import mcpecommander.theOvercasted.entity.models.CraftStudioModelSon;
-import mcpecommander.theOvercasted.entity.renderer.pickupsRenderer.RenderBomb;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
-public class RenderTear extends Render<EntityTear> {
+public class RenderTear<T extends EntityTear> extends Render<T> {
 
 	public static final CraftStudioModelSon model = new CraftStudioModelSon(Reference.MODID, "tear", 16);
 	protected RenderTear(RenderManager renderManager) {
@@ -19,7 +17,7 @@ public class RenderTear extends Render<EntityTear> {
 	}
 	
 	@Override
-	public void doRender(EntityTear entity, double x, double y, double z, float entityYaw, float partialTicks) {
+	public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		if(entity.ticksExisted > 1) {
 			GlStateManager.pushMatrix();
 			this.bindEntityTexture(entity);

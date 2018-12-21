@@ -35,6 +35,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockPedestal extends Block implements IHasModel, ITileEntityProvider {
+	
+	private static final AxisAlignedBB PEDESTAL_BOX = Block.FULL_BLOCK_AABB.contract(0.03d, 6d/16d, 0.03d).contract(-0.03d, 0, -0.03d);
 
 	public BlockPedestal() {
 		super(Material.ROCK, MapColor.GRAY);
@@ -55,12 +57,12 @@ public class BlockPedestal extends Block implements IHasModel, ITileEntityProvid
 	
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-		return Block.FULL_BLOCK_AABB.contract(0.01d, 6d/16d, 0.01d);
+		return PEDESTAL_BOX;
 	}
 	
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-		return Block.FULL_BLOCK_AABB.contract(0.01d, 6d/16d, 0.01d);
+		return PEDESTAL_BOX;
 	}
 	
 	@Override

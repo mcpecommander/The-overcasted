@@ -3,6 +3,9 @@ package mcpecommander.theOvercasted.proxy;
 import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.TheOvercasted;
 import mcpecommander.theOvercasted.block.tileEntity.TileEntityPedestal;
+import mcpecommander.theOvercasted.capability.follower.Follower;
+import mcpecommander.theOvercasted.capability.follower.FollowerStorage;
+import mcpecommander.theOvercasted.capability.follower.IFollower;
 import mcpecommander.theOvercasted.capability.pickups.IPickups;
 import mcpecommander.theOvercasted.capability.pickups.Pickups;
 import mcpecommander.theOvercasted.capability.pickups.PickupsStorage;
@@ -33,6 +36,7 @@ public class CommonProxy {
 		ModDimensions.init();
 		CapabilityManager.INSTANCE.register(IPickups.class, new PickupsStorage(), new Pickups.Factory());
 		CapabilityManager.INSTANCE.register(IStats.class, new StatsStorage(), new Stats.Factory());
+		CapabilityManager.INSTANCE.register(IFollower.class, new FollowerStorage(), new Follower.Factory());
 		CHANNEL.registerMessage(PacketSendVec3i.Handler.class, PacketSendVec3i.class, ID++, Side.CLIENT);
 		CHANNEL.registerMessage(PacketSendStats.Handler.class, PacketSendStats.class, ID++, Side.CLIENT);
 	}

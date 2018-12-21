@@ -1,6 +1,7 @@
 package mcpecommander.theOvercasted.events;
 
 import mcpecommander.theOvercasted.Reference;
+import mcpecommander.theOvercasted.capability.follower.FollowerProvider;
 import mcpecommander.theOvercasted.capability.pickups.PickupsProvider;
 import mcpecommander.theOvercasted.capability.stats.StatsProvider;
 import net.minecraft.entity.Entity;
@@ -17,6 +18,7 @@ public class AttachCapabilityEvent {
 		if(event.getObject() instanceof EntityPlayer) {
 			event.addCapability(Reference.PICKUPS_CAP, new PickupsProvider());
 			event.addCapability(Reference.STATS_CAP, new StatsProvider());
+			event.addCapability(Reference.FOLLOWER_CAP, new FollowerProvider());
 		}
 	}
 

@@ -6,16 +6,17 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 
+import akka.japi.Effect;
 import mcpecommander.theOvercasted.animationSystem.Animation;
+import mcpecommander.theOvercasted.capability.follower.FollowerProvider;
+import mcpecommander.theOvercasted.capability.follower.IFollower;
 import mcpecommander.theOvercasted.capability.stats.IStats;
 import mcpecommander.theOvercasted.capability.stats.StatsProvider;
+import mcpecommander.theOvercasted.entity.entities.familiars.EntityBasicFamiliar;
 import mcpecommander.theOvercasted.item.effects.Attribute;
-import mcpecommander.theOvercasted.item.effects.Effect;
-import mcpecommander.theOvercasted.item.effects.Effect.ActionType;
+import mcpecommander.theOvercasted.item.effects.IEffect;
 import mcpecommander.theOvercasted.item.effects.TearEffect;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.IProjectile;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -29,16 +30,16 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
-public class EntityTear extends Entity implements IProjectile {
+public class EntityTear extends Entity {
 	
 	private static final DataParameter<Boolean> FALLING = EntityDataManager.<Boolean>createKey(EntityTear.class, DataSerializers.BOOLEAN);
 	
 	public EntityPlayer shooter;
-	private Entity target;
-	private Vec3d originPos;
-	private float damage, lerpTime, range, distanceMoved;
+	protected Entity target;
+	protected Vec3d originPos;
+	protected float damage, lerpTime, range, distanceMoved;
 	public int[] effectInts;
-	private List<Effect> continuousEffects;
+	protected List<IEffect> effects;
 	
 	public EntityTear(World world) {
 		super(world);
@@ -49,7 +50,7 @@ public class EntityTear extends Entity implements IProjectile {
 		this(world);
 		this.shooter = shooter;
 		this.effectInts = effects;
-		this.continuousEffects = getContinuousEffects(effects);
+		this.effects = getEffects(effects);
 	}
 	
 	public void shoot(Vec3d pos, EntityPlayer shooter, Vec3d lookVec) {
@@ -74,58 +75,25 @@ public class EntityTear extends Entity implements IProjectile {
 			this.rotationPitch = shooter.rotationPitch;
 		}
 	}
-
-	@Override
-	public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
-		
-	}	
 	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		if(continuousEffects != null) {
-			for(Effect effect : continuousEffects) {
-				if(effect instanceof TearEffect) {
-					((TearEffect) effect).onUpdate(this);
-				}
+		if(effects != null) {
+			for(IEffect effect : effects) {
+				effect.onEntityTearUpdate(this);
 			}
 		}
-		this.posX += motionX;
-		this.posY += motionY;
-		this.posZ += motionZ;
-		distanceMoved += Math.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
+		if(!world.isRemote) onServerUpdate();
 		
 		if(this.ticksExisted > 200) {
 			this.setDead();
 		}
-		double speed = Math.sqrt(motionX * motionX + motionZ * motionZ);
-		if(!world.isRemote) {
-			if (distanceMoved > this.getRange() - this.getRange() * (0.1f + speed/10f)) {
-				this.dataManager.set(FALLING, true);
-				this.dataManager.setDirty(FALLING);
-			}
-			if(isEntityInsideOpaqueBlock() || onGround) {
-				this.setDead();
-			}
-			if(target != null && target.isEntityAlive()) {
-				lerpTime = MathHelper.clamp(lerpTime + .01f, 0f, 1f);
-				Vec3d targetMotion = getDistanceVectorNormalized(getPositionVector(), target.getPositionVector().addVector(0, target.getEyeHeight(), 0));
-				motionX = Animation.lerp(motionX, targetMotion.x, lerpTime);
-				motionY = Animation.lerp(motionY, targetMotion.y, lerpTime);
-				motionZ = Animation.lerp(motionZ, targetMotion.z, lerpTime);
-				this.velocityChanged = true;
-			}else {
-				target = null;
-			}
-			List<Entity> list = this.getCollisionBoxes(shooter, this.getEntityBoundingBox().offset(this.getPositionVector()));
-			if(!list.isEmpty()) {
-				this.setDead();
-				list.get(0).attackEntityFrom(DamageSource.GENERIC, damage);
-			}
-				
-		}else {
-			
-		}
+		
+		this.posX += motionX;
+		this.posY += motionY;
+		this.posZ += motionZ;
+		distanceMoved += Math.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
 
 		if(isFalling()) {
 			motionY -= 0.1d;
@@ -138,8 +106,66 @@ public class EntityTear extends Entity implements IProjectile {
 
 	}
 	
+	protected void onServerUpdate(){
+		double speed = Math.sqrt(motionX * motionX + motionZ * motionZ);
+		if (distanceMoved > this.getRange() - this.getRange() * (0.1f + speed / 10f)) {
+			this.dataManager.set(FALLING, true);
+			this.dataManager.setDirty(FALLING);
+		}
+		if (isEntityInsideOpaqueBlock() || onGround) {
+			if(effects != null) {
+				for(IEffect effect : effects) {
+					effect.onEntityTearHit(this, null, this.getPosition());
+				}
+			}
+			this.setDead();
+		}
+		if (target != null && target.isEntityAlive()) {
+			lerpTime = MathHelper.clamp(lerpTime + .01f, 0f, 1f);
+			Vec3d targetMotion = getDistanceVectorNormalized(getPositionVector(),
+					target.getPositionVector().addVector(0, target.getEyeHeight(), 0));
+			motionX = Animation.lerp(motionX, targetMotion.x, lerpTime);
+			motionY = Animation.lerp(motionY, targetMotion.y, lerpTime);
+			motionZ = Animation.lerp(motionZ, targetMotion.z, lerpTime);
+			this.velocityChanged = true;
+		} else {
+			target = null;
+		}
+		List<Entity> list = this.getCollidedEntities(shooter,
+				this.getEntityBoundingBox().offset(this.getPositionVector()));
+		filterList(list);
+		if (!list.isEmpty()) {
+			if(effects != null) {
+				for(IEffect effect : effects) {
+					effect.onEntityTearHit(this, list.get(0), this.getPosition());
+				}
+			}
+			this.setDead();
+			list.get(0).attackEntityFrom(DamageSource.GENERIC, damage);
+		}
+	}
 	
-	public List<Entity> getCollisionBoxes(@Nullable Entity entityIn, AxisAlignedBB aabb)
+	protected void filterList(List<Entity> list) {
+		IFollower follower = shooter.getCapability(FollowerProvider.FOLLOWER_CAP, null);
+		if(follower != null) {
+			EntityBasicFamiliar familiar = (EntityBasicFamiliar) ((WorldServer) world).getEntityFromUuid(follower.getFollower());
+			if(familiar != null) {
+				list.remove(familiar);
+				getFamiliar(familiar, list);
+			}
+		}
+	}
+	
+	
+	protected void getFamiliar(EntityBasicFamiliar familiar, List<Entity> list) {
+		if(familiar.getFollower() != null) {
+			list.remove(familiar.getFollower());
+			getFamiliar((EntityBasicFamiliar) familiar.getFollower(), list);
+		}
+		
+	}
+
+	public final List<Entity> getCollidedEntities(@Nullable Entity entityIn, AxisAlignedBB aabb)
     {
         List<Entity> list = Lists.<Entity>newArrayList();
 
@@ -162,7 +188,7 @@ public class EntityTear extends Entity implements IProjectile {
         return list;
     }
 	
-	private static Vec3d getDistanceVectorNormalized(Vec3d start, Vec3d end){
+	protected static Vec3d getDistanceVectorNormalized(Vec3d start, Vec3d end){
 		return end.subtract(start).normalize();
 	}
 
@@ -171,8 +197,13 @@ public class EntityTear extends Entity implements IProjectile {
 		this.dataManager.register(FALLING, false);
 	}
 	
-	private boolean isFalling() {
+	protected boolean isFalling() {
 		return this.dataManager.get(FALLING);
+	}
+	
+	protected void setFalling() {
+		this.dataManager.set(FALLING, true);
+		this.dataManager.setDirty(FALLING);
 	}
 
 	@Override
@@ -188,7 +219,7 @@ public class EntityTear extends Entity implements IProjectile {
 			this.target = ((WorldServer) world).getEntityFromUuid(compound.getUniqueId("target"));
 		}
 		this.effectInts = compound.getIntArray("effects");
-		this.continuousEffects = getContinuousEffects(effectInts);
+		this.effects = getEffects(effectInts);
 		this.distanceMoved = compound.getFloat("distance_flew");
 	}
 
@@ -205,8 +236,8 @@ public class EntityTear extends Entity implements IProjectile {
 		compound.setFloat("distance_flew", distanceMoved);
 	}
 	
-	public List<Effect> getContinuousEffects(int[] items) {
-		List<Effect> list = Lists.newArrayList();
+	public static List<IEffect> getEffects(int[] items) {
+		List<IEffect> list = Lists.newArrayList();
 		if(items.length == 0) {
 			return list;
 		}else {
@@ -214,9 +245,8 @@ public class EntityTear extends Entity implements IProjectile {
 				if(items[x] == 0)break;
 				
 				Attribute attribute = Attribute.getAttributeById(items[x]);
-				for(Effect effect : attribute.getEffects()) {
-					if(effect.getType() == ActionType.CONTINUOUS)
-						list.add(effect);
+				for(IEffect effect : attribute.getEffects()) {
+					list.add(effect);
 				}
 			}
 			return list;

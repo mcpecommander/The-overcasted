@@ -3,27 +3,29 @@ package mcpecommander.theOvercasted.init;
 import java.awt.Color;
 
 import mcpecommander.theOvercasted.Reference;
-import mcpecommander.theOvercasted.entity.entities.EntityArmourStand;
 import mcpecommander.theOvercasted.entity.entities.EntityBasilisk;
-import mcpecommander.theOvercasted.entity.entities.EntityFly;
 import mcpecommander.theOvercasted.entity.entities.EntityLangolier;
 import mcpecommander.theOvercasted.entity.entities.EntityManEater;
 import mcpecommander.theOvercasted.entity.entities.EntityMushroomPerson;
 import mcpecommander.theOvercasted.entity.entities.EntitySnowRat;
+import mcpecommander.theOvercasted.entity.entities.familiars.EntityPrimalFamiliar;
 import mcpecommander.theOvercasted.entity.entities.fatties.EntityConjoinedSack;
 import mcpecommander.theOvercasted.entity.entities.fatties.EntityFatSack;
+import mcpecommander.theOvercasted.entity.entities.flies.EntityBlackFly;
 import mcpecommander.theOvercasted.entity.entities.pickups.EntityBomb;
+import mcpecommander.theOvercasted.entity.entities.projectiles.EntitySlaveTear;
 import mcpecommander.theOvercasted.entity.entities.projectiles.EntityTear;
-import mcpecommander.theOvercasted.entity.renderer.RenderArmourStand;
 import mcpecommander.theOvercasted.entity.renderer.RenderBasilisk;
-import mcpecommander.theOvercasted.entity.renderer.RenderFly;
 import mcpecommander.theOvercasted.entity.renderer.RenderLangolier;
 import mcpecommander.theOvercasted.entity.renderer.RenderManEater;
 import mcpecommander.theOvercasted.entity.renderer.RenderMushroomPerson;
+import mcpecommander.theOvercasted.entity.renderer.RenderSlaveTear;
 import mcpecommander.theOvercasted.entity.renderer.RenderSnowRat;
 import mcpecommander.theOvercasted.entity.renderer.RenderTear;
+import mcpecommander.theOvercasted.entity.renderer.familiarsRenderer.RenderPrimalFamiliar;
 import mcpecommander.theOvercasted.entity.renderer.fattiesRenderer.RenderConjoinedSack;
 import mcpecommander.theOvercasted.entity.renderer.fattiesRenderer.RenderFatSack;
+import mcpecommander.theOvercasted.entity.renderer.fliesRenderer.RenderBlackFly;
 import mcpecommander.theOvercasted.entity.renderer.pickupsRenderer.RenderBomb;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -39,9 +41,7 @@ public class ModEntities {
 	public static void init(RegistryEvent.Register<EntityEntry> e) {
 		int id = 0;
 
-		EntityEntry stand = EntityEntryBuilder.create().entity(EntityArmourStand.class)
-				.egg(Color.GREEN.getRGB(), 996600).id(Reference.ModEntities.ARMOURSTAND.getRegistryName(), id++)
-				.name(Reference.ModEntities.ARMOURSTAND.getName()).tracker(64, 3, true).build();
+
 		EntityEntry langolier = EntityEntryBuilder.create().entity(EntityLangolier.class)
 				.id(Reference.ModEntities.LANGOLIER.getRegistryName(), id++).egg(22342, 23123)
 				.name(Reference.ModEntities.LANGOLIER.getName()).tracker(64, 3, true).build();
@@ -60,9 +60,9 @@ public class ModEntities {
 		EntityEntry conjoinedSack = EntityEntryBuilder.create().entity(EntityConjoinedSack.class)
 				.id(Reference.ModEntities.CONJOINED_SACK.getRegistryName(), id++).egg(354578, 233488)
 				.name(Reference.ModEntities.CONJOINED_SACK.getName()).tracker(64, 3, true).build();
-		EntityEntry fly = EntityEntryBuilder.create().entity(EntityFly.class)
-				.id(Reference.ModEntities.FLY.getRegistryName(), id++).egg(344578, 23288)
-				.name(Reference.ModEntities.FLY.getName()).tracker(64, 3, true).build();
+		EntityEntry black_fly = EntityEntryBuilder.create().entity(EntityBlackFly.class)
+				.id(Reference.ModEntities.BLACK_FLY.getRegistryName(), id++).egg(Color.BLACK.getRGB(), Color.BLACK.brighter().getRGB())
+				.name(Reference.ModEntities.BLACK_FLY.getName()).tracker(64, 3, true).build();
 		EntityEntry fat_sack = EntityEntryBuilder.create().entity(EntityFatSack.class)
 				.id(Reference.ModEntities.FAT_SACK.getRegistryName(), id++).egg(122578, 23288)
 				.name(Reference.ModEntities.FAT_SACK.getName()).tracker(64, 3, true).build();
@@ -72,23 +72,31 @@ public class ModEntities {
 		EntityEntry tear = EntityEntryBuilder.create().entity(EntityTear.class)
 				.id(Reference.ModEntities.TEAR.getRegistryName(), id++)
 				.name(Reference.ModEntities.TEAR.getName()).tracker(64, 3, true).build();
+		EntityEntry slaveTear = EntityEntryBuilder.create().entity(EntitySlaveTear.class)
+				.id(Reference.ModEntities.SLAVE_TEAR.getRegistryName(), id++)
+				.name(Reference.ModEntities.SLAVE_TEAR.getName()).tracker(64, 3, true).build();
+		EntityEntry primal_familiar = EntityEntryBuilder.create().entity(EntityPrimalFamiliar.class)
+				.id(Reference.ModEntities.PRIMAL_FAMILIAR.getRegistryName(), id++)
+				.name(Reference.ModEntities.PRIMAL_FAMILIAR.getName()).tracker(64, 3, true).build();
 		
-		e.getRegistry().registerAll(stand, langolier, basilisk, eater, mushroom, rat, conjoinedSack, fly, fat_sack, bomb, tear);
+		e.getRegistry().registerAll(langolier, basilisk, eater, mushroom, rat, conjoinedSack, black_fly, fat_sack, bomb, tear, 
+				slaveTear, primal_familiar);
 
 	}
 
 	public static void initModel() {
-		RenderingRegistry.registerEntityRenderingHandler(EntityArmourStand.class, new RenderArmourStand.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityLangolier.class, new RenderLangolier.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityBasilisk.class, new RenderBasilisk.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityManEater.class, new RenderManEater.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityMushroomPerson.class, new RenderMushroomPerson.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntitySnowRat.class, new RenderSnowRat.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityConjoinedSack.class, new RenderConjoinedSack.Factory());
-		RenderingRegistry.registerEntityRenderingHandler(EntityFly.class, new RenderFly.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityBlackFly.class, new RenderBlackFly.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityFatSack.class, new RenderFatSack.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityBomb.class, new RenderBomb.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityTear.class, new RenderTear.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntitySlaveTear.class, new RenderSlaveTear.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityPrimalFamiliar.class, new RenderPrimalFamiliar.Factory());
 	}
 
 }

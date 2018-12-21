@@ -45,8 +45,8 @@ public class TileEntityPedestalRenderer extends TileEntitySpecialRenderer<TileEn
 		GlStateManager.pushMatrix();
 		GlStateManager.rotate(180, 1, 0, 0);
 		GlStateManager.translate(0, -.7, 0);
-		GlStateManager.translate(0, Math.abs(Math.sin(rotationTick/50f)/10f), 0);
-		GlStateManager.rotate(rotationTick/2f, 0, 1, 0);
+		GlStateManager.translate(0, Math.abs(Math.sin(rotationTick/50f)/20f), 0);
+		GlStateManager.rotate(rotationTick/5f, 0, 1, 0);
 		GlStateManager.scale(.7, .7, .7);
 		Minecraft.getMinecraft().getRenderItem().renderItem(te.getItemStack(), TransformType.NONE);
 		GlStateManager.popMatrix();

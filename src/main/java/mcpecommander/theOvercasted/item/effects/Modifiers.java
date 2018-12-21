@@ -27,6 +27,10 @@ public class Modifiers {
 		return amount;
 	}
 
+	boolean isForced() {
+		return forced;
+	}
+
 	static enum Type{
 		HEALTH, COINS, KEYS, BOMBS, SPEED, RANGE, FIRE_RATE, PROJECTILE_SPEED, DAMAGE, LUCK, ANGEL, DEVIL;
 	}

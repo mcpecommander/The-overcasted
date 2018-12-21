@@ -2,7 +2,7 @@ package mcpecommander.theOvercasted.entity.renderer.layers;
 
 import java.util.Random;
 
-import mcpecommander.theOvercasted.entity.entities.EntityFly;
+import mcpecommander.theOvercasted.entity.entities.flies.EntityFly;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;

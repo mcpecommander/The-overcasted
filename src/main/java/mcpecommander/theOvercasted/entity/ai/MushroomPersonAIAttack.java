@@ -1,11 +1,6 @@
 package mcpecommander.theOvercasted.entity.ai;
 
-import com.leviathanstudio.craftstudio.common.animation.IAnimated;
-
-import mcpecommander.theOvercasted.Reference;
-import mcpecommander.theOvercasted.entity.entities.EntityArmourStand;
 import mcpecommander.theOvercasted.entity.entities.EntityMushroomPerson;
-import mcpecommander.theOvercasted.util.AnimationHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;

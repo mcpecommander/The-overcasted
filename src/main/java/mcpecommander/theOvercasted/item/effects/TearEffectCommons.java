@@ -68,7 +68,7 @@ public class TearEffectCommons {
 			
 			@Override
 			public void onUpdate(EntityTear tear) {
-				if(tear.getDistanceMoved() > tear.getRange()/4 && !tear.hasTarget()) {
+				if(tear.getDistanceMoved() > tear.getRange()/8 && !tear.hasTarget()) {
 					tear.setTarget(tear.shooter);
 				}
 				if(tear.getDistance(tear.shooter) < 1.5f) {

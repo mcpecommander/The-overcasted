@@ -18,22 +18,25 @@ public class Reference {
 	
 	public static final ResourceLocation PICKUPS_CAP = new ResourceLocation(MODID, "pickups");
 	public static final ResourceLocation STATS_CAP = new ResourceLocation(MODID, "stats");
+	public static final ResourceLocation FOLLOWER_CAP = new ResourceLocation(MODID, "follower");
 	
 	public static final int PICKUPS_GUI_ID = 1;
 	
+	
 	public enum ModEntities{
 		
-		ARMOURSTAND(new ResourceLocation(MODID, "armour_stand")),
 		LANGOLIER(new ResourceLocation(MODID, "langolier")),
 		BASILISK(new ResourceLocation(MODID, "basilisk")),
 		MANEATER(new ResourceLocation(MODID, "man_eater")),
 		MUSHROOMPERSON(new ResourceLocation(MODID, "mushroom_person")),
 		SNOWRAT(new ResourceLocation(MODID, "snow_rat")),
 		CONJOINED_SACK(new ResourceLocation(MODID, "conjioned_sack")),
-		FLY(new ResourceLocation(MODID, "fly")),
+		BLACK_FLY(new ResourceLocation(MODID, "black_fly")),
 		FAT_SACK(new ResourceLocation(MODID, "fat_sack")),
 		BOMB(new ResourceLocation(MODID, "bomb")),
-		TEAR(new ResourceLocation(MODID, "tear"));
+		TEAR(new ResourceLocation(MODID, "tear")),
+		SLAVE_TEAR(new ResourceLocation(MODID, "slave_tear")),
+		PRIMAL_FAMILIAR(new ResourceLocation(MODID, "familiar"));
 		
 		private ResourceLocation name;
 		

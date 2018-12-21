@@ -19,7 +19,7 @@ public class EntityFatSack extends EntityBasicChampion{
 	
 	public EntityFatSack(World worldIn) {
 		super(worldIn);
-		this.setSize(1.1f, 1.3f);
+		this.setSize(1.1f, 1.7f);
 		if(this.getSackType() == -1) {
 			this.setSackType((byte) 0);
 		}

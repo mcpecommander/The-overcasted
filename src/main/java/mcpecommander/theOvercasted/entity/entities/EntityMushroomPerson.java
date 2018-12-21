@@ -180,7 +180,7 @@ public class EntityMushroomPerson extends EntityBaseAnimated {
 	public void notifyDataManagerChange(DataParameter<?> key) {
 		super.notifyDataManagerChange(key);
 		if (BABY.equals(key)) {
-			if ((boolean) this.dataManager.get(key)) {
+			if ((boolean) this.dataManager.get(BABY)) {
 				this.setSize(.8f, 1.1f);
 			} else {
 				this.setSize(.8f + 1 / 2.8f, 2.1f);

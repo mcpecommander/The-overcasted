@@ -6,28 +6,34 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import com.google.common.collect.Lists;
 
+import akka.japi.Effect;
 import mcpecommander.theOvercasted.TheOvercasted;
 import mcpecommander.theOvercasted.capability.pickups.IPickups;
 import mcpecommander.theOvercasted.capability.pickups.PickupsProvider;
 import mcpecommander.theOvercasted.capability.stats.IStats;
 import mcpecommander.theOvercasted.capability.stats.StatsProvider;
+import mcpecommander.theOvercasted.item.effects.Attribute.Sign;
+import mcpecommander.theOvercasted.item.effects.Modifiers.Type;
 import mcpecommander.theOvercasted.networking.PacketSendStats;
 import mcpecommander.theOvercasted.networking.PacketSendVec3i;
 import mcpecommander.theOvercasted.proxy.CommonProxy;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
-public class StatEffect extends Effect{
+public class StatEffect implements IEffect{
 	
 	private List<ImmutablePair<Modifiers, Sign>> modifiers = Lists.newArrayList();
 
-	public StatEffect(ActionType type, String... attributes) {
-		super(type);
+	public StatEffect(String... attributes) {
 		parseString(attributes);
 		
+	}
+	
+	@Override
+	public void onGet(EntityPlayer player, ItemStack stack, Attribute attribute) {
+		applyAttibutes(player, stack);
 	}
 	
 	private void parseString(String[] strings) {
@@ -42,7 +48,7 @@ public class StatEffect extends Effect{
 		}
 	}
 	
-	public void applyAttibutes(EntityPlayer player) {
+	private void applyAttibutes(EntityPlayer player, ItemStack stack) {
 		if(player != null && !player.isDead && !player.world.isRemote) {
 			IStats stats = player.getCapability(StatsProvider.STATS_CAP, null);
 			IPickups pickups = player.getCapability(PickupsProvider.PICKUPS, null);
@@ -122,22 +128,7 @@ public class StatEffect extends Effect{
 					}
 					break;
 				case DAMAGE:
-					switch(pair.right) {
-					case ADD:
-						stats.setDamage(stats.getDamage() + pair.left.getAmount());
-						break;
-					case DIVIDE:
-						stats.setDamage(stats.getDamage() / pair.left.getAmount());
-						break;
-					case MULTIPLE:
-						stats.setDamage(stats.getDamage() * pair.left.getAmount());
-						break;
-					case SUBTRACT:
-						stats.setDamage(stats.getDamage() - pair.left.getAmount());
-						break;
-					default:
-						break;
-					}
+					recalculateDamage(stats, stack);
 					break;
 				case SPEED:
 					switch(pair.right) {
@@ -176,22 +167,7 @@ public class StatEffect extends Effect{
 					}
 					break;
 				case FIRE_RATE:
-					switch(pair.right) {
-					case ADD:
-						stats.setFireRate(stats.getFireRate() + pair.left.getAmount());
-						break;
-					case DIVIDE:
-						stats.setFireRate(stats.getFireRate() / pair.left.getAmount());
-						break;
-					case MULTIPLE:
-						stats.setFireRate(stats.getFireRate() * pair.left.getAmount());
-						break;
-					case SUBTRACT:
-						stats.setFireRate(stats.getFireRate() - pair.left.getAmount());
-						break;
-					default:
-						break;
-					}
+					recalculateFireRate(stats, stack);
 					break;
 				case PROJECTILE_SPEED:
 					switch(pair.right) {
@@ -276,5 +252,96 @@ public class StatEffect extends Effect{
 			CommonProxy.CHANNEL.sendTo(new PacketSendStats(stats), (EntityPlayerMP) player);
 		}
 	}
+	
+	private void recalculateDamage(IStats stats, ItemStack tear) {
+		try {
+			float baseDamage = 3.5f;
+			float extraDamage = 1f;
+			float flatAddedDamage = 0f;
+			float damageMultiplier = 0f;
+			List<StatEffect> statsList = getStatEffects(tear.getTagCompound().getIntArray("items"));
+			for(StatEffect effect : statsList) {
+				for(ImmutablePair<Modifiers, Sign> effectModifier : effect.modifiers) {
+					
+					if(effectModifier.left.getType() == Type.DAMAGE ) {
+						if(effectModifier.left.isForced()) {
+							flatAddedDamage += effectModifier.left.getAmount();
+						}else {
+							if(effectModifier.right == Sign.ADD) {
+								extraDamage += effectModifier.left.getAmount();
+							}else if (effectModifier.right == Sign.MULTIPLE) {
+								damageMultiplier += effectModifier.left.getAmount();
+							}else if (effectModifier.right == Sign.SUBTRACT) {
+								extraDamage -= effectModifier.left.getAmount();
+							}
+						}
+					}
+				}
+			}
+			if(damageMultiplier != 0f) {
+				stats.setDamage((float) ((baseDamage * Math.sqrt(extraDamage * 1.2 + 1) + flatAddedDamage) * damageMultiplier));
+			}else {
+				stats.setDamage((float) ((baseDamage * Math.sqrt(extraDamage * 1.2 + 1) + flatAddedDamage)));
+			}
+			
+			
+		}catch(NullPointerException e) {
+			TheOvercasted.logger.error(e.getMessage());
+		}
+	}
+	
+	private void recalculateFireRate(IStats stats, ItemStack tear) {
+		try {
+			float extraFireRate = 0f;
+			float addFireRate = 0f;
+			float multipliedFireRate = 0f;
+			List<StatEffect> statsList = getStatEffects(tear.getTagCompound().getIntArray("items"));
+			for(StatEffect effect : statsList) {
+				for(ImmutablePair<Modifiers, Sign> effectModifier : effect.modifiers) {
+					
+					if(effectModifier.left.getType() == Type.FIRE_RATE ) {
+						if(effectModifier.left.isForced()) {
+							if(effectModifier.right == Sign.ADD) {
+								addFireRate += effectModifier.left.getAmount();
+							}else if (effectModifier.right == Sign.SUBTRACT) {
+								addFireRate -= effectModifier.left.getAmount();
+							}else if (effectModifier.right == Sign.MULTIPLE) {
+								multipliedFireRate += effectModifier.left.getAmount();
+							}
+						}else {
+							if(effectModifier.right == Sign.ADD) {
+								extraFireRate += effectModifier.left.getAmount();
+							}else if (effectModifier.right == Sign.SUBTRACT) {
+								extraFireRate -= effectModifier.left.getAmount();
+							}
+						}
+					}
+				}
+			}
+			if(multipliedFireRate != 0f) {
+				stats.setFireRate((float) (((16 - 6*Math.sqrt(extraFireRate * 1.3 + 1)) + addFireRate) * multipliedFireRate));
+			}else {
+				stats.setFireRate((float) ((16 - 6*Math.sqrt(extraFireRate * 1.3 + 1)) + addFireRate));
+			}
+			
+		}catch(NullPointerException e) {
+			TheOvercasted.logger.error(e.getMessage());
+		}
+	}
+	
+	private static List<StatEffect> getStatEffects(int[] items){
+		
+		List<StatEffect> stats = Lists.newArrayList();
+		for(int i : items) {
+			if(i == 0) break;
+			for(IEffect effect : Attribute.getAttributeById(i).getEffects()) {
+				if(effect instanceof StatEffect) {
+					stats.add((StatEffect) effect);
+				}
+			}
+		}
+		return stats;
+	}
+	
 
 }

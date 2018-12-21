@@ -4,15 +4,17 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
+import akka.japi.Effect;
 import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.TheOvercasted;
+import mcpecommander.theOvercasted.capability.follower.FollowerProvider;
+import mcpecommander.theOvercasted.capability.follower.IFollower;
 import mcpecommander.theOvercasted.capability.stats.IStats;
 import mcpecommander.theOvercasted.capability.stats.StatsProvider;
+import mcpecommander.theOvercasted.entity.entities.familiars.EntityBasicFamiliar;
 import mcpecommander.theOvercasted.entity.entities.projectiles.EntityTear;
 import mcpecommander.theOvercasted.item.effects.Attribute;
-import mcpecommander.theOvercasted.item.effects.Effect;
-import mcpecommander.theOvercasted.item.effects.Effect.ActionType;
-import mcpecommander.theOvercasted.item.effects.StatEffect;
+import mcpecommander.theOvercasted.item.effects.IEffect;
 import mcpecommander.theOvercasted.item.effects.TearEffect;
 import mcpecommander.theOvercasted.item.teisr.ItemTearStackRenderer;
 import mcpecommander.theOvercasted.registryHandler.Registry;
@@ -23,7 +25,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -32,6 +33,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.model.ModelLoader;
 
 public class ItemTear extends Item implements IHasModel{
@@ -69,12 +71,13 @@ public class ItemTear extends Item implements IHasModel{
 			}
 			NonNullList<EntityTear> tears = NonNullList.create();
 			tears.add(new EntityTear(worldIn, playerIn, tag.getIntArray("items")));
-			List<Effect> effects = getContinuousEffects(stack);
-			for(Effect effect : effects) {
-				if(effect instanceof TearEffect) {
-					((TearEffect) effect).onCreation(tears);
+			List<Attribute> attributes = getAttributes(stack);
+			for(Attribute attribute : attributes) {
+				for(IEffect effect : attribute.getEffects()) {
+					effect.onTearCreation(playerIn, tears, attribute);
 				}
 			}
+			
 			for(int x = 0; x < tears.size(); x ++) {
 				Vec3d target = getVectorForRotation(playerIn.rotationPitch, playerIn.rotationYaw + (float)(x - tears.size()/2f) * 5f);
 				tears.get(x).shoot(playerIn.getPositionVector().addVector(eye.x/8f, playerIn.eyeHeight - 0.1f, eye.z/8f), playerIn, target);
@@ -83,8 +86,15 @@ public class ItemTear extends Item implements IHasModel{
 			tag.setBoolean("right", !right);
 			stack.setTagCompound(tag);
 			IStats stat = playerIn.getCapability(StatsProvider.STATS_CAP, null);
+			IFollower follower = playerIn.getCapability(FollowerProvider.FOLLOWER_CAP, null);
 			if(stat != null) {
 				playerIn.getCooldownTracker().setCooldown(this, (int) stat.getFireRate());
+			}
+			if(follower != null) {
+				EntityBasicFamiliar familiar = (EntityBasicFamiliar) ((WorldServer) worldIn).getEntityFromUuid(follower.getFollower());
+				if(familiar != null) {
+					familiar.shootTear();
+				}
 			}
 			
 			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
@@ -112,30 +122,23 @@ public class ItemTear extends Item implements IHasModel{
     }
 	
 	public void onTagChange(World world, EntityPlayer player, ItemStack stack, Attribute attribute) {
-		for(Effect effect : attribute.getEffects()) {
-			if(effect instanceof StatEffect) {
-				((StatEffect) effect).applyAttibutes(player);
-			}
+		for(IEffect effect : attribute.getEffects()) {
+			effect.onGet(player, stack, attribute);
 		}
 		
 	}
 	
-	public List<Effect> getContinuousEffects(ItemStack stack) {
+	public List<Attribute> getAttributes(ItemStack stack) {
 		NBTTagCompound tag = stack.getTagCompound();
-		List<Effect> list = Lists.newArrayList();
+		List<Attribute> list = Lists.newArrayList();
 		if(tag == null || tag.getIntArray("items").length == 0) {
 			return list;
 		}else {
 			int[] items = tag.getIntArray("items");
 			for(int x = 0; x < items.length; x++) {
 				if(items[x] == 0)break;
-				
-				Attribute attribute = Attribute.getAttributeById(items[x]);
-				for(Effect effect : attribute.getEffects()) {
-					if(effect.getType() == ActionType.CONTINUOUS)
-						list.add(effect);
-				}
-				
+
+				list.add(Attribute.getAttributeById(items[x]));
 			}
 			return list;
 		}

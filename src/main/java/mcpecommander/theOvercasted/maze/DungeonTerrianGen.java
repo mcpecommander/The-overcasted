@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
-import mcpecommander.theOvercasted.entity.entities.EntityFly;
+import mcpecommander.theOvercasted.entity.entities.flies.EntityFly;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

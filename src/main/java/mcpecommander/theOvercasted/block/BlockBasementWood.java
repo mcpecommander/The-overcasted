@@ -2,6 +2,7 @@ package mcpecommander.theOvercasted.block;
 
 import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.TheOvercasted;
+import mcpecommander.theOvercasted.entity.entities.familiars.EntityBasicFamiliar;
 import mcpecommander.theOvercasted.registryHandler.Registry;
 import mcpecommander.theOvercasted.util.IHasModel;
 import net.minecraft.block.Block;
@@ -9,6 +10,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -45,17 +47,18 @@ public class BlockBasementWood extends Block implements IHasModel{
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		
 //		if(worldIn.isRemote) {
-//			PickupsGUI gui = new PickupsGUI();
-//			Minecraft.getMinecraft().displayGuiScreen(gui);
+////			PickupsGUI gui = new PickupsGUI();
+////			Minecraft.getMinecraft().displayGuiScreen(gui);
 //			return true;
 //		}else {
-//			IStats cap = playerIn.getCapability(StatsProvider.STATS_CAP, null);
-//			if(cap == null) {
-//				return false;
-//			}
-//			cap.setDefaults(EnumCharacter.ISAAC);
-//			CommonProxy.CHANNEL.sendTo(new PacketSendStats(cap), (EntityPlayerMP) playerIn);
+////			IStats cap = playerIn.getCapability(StatsProvider.STATS_CAP, null);
+////			if(cap == null) {
+////				return false;
+////			}
+////			cap.setDefaults(EnumCharacter.ISAAC);
+////			CommonProxy.CHANNEL.sendTo(new PacketSendStats(cap), (EntityPlayerMP) playerIn);
 //			return true;
 //		}
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);

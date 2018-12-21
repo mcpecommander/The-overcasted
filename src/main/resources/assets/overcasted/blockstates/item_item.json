@@ -38,12 +38,12 @@
 			},
 			"6": {
 				"textures": {
-					"layer0": "overcasted:item/sad_onion"
+					"layer0": "overcasted:item/blood_of_the_martyr"
 				}
 			},
 			"7": {
 				"textures": {
-					"layer0": "overcasted:item/sad_onion"
+					"layer0": "overcasted:item/brother_bobby"
 				}
 			},
 			"8": {

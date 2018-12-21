@@ -29,6 +29,7 @@ public class CraftStudioRegistry {
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "projectile");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "tear");
 		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "block_pedestal");
+		e.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "primal_familiar");
 		
 	}
 
