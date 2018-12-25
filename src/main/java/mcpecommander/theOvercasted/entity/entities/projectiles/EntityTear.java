@@ -1,5 +1,6 @@
 package mcpecommander.theOvercasted.entity.entities.projectiles;
 
+import java.awt.Color;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -40,6 +41,7 @@ public class EntityTear extends Entity {
 	protected float damage, lerpTime, range, distanceMoved;
 	public int[] effectInts;
 	protected List<IEffect> effects;
+	public Color color;
 	
 	public EntityTear(World world) {
 		super(world);
@@ -62,7 +64,7 @@ public class EntityTear extends Entity {
 		if(stats != null) {
 			float range = stats.getRange();
 			float projectileSpeed = stats.getProjectileSpeed();
-			float inaccuracy = range * projectileSpeed / 10f;
+			float inaccuracy = range * projectileSpeed / 25f;
 			this.damage = stats.getDamage();
 			this.range = stats.getRange()/2f;
 			this.motionX = lookVec.x;
@@ -101,7 +103,7 @@ public class EntityTear extends Entity {
 			motionZ *= 0.8d;
 			this.velocityChanged = true;
 		}else {
-			motionY = -0.03f;
+//			motionY = -0.03f;
 		}
 
 	}
@@ -221,6 +223,7 @@ public class EntityTear extends Entity {
 		this.effectInts = compound.getIntArray("effects");
 		this.effects = getEffects(effectInts);
 		this.distanceMoved = compound.getFloat("distance_flew");
+		this.color = new Color(compound.getInteger("color"));
 	}
 
 	@Override
@@ -234,6 +237,7 @@ public class EntityTear extends Entity {
 		}
 		compound.setIntArray("effects", effectInts);
 		compound.setFloat("distance_flew", distanceMoved);
+		compound.setInteger("color", this.color.getRGB());
 	}
 	
 	public static List<IEffect> getEffects(int[] items) {

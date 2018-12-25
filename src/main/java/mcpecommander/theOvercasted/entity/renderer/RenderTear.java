@@ -11,7 +11,8 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class RenderTear<T extends EntityTear> extends Render<T> {
 
-	public static final CraftStudioModelSon model = new CraftStudioModelSon(Reference.MODID, "tear", 16);
+	public static final CraftStudioModelSon model = new CraftStudioModelSon(Reference.MODID, "tear", 64);
+	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID, "textures/entity/tear.png");
 	protected RenderTear(RenderManager renderManager) {
 		super(renderManager);
 	}
@@ -33,7 +34,7 @@ public class RenderTear<T extends EntityTear> extends Render<T> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityTear entity) {
-		return new ResourceLocation(Reference.MODID, "textures/entity/fly.png");
+		return TEXTURE;
 	}
 	
 	public static class Factory<T extends EntityTear> implements IRenderFactory<T>{

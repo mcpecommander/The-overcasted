@@ -19,7 +19,6 @@ public abstract class RenderBasicChampion<T extends EntityBasicChampion> extends
 	@Override
 	protected void renderModel(T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float ageInTicks,
 			float netHeadYaw, float headPitch, float scaleFactor) {
-		
 		switch(entitylivingbaseIn.getChampionType()) {
 		case 0:
 			GlStateManager.color(1f, 0, 0, 1f);

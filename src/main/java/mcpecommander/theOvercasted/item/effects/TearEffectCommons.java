@@ -146,7 +146,7 @@ public class TearEffectCommons {
 				return (tearChunkX == chunkX && tearChunkZ == chunkZ);
 			}
 		}else {
-			if(chunkX - 1 > 1 && layout[chunkX][chunkX - 1] == 2) {
+			if(chunkX - 1 > 1 && layout[chunkX - 1][chunkZ] == 2) {
 				return (tearChunkX == chunkX && tearChunkZ == chunkZ) || (tearChunkX == chunkX - 1 && tearChunkZ == chunkZ);
 			}else if(chunkX + 1 < dungeon.getMaxColumns() - 1 && layout[chunkX + 1][chunkZ] == 2) {
 				return (tearChunkX == chunkX && tearChunkZ == chunkZ) || (tearChunkX == chunkX + 1 && tearChunkZ == chunkZ);

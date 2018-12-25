@@ -9,19 +9,25 @@ public class EntityBlackFly extends EntityFly {
 
 	public EntityBlackFly(World worldIn) {
 		super(worldIn);
+		
 	}
 	
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 		flyMovment();
-		
 	}
 	
 	@Override
 	public void setPositionAndRotation(double x, double y, double z, float yaw, float pitch) {
 		super.setPositionAndRotation(x, y, z, yaw, pitch);
-		this.setBaseHeight((float) (y + 1.7f));
+		this.setBaseHeight((float) (y + 1.4f));
+	}
+	
+	@Override
+	public void setLocationAndAngles(double x, double y, double z, float yaw, float pitch) {
+		super.setLocationAndAngles(x, y, z, yaw, pitch);
+		this.setBaseHeight((float) (y + 1.4f));
 	}
 
 

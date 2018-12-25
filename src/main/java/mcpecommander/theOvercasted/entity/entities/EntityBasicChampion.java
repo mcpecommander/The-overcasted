@@ -9,7 +9,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public abstract class EntityBasicChampion extends EntityMob{
+public abstract class EntityBasicChampion extends EntityMob implements IRoomRequirement{
 	
 	private int spawnChunkX, spawnChunkZ;
 	private static final DataParameter<Integer> TYPE = EntityDataManager.<Integer>createKey(EntityBasicChampion.class, DataSerializers.VARINT);

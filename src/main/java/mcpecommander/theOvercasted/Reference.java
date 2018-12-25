@@ -25,6 +25,9 @@ public class Reference {
 	
 	public enum ModEntities{
 		
+		OVERSEER(new ResourceLocation(MODID, "overseer")),
+		LARGE_OVERSEER(new ResourceLocation(MODID, "large_overseer")),
+		SMALL_OVERSEER(new ResourceLocation(MODID, "small_overseer")),
 		LANGOLIER(new ResourceLocation(MODID, "langolier")),
 		BASILISK(new ResourceLocation(MODID, "basilisk")),
 		MANEATER(new ResourceLocation(MODID, "man_eater")),
@@ -32,6 +35,7 @@ public class Reference {
 		SNOWRAT(new ResourceLocation(MODID, "snow_rat")),
 		CONJOINED_SACK(new ResourceLocation(MODID, "conjioned_sack")),
 		BLACK_FLY(new ResourceLocation(MODID, "black_fly")),
+		ATTACK_FLY(new ResourceLocation(MODID, "attack_fly")),
 		FAT_SACK(new ResourceLocation(MODID, "fat_sack")),
 		BOMB(new ResourceLocation(MODID, "bomb")),
 		TEAR(new ResourceLocation(MODID, "tear")),
@@ -269,8 +273,8 @@ public class Reference {
 		
 		public static final byte[][] BASEMENT6 =  {
 				{0,0,4,0,0,2, 0,0, 2,0,0,4,0,0},
-				{0,0,0,0,0,0, 2,2, 0,0,0,0,0,0},
-				{0,0,2,0,0,0, 0,0, 0,0,0,2,0,0},
+				{0,0,0,0,0,0, 0,0, 0,0,0,0,0,0},
+				{0,0,2,0,0,0, 2,2, 0,0,0,2,0,0},
 				{0,0,0,0,0,4, 0,0, 4,0,0,0,0,0},
 				{0,0,4,0,0,0, 0,0, 0,0,0,4,0,0},
 				{0,0,0,0,0,0, 0,0, 0,0,0,0,0,0},

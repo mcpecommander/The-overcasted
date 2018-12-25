@@ -15,6 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3i;
 
 public class DungeonGenerator {
 
@@ -422,13 +423,16 @@ public class DungeonGenerator {
 
 	public enum Direction {
 
-		LEFT(-1, 0), RIGHT(1, 0), UP(0, 1), DOWN(0, -1), STOPPING(0, 0);
+		LEFT(-1, 0, new Vec3i(-1,0,0)), RIGHT(1, 0, new Vec3i(1,0,0)), UP(0, 1, new Vec3i(0,0,1)),
+		DOWN(0, -1, new Vec3i(0,0,-1)), STOPPING(0, 0, new Vec3i(0,0,0));
 
 		private int row, column;
+		private Vec3i directionVector;
 
-		private Direction(int row, int column) {
+		private Direction(int row, int column, Vec3i directionVector) {
 			this.row = row;
 			this.column = column;
+			this.directionVector = directionVector;
 		}
 
 		public int getRow() {
@@ -437,6 +441,10 @@ public class DungeonGenerator {
 
 		public int getColumn() {
 			return column;
+		}
+
+		public Vec3i getDirectionVector() {
+			return directionVector;
 		}
 
 		public static Direction getRandom(int random) {

@@ -1,5 +1,10 @@
 package mcpecommander.theOvercasted.maze;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
+import mcpecommander.theOvercasted.entity.entities.EntityOverseer;
 import mcpecommander.theOvercasted.events.DimensionEvents;
 import mcpecommander.theOvercasted.init.ModDimensions;
 import mcpecommander.theOvercasted.maze.DungeonGenerator.EnumDungeonType;
@@ -16,6 +21,7 @@ import net.minecraft.world.gen.IChunkGenerator;
 public class DungeonWorldProvider extends WorldProvider {
 	
 	private DungeonGenerator dungeon;
+	public final List<EntityOverseer> overseers = Lists.newArrayList();
 	
 	@Override
 	protected void init() {
