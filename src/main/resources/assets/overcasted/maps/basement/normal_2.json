@@ -1,0 +1,527 @@
+{
+  "name": "normal_2",
+  "mobs": [
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  ],
+  "deco": [
+    [
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null,
+      null,
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null,
+      null,
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null,
+      null,
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_tnt"
+      },
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_rock"
+      },
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_rock"
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_rock"
+      },
+      null,
+      null,
+      {
+        "resourceDomain": "overcasted",
+        "resourcePath": "block_rock"
+      }
+    ]
+  ]
+}

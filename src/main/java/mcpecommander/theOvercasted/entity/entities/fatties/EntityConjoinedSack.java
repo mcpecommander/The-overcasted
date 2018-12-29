@@ -22,11 +22,7 @@ public class EntityConjoinedSack extends EntityBasicChampion {
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		if(!this.world.isRemote) {
-			if(this.ticksExisted > 200){
-				this.setDead();
-			}
-		}
+
 	}
 
 

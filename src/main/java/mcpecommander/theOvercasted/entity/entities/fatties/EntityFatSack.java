@@ -20,13 +20,13 @@ public class EntityFatSack extends EntityBasicChampion{
 	public EntityFatSack(World worldIn) {
 		super(worldIn);
 		this.setSize(1.1f, 1.7f);
-		if(this.getSackType() == -1) {
-			this.setSackType((byte) 0);
+		if(this.getSackType() == -1 && !this.world.isRemote) {
+			this.setSackType((byte) this.rand.nextInt(4));
 		}
 	}
 	
 	/**
-	 * Spawns a sack with a special 
+	 * Spawns a sack with a special type
 	 * @param world
 	 * @param type
 	 */

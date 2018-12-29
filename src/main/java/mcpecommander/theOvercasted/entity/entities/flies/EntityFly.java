@@ -18,13 +18,11 @@ public abstract class EntityFly extends EntityMob implements IRoomRequirement{
 	public EntityFly(World world, float baseHeight) {
 		this(world);
 		this.baseHeight = baseHeight;
-		
 	}
 	
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		
 		
 		stayAfloat();
 		

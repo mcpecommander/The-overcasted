@@ -11,6 +11,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import mcpecommander.theOvercasted.Reference;
+import mcpecommander.theOvercasted.init.ModRoomLayouts;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
@@ -24,8 +25,6 @@ public class DungeonGenerator {
 	public Random random;
 	private int[][] layout;
 	private List<Pair<Integer, Integer>> specialRoomList;
-	private EnumDungeonType type;
-	private List<byte[][]> possibleRooms;
 	
 	//0: no room. 1: normal room. 2: narrow room. 3: Wide room a. 4: Wide room b. 5: Wide room c. 6: Wide room d.
 	//7: special room (chest room). 8: special room (curse room). 9: special room (boss room).
@@ -37,8 +36,6 @@ public class DungeonGenerator {
 		this.maxColumns = maxColumns;
 		this.maxTunnels = maxTunnels;
 		this.spawnHeight = spawnHeight;
-		this.type = type;
-		this.possibleRooms = getPossibleRoomLayouts();
 		layout = this.createMap(maxRows, maxColumns, maxLength, maxTunnels);
 		generateNarrowRooms();
 		generateWideRooms();
@@ -81,10 +78,7 @@ public class DungeonGenerator {
 			maze.xChunkSpawn = (maze.spawnPos.getX() - 8)/16;
 			maze.zChunkSpawn = (maze.spawnPos.getZ() - 8)/16;
 		}
-		if(tag.hasKey("dungeon_type", 3)) {
-			maze.type = EnumDungeonType.getTypeByID(tag.getInteger("dungeon_type"));
-			maze.possibleRooms = maze.getPossibleRoomLayouts();
-		}
+
 		int[][] lay = new int[maze.maxRows][maze.maxColumns];
 		for(int x = 0; x < maze.maxRows; x++) {
 			if(tag.hasKey("dungeon" + x, 11)) {
@@ -166,6 +160,21 @@ public class DungeonGenerator {
 	 */
 	public static int[][] empty2DArray(int num, int row, int column) {
 		int[][] array = new int[row][column];
+		for (int i = 0; i < row; i++) {
+			Arrays.fill(array[i], num);
+		}
+		return array;
+	}
+	
+	/**
+	 * Creates a non-null 2D array filled with a specific number.
+	 * @param num The number to initiate every cell in the 2D array with.
+	 * @param row The number of max rows.
+	 * @param column The number of max columns.
+	 * @return A {@code byte[][]} filled with the number inputed.
+	 */
+	public static byte[][] empty2DArray(byte num, int row, int column) {
+		byte[][] array = new byte[row][column];
 		for (int i = 0; i < row; i++) {
 			Arrays.fill(array[i], num);
 		}
@@ -330,27 +339,6 @@ public class DungeonGenerator {
 		return (this.layout[x][z + Direction.DOWN.column] != 0 && this.layout[x][z + Direction.UP.column] != 0);
 	}
 	
-	private List<byte[][]> getPossibleRoomLayouts(){
-		List<byte[][]> list = new ArrayList<>();
-		switch(this.type) {
-		case BASEMENT:
-			list.add(Reference.RoomLayouts.BASEMENT);
-			list.add(Reference.RoomLayouts.BASEMENT1);
-			list.add(Reference.RoomLayouts.BASEMENT2);
-			list.add(Reference.RoomLayouts.BASEMENT3);
-			list.add(Reference.RoomLayouts.BASEMENT4);
-			list.add(Reference.RoomLayouts.BASEMENT5);
-			list.add(Reference.RoomLayouts.BASEMENT6);
-			list.add(Reference.RoomLayouts.BASEMENT7);
-			list.add(Reference.RoomLayouts.BASEMENT8);
-			list.add(Reference.RoomLayouts.BASEMENT9);
-			return list;
-		case CELLAR:
-			break;
-		}
-		return null;
-	}
-	
 	public BlockPos getSpawnPos() {
 		return spawnPos;
 	}
@@ -385,14 +373,6 @@ public class DungeonGenerator {
 
 	public int getzChunkSpawn() {
 		return zChunkSpawn;
-	}
-
-	public EnumDungeonType getType() {
-		return type;
-	}
-
-	public List<byte[][]> getPossibleRooms() {
-		return possibleRooms;
 	}
 
 	public static class Sorter implements Comparator<Pair<Integer, Integer>>
@@ -454,17 +434,17 @@ public class DungeonGenerator {
 	}
 	
 	public enum EnumDungeonType{
-		BASEMENT(0),CELLAR(1);
+		BASEMENT("basement"),CELLAR("cellar");
 
-		private int id;
+		private String id;
 
-		private EnumDungeonType(int id){
+		private EnumDungeonType(String id){
 			this.id = id;
 		}
 		
-		private static EnumDungeonType getTypeByID(int id) {
+		private static EnumDungeonType getTypeByID(String id) {
 			for(int x = 0; x < values().length; x ++) {
-				if(values()[x].id == id) {
+				if(values()[x].id.equals(id)) {
 					return values()[x];
 				}
 			}
@@ -472,7 +452,7 @@ public class DungeonGenerator {
 		}
 		
 		
-		public int getID() {
+		public String getID() {
 			return id;
 		}
 		

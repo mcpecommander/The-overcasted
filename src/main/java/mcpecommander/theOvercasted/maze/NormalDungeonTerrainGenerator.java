@@ -85,22 +85,39 @@ public class NormalDungeonTerrainGenerator {
 				}
 			}
 		} else if (chunks[chunkX][chunkZ] == 2) {
+			//Check which direction this is.
 			boolean south = chunksRequired.isNarrowSouthNorth(chunkX, chunkZ);
+			//Based on this, choose whether the width or the length should be reduced.
 			for (int x = south ? 4 : 0; south ? x < 12 : x < 16; x++) {
 				for (int z = south ? 0 : 4; south ? z < 16 : z < 12; z++) {
+					//The height is not affected.
 					for (int y = 63; y < 80; y++) {
 						if (y < 64) {
+							//Set bedrock base. in case something went horribly wrong, the player won't die.
 							chunkprimer.setBlockState(x, y, z, Blocks.BEDROCK.getDefaultState());
 						} else if (y == 64) {
+							//Set wood flooring.
 							chunkprimer.setBlockState(x, y, z, Registry.BASEMENT_WOOD.getDefaultState());
 						} else {
 							if (south) {
+								//if south directed, x will be reduced.
 								if (x == 4 || x == 11) {
 									chunkprimer.setBlockState(x, y, z, Registry.BASEMENT_WOOD.getDefaultState());
 								}
-							} else {
-								if (z == 4 || z == 11) {
+								//if the room to the south or north are narrow, we do not generate walls, otherwise generate as usual.
+								if((z == 0 && chunks[chunkX][chunkZ - 1] != 2) || (z == 15 && chunks[chunkX][chunkZ + 1] != 2)) {
 									chunkprimer.setBlockState(x, y, z, Registry.BASEMENT_WOOD.getDefaultState());
+									generateDoors(chunks, x, y, z, chunkX, chunkZ, chunkprimer, chunksRequired);
+								}
+							} else {
+								//if east directed, z will be reduced.
+								if (z == 4 || z == 11 ) {
+									chunkprimer.setBlockState(x, y, z, Registry.BASEMENT_WOOD.getDefaultState());
+								}
+								//if the room to the west or east are narrow, we do not generate walls, otherwise generate as usual. 
+								if((x == 0 && chunks[chunkX - 1][chunkZ] != 2) || (x == 15 && chunks[chunkX + 1][chunkZ] != 2)) {
+									chunkprimer.setBlockState(x, y, z, Registry.BASEMENT_WOOD.getDefaultState());
+									generateDoors(chunks, x, y, z, chunkX, chunkZ, chunkprimer, chunksRequired);
 								}
 							}
 						} 
@@ -115,34 +132,32 @@ public class NormalDungeonTerrainGenerator {
 		if (y == 65) {
 			if (x == 0) {
 				if (chunkX - 1 >= 0) {
-					if (chunks[chunkX - 1][chunkZ] != 0 && chunks[chunkX][chunkZ] != 2
-							|| (chunks[chunkX - 1][chunkZ] == 2
-									&& !chunksRequired.isNarrowSouthNorth(chunkX - 1, chunkZ))) {
+					if (chunks[chunkX - 1][chunkZ] != 0 || (chunks[chunkX - 1][chunkZ] == 2
+							&& !chunksRequired.isNarrowSouthNorth(chunkX - 1, chunkZ))) {
 						if (z == 8)
 							chunkprimer.setBlockState(x, y, z,
-									Blocks.ACACIA_DOOR.getDefaultState()
+									Registry.ROOM_DOOR.getDefaultState()
 											.withProperty(BlockDoor.HINGE, EnumHingePosition.LEFT)
 											.withProperty(BlockDoor.FACING, EnumFacing.WEST));
 						if (z == 7)
 							chunkprimer.setBlockState(x, y, z,
-									Blocks.ACACIA_DOOR.getDefaultState()
+									Registry.ROOM_DOOR.getDefaultState()
 											.withProperty(BlockDoor.HINGE, EnumHingePosition.RIGHT)
 											.withProperty(BlockDoor.FACING, EnumFacing.WEST));
 					}
 				}
 			} else if (x == 15) {
 				if (chunkX + 1 < chunksRequired.getMaxRows()) {
-					if (chunks[chunkX + 1][chunkZ] != 0 && chunks[chunkX][chunkZ] != 2
-							|| (chunks[chunkX + 1][chunkZ] == 2
-									&& !chunksRequired.isNarrowSouthNorth(chunkX + 1, chunkZ))) {
+					if (chunks[chunkX + 1][chunkZ] != 0 || (chunks[chunkX + 1][chunkZ] == 2
+							&& !chunksRequired.isNarrowSouthNorth(chunkX + 1, chunkZ))) {
 						if (z == 7)
 							chunkprimer.setBlockState(x, y, z,
-									Blocks.ACACIA_DOOR.getDefaultState()
+									Registry.ROOM_DOOR.getDefaultState()
 											.withProperty(BlockDoor.HINGE, EnumHingePosition.LEFT)
 											.withProperty(BlockDoor.FACING, EnumFacing.EAST));
 						if (z == 8)
 							chunkprimer.setBlockState(x, y, z,
-									Blocks.ACACIA_DOOR.getDefaultState()
+									Registry.ROOM_DOOR.getDefaultState()
 											.withProperty(BlockDoor.HINGE, EnumHingePosition.RIGHT)
 											.withProperty(BlockDoor.FACING, EnumFacing.EAST));
 					}
@@ -150,34 +165,32 @@ public class NormalDungeonTerrainGenerator {
 			}
 			if (z == 0) {
 				if (chunkZ - 1 >= 0) {
-					if (chunks[chunkX][chunkZ - 1] != 0 && chunks[chunkX][chunkZ] != 2
-							|| (chunks[chunkX][chunkZ - 1] == 2
-									&& chunksRequired.isNarrowSouthNorth(chunkX, chunkZ - 1))) {
+					if (chunks[chunkX][chunkZ - 1] != 0 || (chunks[chunkX][chunkZ - 1] == 2
+							&& chunksRequired.isNarrowSouthNorth(chunkX, chunkZ - 1))) {
 						if (x == 8)
 							chunkprimer.setBlockState(x, y, z,
-									Blocks.ACACIA_DOOR.getDefaultState()
+									Registry.ROOM_DOOR.getDefaultState()
 											.withProperty(BlockDoor.HINGE, EnumHingePosition.RIGHT)
 											.withProperty(BlockDoor.FACING, EnumFacing.NORTH));
 						if (x == 7)
 							chunkprimer.setBlockState(x, y, z,
-									Blocks.ACACIA_DOOR.getDefaultState()
+									Registry.ROOM_DOOR.getDefaultState()
 											.withProperty(BlockDoor.HINGE, EnumHingePosition.LEFT)
 											.withProperty(BlockDoor.FACING, EnumFacing.NORTH));
 					}
 				}
 			} else if (z == 15) {
 				if (chunkZ + 1 < chunksRequired.getMaxColumns()) {
-					if (chunks[chunkX][chunkZ + 1] != 0 && chunks[chunkX][chunkZ] != 2
-							|| (chunks[chunkX][chunkZ + 1] == 2
-									&& chunksRequired.isNarrowSouthNorth(chunkX, chunkZ + 1))) {
+					if (chunks[chunkX][chunkZ + 1] != 0 || (chunks[chunkX][chunkZ + 1] == 2
+							&& chunksRequired.isNarrowSouthNorth(chunkX, chunkZ + 1))) {
 						if (x == 7)
 							chunkprimer.setBlockState(x, y, z,
-									Blocks.ACACIA_DOOR.getDefaultState()
+									Registry.ROOM_DOOR.getDefaultState()
 											.withProperty(BlockDoor.HINGE, EnumHingePosition.RIGHT)
 											.withProperty(BlockDoor.FACING, EnumFacing.SOUTH));
 						if (x == 8)
 							chunkprimer.setBlockState(x, y, z,
-									Blocks.ACACIA_DOOR.getDefaultState()
+									Registry.ROOM_DOOR.getDefaultState()
 											.withProperty(BlockDoor.HINGE, EnumHingePosition.LEFT)
 											.withProperty(BlockDoor.FACING, EnumFacing.SOUTH));
 					}
@@ -189,13 +202,13 @@ public class NormalDungeonTerrainGenerator {
 				if (chunkprimer.getBlockState(x, y - 1, z).getBlock() instanceof BlockDoor) {
 					if (z == 8)
 						chunkprimer.setBlockState(x, y, z,
-								Blocks.ACACIA_DOOR.getDefaultState()
+								Registry.ROOM_DOOR.getDefaultState()
 										.withProperty(BlockDoor.HINGE, EnumHingePosition.LEFT)
 										.withProperty(BlockDoor.FACING, EnumFacing.WEST)
 										.withProperty(BlockDoor.HALF, EnumDoorHalf.UPPER));
 					if (z == 7)
 						chunkprimer.setBlockState(x, y, z,
-								Blocks.ACACIA_DOOR.getDefaultState()
+								Registry.ROOM_DOOR.getDefaultState()
 										.withProperty(BlockDoor.HINGE, EnumHingePosition.RIGHT)
 										.withProperty(BlockDoor.FACING, EnumFacing.WEST)
 										.withProperty(BlockDoor.HALF, EnumDoorHalf.UPPER));
@@ -204,13 +217,13 @@ public class NormalDungeonTerrainGenerator {
 				if (chunkprimer.getBlockState(x, y - 1, z).getBlock() instanceof BlockDoor) {
 					if (z == 7)
 						chunkprimer.setBlockState(x, y, z,
-								Blocks.ACACIA_DOOR.getDefaultState()
+								Registry.ROOM_DOOR.getDefaultState()
 										.withProperty(BlockDoor.HINGE, EnumHingePosition.LEFT)
 										.withProperty(BlockDoor.FACING, EnumFacing.EAST)
 										.withProperty(BlockDoor.HALF, EnumDoorHalf.UPPER));
 					if (z == 8)
 						chunkprimer.setBlockState(x, y, z,
-								Blocks.ACACIA_DOOR.getDefaultState()
+								Registry.ROOM_DOOR.getDefaultState()
 										.withProperty(BlockDoor.HINGE, EnumHingePosition.RIGHT)
 										.withProperty(BlockDoor.FACING, EnumFacing.EAST)
 										.withProperty(BlockDoor.HALF, EnumDoorHalf.UPPER));
@@ -220,13 +233,13 @@ public class NormalDungeonTerrainGenerator {
 				if (chunkprimer.getBlockState(x, y - 1, z).getBlock() instanceof BlockDoor) {
 					if (x == 8)
 						chunkprimer.setBlockState(x, y, z,
-								Blocks.ACACIA_DOOR.getDefaultState()
+								Registry.ROOM_DOOR.getDefaultState()
 										.withProperty(BlockDoor.HINGE, EnumHingePosition.RIGHT)
 										.withProperty(BlockDoor.FACING, EnumFacing.NORTH)
 										.withProperty(BlockDoor.HALF, EnumDoorHalf.UPPER));
 					if (x == 7)
 						chunkprimer.setBlockState(x, y, z,
-								Blocks.ACACIA_DOOR.getDefaultState()
+								Registry.ROOM_DOOR.getDefaultState()
 										.withProperty(BlockDoor.HINGE, EnumHingePosition.LEFT)
 										.withProperty(BlockDoor.FACING, EnumFacing.NORTH)
 										.withProperty(BlockDoor.HALF, EnumDoorHalf.UPPER));
@@ -235,13 +248,13 @@ public class NormalDungeonTerrainGenerator {
 				if (chunkprimer.getBlockState(x, y - 1, z).getBlock() instanceof BlockDoor) {
 					if (x == 7)
 						chunkprimer.setBlockState(x, y, z,
-								Blocks.ACACIA_DOOR.getDefaultState()
+								Registry.ROOM_DOOR.getDefaultState()
 										.withProperty(BlockDoor.HINGE, EnumHingePosition.RIGHT)
 										.withProperty(BlockDoor.FACING, EnumFacing.SOUTH)
 										.withProperty(BlockDoor.HALF, EnumDoorHalf.UPPER));
 					if (x == 8)
 						chunkprimer.setBlockState(x, y, z,
-								Blocks.ACACIA_DOOR.getDefaultState()
+								Registry.ROOM_DOOR.getDefaultState()
 										.withProperty(BlockDoor.HINGE, EnumHingePosition.LEFT)
 										.withProperty(BlockDoor.FACING, EnumFacing.SOUTH)
 										.withProperty(BlockDoor.HALF, EnumDoorHalf.UPPER));

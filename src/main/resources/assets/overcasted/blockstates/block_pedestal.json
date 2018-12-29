@@ -4,7 +4,6 @@
     "textures": {
 	  "particle": "blocks/stone"
     },
-    "model": "minecraft:cube_all",
     "uvlock": true,
     "transform": "forge:default-block"
   },

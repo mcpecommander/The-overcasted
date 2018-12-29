@@ -1,35 +1,39 @@
 package mcpecommander.theOvercasted.maze;
 
-import java.util.List;
-
-import mcpecommander.theOvercasted.Reference;
+import mcpecommander.theOvercasted.block.BlockPoop;
+import mcpecommander.theOvercasted.block.BlockTNT;
+import mcpecommander.theOvercasted.block.tileEntity.TileEntityPedestal;
+import mcpecommander.theOvercasted.init.ModRoomLayouts;
+import mcpecommander.theOvercasted.item.effects.Attribute;
 import mcpecommander.theOvercasted.registryHandler.Registry;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class DungeonDecorator {
-	private byte[][] currentLayout = null;
+	private ResourceLocation[][] currentLayout = null;
 	
-	public void decorate(int chunkX, int chunkZ, World world, DungeonGenerator chunksRequired) {
+	public void decorate(int chunkX, int chunkZ, World world, DungeonGenerator chunksRequired, int layout) {
 		int[][] chunks = chunksRequired.getLayout();
 		switch(chunks[chunkX][chunkZ]) {
 		case 7:
 			BlockPos pos = new BlockPos(chunkX * 16 + 8, 65, chunkZ * 16 + 8);
-			world.setBlockState(pos, Blocks.CHEST.getDefaultState());
+			world.setBlockState(pos, Registry.PEDESTAL.getDefaultState());
 			TileEntity tile = world.getTileEntity(pos);
 			if(tile != null) {
-				TileEntityChest chest = (TileEntityChest) tile;
-				chest.setLootTable(LootTableList.CHESTS_SIMPLE_DUNGEON, chunksRequired.random.nextLong());
+				TileEntityPedestal pedestal = (TileEntityPedestal) tile;
+				pedestal.setItemStack(new ItemStack(Registry.ITEM, 1, chunksRequired.random.nextInt(Attribute.REGISTRY.size()) + 1));
 			}
 			break;
 		case 1:
 			if(currentLayout == null) {
-				List<byte[][]> list = chunksRequired.getPossibleRooms();
-				currentLayout = list.get(world.rand.nextInt(list.size()));
+				currentLayout = ModRoomLayouts.layouts.getObject(layout).getDeco();
 						
 			}
 			readLayout(currentLayout, world, chunkX, chunkZ);
@@ -46,29 +50,18 @@ public class DungeonDecorator {
 		}
 	}
 
-	private void readLayout(byte[][] currentLayout, World world, int chunkX, int chunkZ) {
+	private void readLayout(ResourceLocation[][] currentLayout, World world, int chunkX, int chunkZ) {
 		BlockPos pos = BlockPos.ORIGIN;
 		for(int x = 0; x < 14; x ++) {
 			for(int z = 0; z < 14; z++) {
 				pos = new BlockPos(chunkX * 16 + x + 1, 65, chunkZ * 16 + z + 1);
-				switch(currentLayout[x][z]) {
-				case 0:
-					break;
-				case 1:
-					world.setBlockState(pos, Registry.ROCK.getDefaultState());
-					break;
-				case 2:
-					world.setBlockState(pos, Registry.VASE.getDefaultState());
-					break;
-				case 3:
+				Block block = ForgeRegistries.BLOCKS.getValue(currentLayout[x][z]);
+				if(block instanceof BlockPoop) {
 					world.setBlockState(pos, Registry.POOP.getAllowedStates());
-					break;
-				case 4:
-					world.setBlockState(pos, Blocks.WEB.getDefaultState());
-					break;
-				case 5:
+				}else if (block instanceof BlockTNT){
 					world.setBlockState(pos, Registry.TNT.getRandomHorizontalDirection());
-					break;
+				}else {
+					world.setBlockState(pos, block.getDefaultState());
 				}
 			}
 		}

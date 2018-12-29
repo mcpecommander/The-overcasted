@@ -9,6 +9,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import mcpecommander.theOvercasted.entity.entities.flies.EntityFly;
+import mcpecommander.theOvercasted.init.ModRoomLayouts;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -55,12 +56,15 @@ public class DungeonTerrianGen implements IChunkGenerator {
 
 	@Override
 	public void populate(int x, int z) {
-		if(x < chunksRequired.getMaxRows() && z < chunksRequired.getMaxColumns() &&  x > -1 && z > -1 && chunksRequired.getLayout()[x][z] != 0) {
-			if(chunksRequired.getxChunkSpawn() == x && chunksRequired.getzChunkSpawn() == z) return;
-			
-			decorator.decorate(x, z, worldObj, chunksRequired);
-			populater.popluate(x, z, worldObj, chunksRequired);
-			}
+		if (x < chunksRequired.getMaxRows() && z < chunksRequired.getMaxColumns() && x > -1 && z > -1
+				&& chunksRequired.getLayout()[x][z] != 0) {
+			if (chunksRequired.getxChunkSpawn() == x && chunksRequired.getzChunkSpawn() == z)
+				return;
+
+			int layout = chunksRequired.random.nextInt(ModRoomLayouts.layouts.getKeys().size());
+			decorator.decorate(x, z, worldObj, chunksRequired, layout);
+			populater.popluate(x, z, worldObj, chunksRequired, layout);
+		}
 	}
 
 	@Override

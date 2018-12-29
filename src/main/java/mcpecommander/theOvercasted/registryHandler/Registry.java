@@ -8,6 +8,7 @@ import mcpecommander.theOvercasted.block.BlockBasementWood;
 import mcpecommander.theOvercasted.block.BlockPedestal;
 import mcpecommander.theOvercasted.block.BlockPoop;
 import mcpecommander.theOvercasted.block.BlockRock;
+import mcpecommander.theOvercasted.block.BlockRoomDoor;
 import mcpecommander.theOvercasted.block.BlockTNT;
 import mcpecommander.theOvercasted.block.BlockVase;
 import mcpecommander.theOvercasted.item.ItemBlockPedestal;
@@ -36,12 +37,13 @@ public class Registry {
 	public static final Block VASE = new BlockVase();
 	public static final BlockTNT TNT = new BlockTNT();
 	public static final Block PEDESTAL = new BlockPedestal();
+	public static final BlockRoomDoor ROOM_DOOR = new BlockRoomDoor();
 	
 	public static final Item BOMB = new ItemBomb();
 	public static final Item LASER_BEAM = new ItemLaserBeam();
 	public static final Item TEAR = new ItemTear();
 	public static final ItemBlock ITEM_PEDESTAL = new ItemBlockPedestal();
-	public static final ItemItem Item = new ItemItem();
+	public static final ItemItem ITEM = new ItemItem();
 	
 	@SubscribeEvent
 	public static void onBlockRegister(Register<Block> event) {

@@ -23,7 +23,7 @@ public class Attribute {
 			new StatEffect("fire_rate,1.5,false,+"), new ColorEffect(Color.YELLOW));
 	public static final Attribute BLOOD_OF_THE_MARTYR = new Attribute(7, new StatEffect("damage,1,false,+"),
 			new ColorEffect(Color.RED));
-	public static final Attribute BROTHER_BOBBY = new Attribute(8, new FamiliarEffect(new EntityPrimalFamiliar(null)));
+	public static final Attribute BROTHER_BOBBY = new Attribute(8, new FamiliarEffect(EntityPrimalFamiliar.class));
 	
 	
 	

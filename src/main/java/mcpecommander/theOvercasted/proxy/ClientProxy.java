@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class ClientProxy extends CommonProxy{
 	
-	public static KeyBinding yKey;
+	public static KeyBinding yKey, uKey;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent e) {
@@ -30,8 +30,10 @@ public class ClientProxy extends CommonProxy{
 	public void init(FMLInitializationEvent e) {
 		super.init(e);
 		ModAnimations.init();
-	    yKey = new KeyBinding("key.tutorial", Keyboard.KEY_Y, "key.categories." + Reference.MODID);
+	    yKey = new KeyBinding("key.pickups_gui", Keyboard.KEY_Y, "key.categories." + Reference.MODID);
+	    uKey = new KeyBinding("key.layout_maker", Keyboard.KEY_U, "key.categories." + Reference.MODID);
 	    ClientRegistry.registerKeyBinding(yKey);
+	    ClientRegistry.registerKeyBinding(uKey);
 	}
 
 	@Override

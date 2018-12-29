@@ -35,7 +35,7 @@ import net.minecraftforge.fml.relauncher.Side;
 @Mod.EventBusSubscriber(modid= Reference.MODID)
 public class CapabilityEvents {
 	
-	
+	public static boolean isUPressed;
 	
 	@SubscribeEvent
 	public static void onPlayerLogin(PlayerLoggedInEvent event) {
@@ -127,6 +127,7 @@ public class CapabilityEvents {
 		if(ClientProxy.yKey.isPressed()) {
 			Minecraft.getMinecraft().displayGuiScreen(new PickupsGUI());
 		}
+		isUPressed = ClientProxy.uKey.isPressed();
 	}
 	
 	@SubscribeEvent

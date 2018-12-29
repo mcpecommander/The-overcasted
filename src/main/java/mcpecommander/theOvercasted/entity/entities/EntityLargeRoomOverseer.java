@@ -9,6 +9,7 @@ import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ClassInheritanceMultiMap;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 
 public class EntityLargeRoomOverseer extends EntityOverseer {
 
@@ -48,6 +49,14 @@ public class EntityLargeRoomOverseer extends EntityOverseer {
 			entity.updateBlocked = !hasPlayer;
 		});
 		
+	}
+	
+	@Override
+	public boolean isChunkUnderThisControl(Chunk chunk) {
+		return (chunk.x == this.chunkCoordX && chunk.z == this.chunkCoordZ)
+				|| (chunk.x == this.chunkCoordX + 1 && chunk.z == this.chunkCoordZ)
+				|| (chunk.x == this.chunkCoordX && chunk.z == this.chunkCoordZ + 1)
+				|| 	(chunk.x == this.chunkCoordX + 1 && chunk.z == this.chunkCoordZ + 1);
 	}
 	
 	@Override

@@ -12,9 +12,9 @@ import net.minecraft.world.World;
 
 public class FamiliarEffect implements IEffect {
 	
-	EntityBasicFamiliar entity;
+	Class<? extends EntityBasicFamiliar> entity;
 
-	public FamiliarEffect(EntityBasicFamiliar entity) {
+	public FamiliarEffect(Class<? extends EntityBasicFamiliar> entity) {
 		this.entity = entity;
 		
 	}
@@ -24,11 +24,11 @@ public class FamiliarEffect implements IEffect {
 		EntityLivingBase master = EntityBasicFamiliar.getLastFollower(player);
 		EntityBasicFamiliar familiar = null;
 		try {
-			if(entity instanceof EntityPrimalFamiliar) {
-				familiar = entity.getClass().getConstructor(World.class, EntityLivingBase.class, Type.class)
+			if(entity == EntityPrimalFamiliar.class) {
+				familiar = entity.getConstructor(World.class, EntityLivingBase.class, Type.class)
 						.newInstance(player.world, master, Type.getByID(attribute.getId()));
 			}else {
-				familiar = entity.getClass().getConstructor(World.class, EntityLivingBase.class).newInstance(player.world, master);
+				familiar = entity.getConstructor(World.class, EntityLivingBase.class).newInstance(player.world, master);
 			} 
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e) {

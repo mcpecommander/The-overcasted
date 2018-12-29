@@ -77,7 +77,5 @@ public class BlockVase extends Block implements IHasModel{
 				new ModelResourceLocation(getRegistryName(), "inventory"));
 		
 	}
-	
-
 
 }

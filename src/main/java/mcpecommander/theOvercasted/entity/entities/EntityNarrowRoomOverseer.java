@@ -9,6 +9,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ClassInheritanceMultiMap;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 
 public class EntityNarrowRoomOverseer extends EntityOverseer {
 
@@ -62,6 +63,13 @@ public class EntityNarrowRoomOverseer extends EntityOverseer {
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public boolean isChunkUnderThisControl(Chunk chunk) {
+		return (chunk.x == this.chunkCoordX && chunk.z == this.chunkCoordZ)
+				|| (chunk.x == this.chunkCoordX + getDirection().getDirectionVec().getX()
+				&& chunk.z == this.chunkCoordZ + getDirection().getDirectionVec().getZ());
 	}
 	
 	public EnumFacing getDirection() {

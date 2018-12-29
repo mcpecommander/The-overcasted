@@ -248,6 +248,7 @@ public class BlockPoop extends Block implements IHasModel {
 			return "golden";
 		}
 	}
+	
 
 	public static enum EnumPhase implements IStringSerializable {
 		FULL, HALF, QUARTER;
@@ -268,5 +269,7 @@ public class BlockPoop extends Block implements IHasModel {
 		}
 
 	}
+
+	
 
 }

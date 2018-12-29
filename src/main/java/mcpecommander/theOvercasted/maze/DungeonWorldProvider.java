@@ -1,8 +1,11 @@
 package mcpecommander.theOvercasted.maze;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import mcpecommander.theOvercasted.entity.entities.EntityOverseer;
 import mcpecommander.theOvercasted.events.DimensionEvents;
@@ -16,12 +19,13 @@ import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeProviderSingle;
 import net.minecraft.world.border.WorldBorder;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.IChunkGenerator;
 
 public class DungeonWorldProvider extends WorldProvider {
 	
 	private DungeonGenerator dungeon;
-	public final List<EntityOverseer> overseers = Lists.newArrayList();
+	public final Set<EntityOverseer> overseers = new HashSet<>();
 	
 	@Override
 	protected void init() {
@@ -62,7 +66,6 @@ public class DungeonWorldProvider extends WorldProvider {
 		nbttagcompound.setInteger("x", dungeon.getSpawnPos().getX());
 		nbttagcompound.setInteger("y", dungeon.getSpawnPos().getY());
 		nbttagcompound.setInteger("z", dungeon.getSpawnPos().getZ());
-		nbttagcompound.setInteger("dungeon_type", dungeon.getType().getID());
 		return nbttagcompound;
 	}
 

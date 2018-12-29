@@ -1,0 +1,49 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "overcasted:block/room_door_henge",
+		"1": "overcasted:block/room_door",
+		"particle": "overcasted:block/room_door_henge"
+	},
+	"elements": [
+		{
+			"name": "leftSide",
+			"from": [14, 0, 0],
+			"to": [16, 14, 2],
+			"faces": {
+				"north": {"uv": [16, 2, 14, 16], "texture": "#0"},
+				"east": {"uv": [16, 2, 14, 16], "texture": "#0"},
+				"south": {"uv": [14, 2, 12, 16], "texture": "#0"},
+				"west": {"uv": [14, 2, 12, 16], "texture": "#0"},
+				"up": {"uv": [14, 0, 12, 2], "texture": "#0"},
+				"down": {"uv": [14, 0, 12, 2], "texture": "#0"}
+			}
+		},
+		{
+			"name": "door",
+			"from": [0, 0, 1],
+			"to": [14, 14, 2],
+			"faces": {
+				"north": {"uv": [14, 14, 0, 1], "texture": "#1"},
+				"east": {"uv": [14, 0, 13, 14], "texture": "#1"},
+				"south": {"uv": [0, 14, 14, 0], "texture": "#1"},
+				"west": {"uv": [1, 0, 0, 14], "texture": "#1"},
+				"up": {"uv": [0, 0, 14, 1], "texture": "#1"},
+				"down": {"uv": [14, 0, 0, 1], "texture": "#1"}
+			}
+		},
+		{
+			"name": "top",
+			"from": [0, 14, 0],
+			"to": [16, 16, 2],
+			"faces": {
+				"north": {"uv": [14, 16, 16, 0], "rotation": 90, "texture": "#0"},
+				"east": {"uv": [16, 0, 14, 2], "texture": "#0"},
+				"south": {"uv": [14, 16, 16, 0], "rotation": 90, "texture": "#0"},
+				"west": {"uv": [14, 0, 12, 2], "texture": "#0"},
+				"up": {"uv": [14, 16, 16, 0], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [12, 16, 14, 0], "rotation": 90, "texture": "#0"}
+			}
+		}
+	]
+}

@@ -86,7 +86,8 @@ public class Reference {
 		ROCK(new ResourceLocation(MODID, "block_rock")),
 		VASE(new ResourceLocation(MODID, "block_vase")),
 		TNT(new ResourceLocation(MODID, "block_tnt")),
-		PEDESTAL(new ResourceLocation(MODID, "block_pedestal"));
+		PEDESTAL(new ResourceLocation(MODID, "block_pedestal")), 
+		ROOM_DOOR(new ResourceLocation(MODID, "block_room_door"));
 		
 		private ResourceLocation name;
 		

@@ -1,5 +1,7 @@
 package mcpecommander.theOvercasted.proxy;
 
+import java.io.IOException;
+
 import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.TheOvercasted;
 import mcpecommander.theOvercasted.block.tileEntity.TileEntityPedestal;
@@ -14,6 +16,7 @@ import mcpecommander.theOvercasted.capability.stats.Stats;
 import mcpecommander.theOvercasted.capability.stats.StatsStorage;
 import mcpecommander.theOvercasted.gui.GuiProxy;
 import mcpecommander.theOvercasted.init.ModDimensions;
+import mcpecommander.theOvercasted.init.ModRoomLayouts;
 import mcpecommander.theOvercasted.networking.PacketSendStats;
 import mcpecommander.theOvercasted.networking.PacketSendVec3i;
 import net.minecraft.util.ResourceLocation;
@@ -39,10 +42,13 @@ public class CommonProxy {
 		CapabilityManager.INSTANCE.register(IFollower.class, new FollowerStorage(), new Follower.Factory());
 		CHANNEL.registerMessage(PacketSendVec3i.Handler.class, PacketSendVec3i.class, ID++, Side.CLIENT);
 		CHANNEL.registerMessage(PacketSendStats.Handler.class, PacketSendStats.class, ID++, Side.CLIENT);
+		ModRoomLayouts.init();
 	}
 	
 	public void init(FMLInitializationEvent e) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(TheOvercasted.instance, new GuiProxy());
+		ModRoomLayouts.initLayouts();
+
 	}
 	
 	public void postInit(FMLPostInitializationEvent e) {
