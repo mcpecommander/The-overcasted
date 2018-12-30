@@ -20,40 +20,6 @@ public class EntityNarrowRoomOverseer extends EntityOverseer {
 	}
 	
 	@Override
-	protected void updateEntitiesList() {
-		hasPlayer = hasPlayer();
-		currentListSize = 0;
-		for(int i = 0; i < 2; i++)
-		for (ClassInheritanceMultiMap<Entity> list : this.world
-				.getChunkFromChunkCoords(this.chunkCoordX + (i == 1 ? getDirection().getDirectionVec().getX() : 0)
-						, this.chunkCoordZ + (i == 1 ? getDirection().getDirectionVec().getZ() : 0)).getEntityLists()) {
-			if (!list.isEmpty()) {
-				currentListSize += list.size();
-			}
-			if (hasChunkChanged) {
-				for (Entity entity : list) {
-					if (entity != this) {
-						entities.add(entity);
-					}
-
-				}
-			}
-		}
-
-		
-		if(prevListSize != currentListSize) {
-			hasChunkChanged = true;
-			entities.clear();
-			this.prevListSize = currentListSize;
-		}else {
-			hasChunkChanged = false;
-		}
-		entities.forEach(entity -> {
-			entity.updateBlocked = !hasPlayer;
-		});
-	}
-	
-	@Override
 	protected boolean hasPlayer() {
 		for(EntityPlayer player : this.world.playerEntities) {
 			if ((player.chunkCoordX == this.chunkCoordX && player.chunkCoordZ == this.chunkCoordZ)

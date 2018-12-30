@@ -2,9 +2,11 @@ package mcpecommander.theOvercasted.item.effects;
 
 import java.awt.Color;
 
+import mcpecommander.theOvercasted.entity.entities.projectiles.EntityTear;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 
 public class ColorEffect implements IEffect {
 	
@@ -25,6 +27,11 @@ public class ColorEffect implements IEffect {
 			tag.setInteger("color", this.color.getRGB());
 		}
 		
+	}
+	
+	@Override
+	public void onTearCreation(EntityPlayer entity, NonNullList<EntityTear> tears, Attribute attribute) {
+		tears.forEach(tear -> tear.setColor(this.color.getRGB()));
 	}
 
 }

@@ -10,11 +10,11 @@ import mcpecommander.theOvercasted.entity.entities.familiars.EntityPrimalFamilia
 public class Attribute {
 	public static final Map<Integer, Attribute> REGISTRY = Maps.newHashMap();
 
-	public static final Attribute SAD_ONION = new Attribute(1, new StatEffect("fire_rate,0.7,false,+"), 
-			new ColorEffect(Color.PINK.darker().darker()));
+	public static final Attribute SAD_ONION = new Attribute(1, new StatEffect("fire_rate,0.7,false,+"));
 	public static final Attribute INNER_EYE = new Attribute(2, new TearEffect(TearEffectCommons.multiShot(2)),
 			new StatEffect("fire_rate,2.1,true,*"), new StatEffect("fire_rate,3,true,+"));
-	public static final Attribute SPOON_BENDER = new Attribute(3, new TearEffect(TearEffectCommons.homingShot()));
+	public static final Attribute SPOON_BENDER = new Attribute(3, new TearEffect(TearEffectCommons.homingShot()),
+			new ColorEffect(Color.PINK.darker().darker()));
 	public static final Attribute CRICKET_HEAD = new Attribute(4,
 			new StatEffect("damage,0.5,false,+", "damage,1.5,false,*"));
 	public static final Attribute MY_REFLECTION = new Attribute(5, new TearEffect(TearEffectCommons.boomerangShot()),

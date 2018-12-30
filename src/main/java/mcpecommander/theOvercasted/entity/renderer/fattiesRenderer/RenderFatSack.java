@@ -14,10 +14,16 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 public class RenderFatSack extends RenderBasicChampion<EntityFatSack> {
 
 	private static CraftStudioModelSon model = new CraftStudioModelSon(Reference.MODID, "fat_sack", 64, 64);
-
+	private static CSModelRendererOvercasted rightLeg, leftLeg, rightArm, leftArm, chest, head;
+	
 	public RenderFatSack(RenderManager rendermanagerIn) {
 		super(rendermanagerIn, model, 0f);	
-		
+		rightLeg = model.getModelRendererFromName("RightLeg");
+		leftLeg = model.getModelRendererFromName("LeftLeg");
+		leftArm = model.getModelRendererFromName("LeftArm");
+		rightArm = model.getModelRendererFromName("RightArm");
+		head = model.getModelRendererFromName("Head");
+		chest = model.getModelRendererFromName("Chest");
 	}
 
 	@Override
@@ -26,10 +32,6 @@ public class RenderFatSack extends RenderBasicChampion<EntityFatSack> {
 		float x = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 		boolean moving = x != 0 && (x > 0.001f || x < -0.001f);
 		if(moving) {
-			CSModelRendererOvercasted rightLeg = model.getModelRendererFromName("RightLeg");
-			CSModelRendererOvercasted leftLeg = model.getModelRendererFromName("LeftLeg");
-			CSModelRendererOvercasted leftArm = model.getModelRendererFromName("LeftArm");
-			CSModelRendererOvercasted rightArm = model.getModelRendererFromName("RightArm");
 			CSModelRendererOvercasted.rotateBoxes(CSModelRendererOvercasted.unbalancedWave(rightLeg.rotateAngleX, ageInTicks, false, false, 2f), 0, 0, rightLeg);
 			CSModelRendererOvercasted.rotateBoxes(CSModelRendererOvercasted.unbalancedWave(leftLeg.rotateAngleX, ageInTicks, true, false, 2f), 0, 0, leftLeg);
 			CSModelRendererOvercasted.rotateBoxes(CSModelRendererOvercasted.balancedWave(90, ageInTicks, true, 5f, 10f), -20f, 0f, leftArm);
@@ -37,15 +39,16 @@ public class RenderFatSack extends RenderBasicChampion<EntityFatSack> {
 		}else {
 			model.resetAllRotations();
 		}
-		CSModelRendererOvercasted head = model.getModelRendererFromName("Head");
 		CSModelRendererOvercasted.rotateBoxes(0f, 0f, (float)(head.getDefualtZRotation() + Math.sin(ageInTicks / 10f)), head);
 		if(entitylivingbaseIn.getSackType() == 2) {
 			head.isHidden = true;
+			chest.isHidden = false;
 		}else if (entitylivingbaseIn.getSackType() == 3){
-			model.getModelRendererFromName("Chest").isHidden = true;
+			chest.isHidden = true;
+			head.isHidden = true;
 		} else {
 			head.isHidden = false;
-			model.getModelRendererFromName("Chest").isHidden = false;
+			chest.isHidden = false;
 		}
 		super.renderModel(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch,
 				scaleFactor);

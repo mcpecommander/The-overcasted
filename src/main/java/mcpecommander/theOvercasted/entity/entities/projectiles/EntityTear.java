@@ -34,6 +34,7 @@ import net.minecraft.world.WorldServer;
 public class EntityTear extends Entity {
 	
 	private static final DataParameter<Boolean> FALLING = EntityDataManager.<Boolean>createKey(EntityTear.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> COLOR = EntityDataManager.<Integer>createKey(EntityTear.class, DataSerializers.VARINT);
 	
 	public EntityPlayer shooter;
 	protected Entity target;
@@ -41,7 +42,6 @@ public class EntityTear extends Entity {
 	protected float damage, lerpTime, range, distanceMoved;
 	public int[] effectInts;
 	protected List<IEffect> effects;
-	public Color color;
 	
 	public EntityTear(World world) {
 		super(world);
@@ -197,6 +197,16 @@ public class EntityTear extends Entity {
 	@Override
 	protected void entityInit() {
 		this.dataManager.register(FALLING, false);
+		this.dataManager.register(COLOR, -1);
+	}
+	
+	public int getColor() {
+		return this.dataManager.get(COLOR);
+	}
+	
+	public void setColor(int color) {
+		this.dataManager.set(COLOR, color);
+		this.dataManager.setDirty(COLOR);
 	}
 	
 	protected boolean isFalling() {
@@ -223,7 +233,7 @@ public class EntityTear extends Entity {
 		this.effectInts = compound.getIntArray("effects");
 		this.effects = getEffects(effectInts);
 		this.distanceMoved = compound.getFloat("distance_flew");
-		this.color = new Color(compound.getInteger("color"));
+		this.setColor(compound.getInteger("color"));
 	}
 
 	@Override
@@ -237,7 +247,7 @@ public class EntityTear extends Entity {
 		}
 		compound.setIntArray("effects", effectInts);
 		compound.setFloat("distance_flew", distanceMoved);
-		compound.setInteger("color", this.color.getRGB());
+		compound.setInteger("color", this.getColor());
 	}
 	
 	public static List<IEffect> getEffects(int[] items) {

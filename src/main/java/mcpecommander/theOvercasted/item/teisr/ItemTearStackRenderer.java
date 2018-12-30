@@ -28,7 +28,7 @@ public class ItemTearStackRenderer extends TileEntityItemStackRenderer{
 			}
 			Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 			GlStateManager.pushMatrix();
-			GlStateManager.color(color.getRed(), color.getGreen(), color.getBlue(), 1f);
+			GlStateManager.color(color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f, 1f);
 			GlStateManager.translate(.5, -1.25, .5);
 			for(CSModelRendererOvercasted box : model.getParentBlocks()) {
 				box.render(0.0625f);

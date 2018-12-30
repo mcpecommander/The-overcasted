@@ -67,7 +67,7 @@ public class DungeonPopulater {
 		}else {
 			if(chunkX - 1 > 1 && layout[chunkX - 1][chunkZ] == 2) {
 				return getOverseerByChunks(provider, chunk) == null ? EnumFacing.WEST : EnumFacing.UP;
-			}else if(chunkX + 1 < dungeon.getMaxColumns() - 1 && layout[chunkX + 1][chunkZ] == 2) {
+			}else if(chunkX + 1 < dungeon.getMaxRows() - 1 && layout[chunkX + 1][chunkZ] == 2) {
 				return getOverseerByChunks(provider, chunk) == null ? EnumFacing.EAST : EnumFacing.UP;
 			}else {
 				return EnumFacing.DOWN;

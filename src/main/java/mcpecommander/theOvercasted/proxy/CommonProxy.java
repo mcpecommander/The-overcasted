@@ -47,7 +47,9 @@ public class CommonProxy {
 	
 	public void init(FMLInitializationEvent e) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(TheOvercasted.instance, new GuiProxy());
-		ModRoomLayouts.initLayouts();
+		ModRoomLayouts.initLayouts("basement", "normal");
+		ModRoomLayouts.initLayouts("basement", "narrow");
+		ModRoomLayouts.initLayouts("basement", "wide");
 
 	}
 	

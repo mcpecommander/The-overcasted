@@ -61,7 +61,7 @@ public class DungeonTerrianGen implements IChunkGenerator {
 			if (chunksRequired.getxChunkSpawn() == x && chunksRequired.getzChunkSpawn() == z)
 				return;
 
-			int layout = chunksRequired.random.nextInt(ModRoomLayouts.layouts.getKeys().size());
+			int layout = chunksRequired.random.nextInt(ModRoomLayouts.basement_normal_layouts.getKeys().size());
 			decorator.decorate(x, z, worldObj, chunksRequired, layout);
 			populater.popluate(x, z, worldObj, chunksRequired, layout);
 		}
@@ -76,17 +76,8 @@ public class DungeonTerrianGen implements IChunkGenerator {
 
 	@Override
 	public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
-		// If you want normal creatures appropriate for this biome then uncomment the
-		// following two lines:
-		if (pos.getY() < 70) {
-			Biome biome = this.worldObj.getBiome(pos);
-			return biome.getSpawnableList(creatureType);
-		}
-		return ImmutableList.of();
 
-//		if (creatureType == EnumCreatureType.MONSTER) {
-//			return mobs;
-//		}
+		return ImmutableList.of();
 	
 
 	}

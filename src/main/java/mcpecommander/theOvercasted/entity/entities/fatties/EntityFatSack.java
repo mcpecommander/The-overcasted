@@ -6,12 +6,14 @@ import mcpecommander.theOvercasted.entity.entities.EntityBasicChampion;
 import mcpecommander.theOvercasted.particle.GushingBloodParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
 
 public class EntityFatSack extends EntityBasicChampion{
 	
@@ -47,6 +49,7 @@ public class EntityFatSack extends EntityBasicChampion{
 	
 	public void setSackType(byte sackType) {
 		this.dataManager.set(TYPE, sackType);
+		this.dataManager.setDirty(TYPE);
 	}
 	
 	@Override
@@ -75,6 +78,19 @@ public class EntityFatSack extends EntityBasicChampion{
 	}
 	
 	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		if(compound.hasKey("type", Constants.NBT.TAG_BYTE))
+			this.setSackType(compound.getByte("type"));
+	}
+	
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setByte("type", this.getSackType());
+	}
+	
+	@Override
 	public String getName() {
 		if(this.getSackType() == 2) {
 			return I18n.translateToLocal("entity.blubber.name");
@@ -95,11 +111,11 @@ public class EntityFatSack extends EntityBasicChampion{
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		if(this.world.isRemote) {
+		if(this.world.isRemote && !this.isInvisible()) {
 			if(this.getSackType() == 2 && this.isEntityAlive()) {
-				Minecraft.getMinecraft().effectRenderer.addEffect(GushingBloodParticle.createParticle(world, posX, posY + this.height - 0.3, posZ));
-			}else if(this.getSackType() == 3 && this.isEntityAlive()) {
 				Minecraft.getMinecraft().effectRenderer.addEffect(GushingBloodParticle.createParticle(world, posX, posY + this.height - 0.7, posZ));
+			}else if(this.getSackType() == 3 && this.isEntityAlive()) {
+				Minecraft.getMinecraft().effectRenderer.addEffect(GushingBloodParticle.createParticle(world, posX, posY + this.height - 1, posZ));
 			}
 		}
 	}

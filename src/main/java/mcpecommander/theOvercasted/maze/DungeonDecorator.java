@@ -33,7 +33,7 @@ public class DungeonDecorator {
 			break;
 		case 1:
 			if(currentLayout == null) {
-				currentLayout = ModRoomLayouts.layouts.getObject(layout).getDeco();
+				currentLayout = ModRoomLayouts.basement_normal_layouts.getObject(layout).getDeco();
 						
 			}
 			readLayout(currentLayout, world, chunkX, chunkZ);

@@ -25,7 +25,9 @@ public class RenderTear<T extends EntityTear> extends Render<T> {
 			GlStateManager.translate(x, y, z);
 			GlStateManager.rotate(180, 0, 0, 1);
 			GlStateManager.translate(0, -1.5, 0);
+			GlStateManager.color(((entity.getColor() >> 16) & 0xFF)/255f, ((entity.getColor() >> 8) & 0xFF)/255f, ((entity.getColor() >> 0) & 0xFF)/255f, 1f);
 			this.model.render(entity, 0, 0, entity.ticksExisted, 0, 0, 0.0625f);
+			GlStateManager.color(1f, 1f, 1f);
 			GlStateManager.popMatrix();
 			super.doRender(entity, x, y, z, entityYaw, partialTicks);
 		}

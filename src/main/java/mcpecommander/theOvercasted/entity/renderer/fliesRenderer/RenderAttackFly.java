@@ -32,7 +32,7 @@ public class RenderAttackFly extends RenderFly<EntityAttackFly> {
 		CSModelRendererOvercasted.rotateBoxes(0, 0,
 				CSModelRendererOvercasted.balancedWave(rightWing.getDefualtZRotation(), ageInTicks, true, .75f, 25f),
 				rightWing);
-		if(entitylivingbaseIn.ticksExisted / 5 % 2 == 0) {
+		if(entitylivingbaseIn.ticksExisted / 4 % 2 == 0) {
 			GlStateManager.color(.05f, .05f, .05f, 1.0f);
 		}else {
 			GlStateManager.color(1f, .05f, .05f, 1.0f);

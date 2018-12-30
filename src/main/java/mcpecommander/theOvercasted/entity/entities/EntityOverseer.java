@@ -12,6 +12,7 @@ import mcpecommander.theOvercasted.events.CapabilityEvents;
 import mcpecommander.theOvercasted.init.ModRoomLayouts;
 import mcpecommander.theOvercasted.maze.RoomLayout;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoor;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +20,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ClassInheritanceMultiMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -32,9 +32,8 @@ public class EntityOverseer extends Entity {
 	
 	private static final DataParameter<Integer> LAYOUT = EntityDataManager.<Integer>createKey(EntityOverseer.class, DataSerializers.VARINT);
 	
-	protected boolean hasChunkChanged, hasPlayer, isRoomCleared, finishedSerialization, finishedSpawning;
-	protected int prevListSize, currentListSize;
-	protected final List<Entity> entities = Lists.newArrayList();
+	protected boolean hasPlayer, isRoomCleared, finishedSerialization, finishedSpawning;
+	private final List<Entity> entities = Lists.newArrayList();
 	
 	public EntityOverseer(World worldIn) {
 		super(worldIn);
@@ -57,48 +56,35 @@ public class EntityOverseer extends Entity {
 		
 	}
 	
-	protected void updateEntitiesList() {
+	private void updateEntitiesList() {
 		hasPlayer = hasPlayer();
 		isRoomCleared = true;
-		currentListSize = 0;
-		for(ClassInheritanceMultiMap<Entity> list : this.world.getChunkFromBlockCoords(getPosition()).getEntityLists()) {
-			if(!list.isEmpty()) {
-				currentListSize += list.size(); 
-			}
-			if(hasChunkChanged) {
-				for(Entity entity: list) {
-					if(entity != this) {
-						if(entity instanceof IRoomRequirement) {
-							entities.add(entity);
-							isRoomCleared = false;
-						}
-					}
-					
+		for(int i = 0; i < getEntities().size(); i++) {
+			Entity entity = getEntities().get(i);
+			if(entity == null || entity.isDead) {
+				getEntities().remove(i);
+			}else {
+				if(entity instanceof IRoomRequirement) {
+					isRoomCleared = false;
+					entity.updateBlocked = !hasPlayer;
+					entity.setInvisible(!hasPlayer);
 				}
+				
 			}
 		}
-		if(isRoomCleared || !hasPlayer) {
-			toggleDoors(true);
-		}else {
-			toggleDoors(false);
+		if(!world.isRemote) {
+			if(isRoomCleared || !hasPlayer) {
+				toggleDoors(true);
+			}else {
+				toggleDoors(false);
+			}
 		}
-		if(prevListSize != currentListSize) {
-			hasChunkChanged = true;
-			entities.clear();
-			this.prevListSize = currentListSize;
-		}else {
-			hasChunkChanged = false;
-		}
-		entities.forEach(entity -> {
-			entity.updateBlocked = !hasPlayer;
-			entity.setInvisible(!hasPlayer);
-		});
+		
 		
 		if(ticksExisted % 10 == 0) {
 			finishedSerialization = false;
 		}
-		
-		
+
 	}
 
 	protected void serializeMobs() {
@@ -124,7 +110,7 @@ public class EntityOverseer extends Entity {
 	
 	protected ResourceLocation[][] saveEntities(){
 		ResourceLocation[][] mobs = new ResourceLocation[14][14];
-		for(Entity entity : entities) {
+		for(Entity entity : getEntities()) {
 			mobs[entity.getPosition().getX()%16 - 1][entity.getPosition().getZ()%16 - 1] = EntityRegistry.getEntry(entity.getClass()).getRegistryName();
 		}
 		return mobs;
@@ -145,28 +131,45 @@ public class EntityOverseer extends Entity {
 	}
 	
 	protected void toggleDoors(boolean open) {
-//		for(int x = 7; x <= 8; x ++) {
-//			BlockPos pos = new BlockPos(this.chunkCoordX * 16 + x, 65, this.chunkCoordZ * 16 );
-//			IBlockState state = world.getBlockState(pos);
-//			Block block = state.getBlock();
-//			if(block instanceof BlockDoor && state.getValue(BlockDoor.OPEN) != open) {
-//				((BlockDoor) block).toggleDoor(world, pos, open);
-//			}
-//		}
-//		for(int z = 7; z <= 8; z++) {
-//			BlockPos pos = new BlockPos(this.chunkCoordX * 16, 65, this.chunkCoordZ * 16 + z);
-//			IBlockState state = world.getBlockState(pos);
-//			Block block = state.getBlock();
-//			if(block instanceof BlockDoor && state.getValue(BlockDoor.OPEN) != open) {
-//				((BlockDoor) block).toggleDoor(world, pos, open);
-//			}
-//		}
+		for(int x = 7; x <= 8; x ++) {
+			BlockPos pos = new BlockPos(this.chunkCoordX * 16 + x, 65, this.chunkCoordZ * 16 );
+			IBlockState state = world.getBlockState(pos);
+			Block block = state.getBlock();
+			if(block instanceof BlockDoor && state.getValue(BlockDoor.OPEN) != open) {
+				((BlockDoor) block).toggleDoor(world, pos, open);
+			}
+		}
+		for(int z = 7; z <= 8; z++) {
+			BlockPos pos = new BlockPos(this.chunkCoordX * 16, 65, this.chunkCoordZ * 16 + z);
+			IBlockState state = world.getBlockState(pos);
+			Block block = state.getBlock();
+			if(block instanceof BlockDoor && state.getValue(BlockDoor.OPEN) != open) {
+				((BlockDoor) block).toggleDoor(world, pos, open);
+			}
+		}
+		for(int x = 7; x <= 8; x ++) {
+			BlockPos pos = new BlockPos(this.chunkCoordX * 16 + x, 65, this.chunkCoordZ * 16 + 15);
+			IBlockState state = world.getBlockState(pos);
+			Block block = state.getBlock();
+			if(block instanceof BlockDoor && state.getValue(BlockDoor.OPEN) != open) {
+				((BlockDoor) block).toggleDoor(world, pos, open);
+			}
+		}
+		for(int z = 7; z <= 8; z++) {
+			BlockPos pos = new BlockPos(this.chunkCoordX * 16 + 15, 65, this.chunkCoordZ * 16 + z);
+			IBlockState state = world.getBlockState(pos);
+			Block block = state.getBlock();
+			if(block instanceof BlockDoor && state.getValue(BlockDoor.OPEN) != open) {
+				((BlockDoor) block).toggleDoor(world, pos, open);
+			}
+		}
+		
 
 	}
 	
 	public void spawnMobs() {
 		this.finishedSpawning = true;
-		RoomLayout layout = ModRoomLayouts.layouts.getObject(this.getRoomLayout());
+		RoomLayout layout = ModRoomLayouts.basement_normal_layouts.getObject(this.getRoomLayout());
 		if(layout != null) {
 			ResourceLocation[][] mobs = layout.getMobs();
 			for(int i = 0; i < mobs.length; i++) {
@@ -186,6 +189,7 @@ public class EntityOverseer extends Entity {
 						entity.setLocationAndAngles(this.chunkCoordX * 16 + i + 1.5, 65,
 								this.chunkCoordZ * 16 + j + 1.5, 0, 0);
 						this.world.spawnEntity(entity);
+						this.getEntities().add(entity);
 
 					}
 				}
@@ -220,10 +224,10 @@ public class EntityOverseer extends Entity {
 		return this.dataManager.get(LAYOUT);
 	}
 
-	
-//	public static Entity getEntityByID() {
-//		
-//	}
+	public List<Entity> getEntities() {
+		return entities;
+	}
+
 
 	@Override
 	protected void entityInit() {
@@ -234,13 +238,14 @@ public class EntityOverseer extends Entity {
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound compound) {
 		this.finishedSpawning = compound.getBoolean("spawning");
+		this.setRoomLayout(compound.getInteger("room_layout"));
 
 	}
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound compound) {
 		compound.setBoolean("spawning", finishedSpawning);
-
+		compound.setInteger("room_layout", this.getRoomLayout());
 	}
 
 }

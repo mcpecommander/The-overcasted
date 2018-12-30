@@ -36,6 +36,7 @@ public class BlockRoomDoor extends BlockDoor implements IHasModel{
 		this.setUnlocalizedName(Reference.ModBlocks.ROOM_DOOR.getName());
 		this.setCreativeTab(TheOvercasted.overcastedTab);
 		this.setBlockUnbreakable();
+		setResistance(6000000.0F);
 		Registry.BLOCKS.add(this);
 		Registry.ITEMS.add(new ItemBlock(this) {
 			public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
