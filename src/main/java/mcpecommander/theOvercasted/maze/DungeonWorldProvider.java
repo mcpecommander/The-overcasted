@@ -7,6 +7,7 @@ import java.util.Set;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import mcpecommander.theOvercasted.config.OvercastedConfig;
 import mcpecommander.theOvercasted.entity.entities.EntityOverseer;
 import mcpecommander.theOvercasted.events.DimensionEvents;
 import mcpecommander.theOvercasted.init.ModDimensions;
@@ -36,7 +37,7 @@ public class DungeonWorldProvider extends WorldProvider {
 			if (tag.hasKey("tunnels", 3)) {
 				dungeon = DungeonGenerator.fromNBT(tag);
 			} else {
-				dungeon = DungeonGenerator.createDungeon(6, 13, 13, 10, 65, EnumDungeonType.BASEMENT);
+				dungeon = DungeonGenerator.createDungeon(6, 13, 13, 10, 65,OvercastedConfig.maze.debug ? EnumDungeonType.DEBUG : EnumDungeonType.BASEMENT);
 			}
 			this.setSpawnPoint(DimensionEvents.spawnPos);
 		}
@@ -47,9 +48,6 @@ public class DungeonWorldProvider extends WorldProvider {
 	@Override
 	public void onWorldSave() {
 		NBTTagCompound nbttagcompound = this.world.getWorldInfo().getDimensionData(100);
-		if(nbttagcompound == null) {
-			nbttagcompound = new NBTTagCompound();
-		}
 		toNBT(nbttagcompound, dungeon);
 		this.world.getWorldInfo().setDimensionData(100, nbttagcompound);
 

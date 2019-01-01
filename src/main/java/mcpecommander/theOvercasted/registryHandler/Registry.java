@@ -15,6 +15,7 @@ import mcpecommander.theOvercasted.item.ItemBlockPedestal;
 import mcpecommander.theOvercasted.item.ItemBomb;
 import mcpecommander.theOvercasted.item.ItemItem;
 import mcpecommander.theOvercasted.item.ItemLaserBeam;
+import mcpecommander.theOvercasted.item.ItemRoomMaker;
 import mcpecommander.theOvercasted.item.ItemTear;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -44,6 +45,7 @@ public class Registry {
 	public static final Item TEAR = new ItemTear();
 	public static final ItemBlock ITEM_PEDESTAL = new ItemBlockPedestal();
 	public static final ItemItem ITEM = new ItemItem();
+	public static final Item ROOM_MAKER = new ItemRoomMaker();
 	
 	@SubscribeEvent
 	public static void onBlockRegister(Register<Block> event) {

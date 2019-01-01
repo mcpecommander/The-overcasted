@@ -1,5 +1,7 @@
 package mcpecommander.theOvercasted.entity.entities;
 
+import mcpecommander.theOvercasted.maze.DungeonPopulater;
+import mcpecommander.theOvercasted.maze.DungeonWorldProvider;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,8 +23,11 @@ public abstract class EntityBasicChampion extends EntityMob implements IRoomRequ
 	
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-//		if(this.getRNG().nextFloat() > 0.8f) 
-//			this.dataManager.set(TYPE, getAllowedVarints()[this.getRNG().nextInt(16)]);
+		if (!world.isRemote) {
+			EntityOverseer overseer = DungeonPopulater.getOverseerByChunk((DungeonWorldProvider) world.provider,
+					world.getChunkFromBlockCoords(getPosition()));
+			overseer.getEntities().add(this);
+		}
 		
 		return super.onInitialSpawn(difficulty, livingdata);
 	}

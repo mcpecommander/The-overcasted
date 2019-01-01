@@ -11,6 +11,7 @@ import com.google.gson.GsonBuilder;
 import mcpecommander.theOvercasted.events.CapabilityEvents;
 import mcpecommander.theOvercasted.init.ModRoomLayouts;
 import mcpecommander.theOvercasted.maze.RoomLayout;
+import mcpecommander.theOvercasted.maze.RoomLayout.RoomType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.state.IBlockState;
@@ -20,6 +21,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -32,8 +34,9 @@ public class EntityOverseer extends Entity {
 	
 	private static final DataParameter<Integer> LAYOUT = EntityDataManager.<Integer>createKey(EntityOverseer.class, DataSerializers.VARINT);
 	
-	protected boolean hasPlayer, isRoomCleared, finishedSerialization, finishedSpawning;
+	protected boolean hasPlayer, isRoomCleared, finishedSpawning;
 	private final List<Entity> entities = Lists.newArrayList();
+	private EnumFacing direction;
 	
 	public EntityOverseer(World worldIn) {
 		super(worldIn);
@@ -45,9 +48,7 @@ public class EntityOverseer extends Entity {
 		super.onUpdate();
 		updateEntitiesList();
 		if(world.isRemote) {
-			if(hasPlayer && !finishedSerialization && CapabilityEvents.isUPressed) {
-				serializeMobs();
-			}
+
 		}else {
 			if(hasPlayer && !finishedSpawning) {
 				spawnMobs();
@@ -79,18 +80,11 @@ public class EntityOverseer extends Entity {
 				toggleDoors(false);
 			}
 		}
-		
-		
-		if(ticksExisted % 10 == 0) {
-			finishedSerialization = false;
-		}
 
 	}
 
-	protected void serializeMobs() {
-		finishedSerialization = true;
-
-		RoomLayout layout = new RoomLayout( "normal", saveEntities(), saveDecorations());
+	public void serializeRoom() {
+		RoomLayout layout = new RoomLayout( "normal", RoomType.NORMAL , saveEntities(), saveDecorations());
 		GsonBuilder builder = new GsonBuilder();
 		builder.setPrettyPrinting();
 		builder.serializeNulls();
@@ -109,6 +103,7 @@ public class EntityOverseer extends Entity {
 	}
 	
 	protected ResourceLocation[][] saveEntities(){
+		//the inside of the room is 14 by 14 and since mobs can be inside blocks, it should fit in this array.
 		ResourceLocation[][] mobs = new ResourceLocation[14][14];
 		for(Entity entity : getEntities()) {
 			mobs[entity.getPosition().getX()%16 - 1][entity.getPosition().getZ()%16 - 1] = EntityRegistry.getEntry(entity.getClass()).getRegistryName();
@@ -163,13 +158,12 @@ public class EntityOverseer extends Entity {
 				((BlockDoor) block).toggleDoor(world, pos, open);
 			}
 		}
-		
 
 	}
 	
 	public void spawnMobs() {
 		this.finishedSpawning = true;
-		RoomLayout layout = ModRoomLayouts.basement_normal_layouts.getObject(this.getRoomLayout());
+		RoomLayout layout = ModRoomLayouts.layouts.getObject(this.getRoomLayout());
 		if(layout != null) {
 			ResourceLocation[][] mobs = layout.getMobs();
 			for(int i = 0; i < mobs.length; i++) {
@@ -229,6 +223,16 @@ public class EntityOverseer extends Entity {
 	}
 
 
+	public EnumFacing getDirection() {
+		return direction;
+	}
+
+
+	public void setDirection(EnumFacing direction) {
+		this.direction = direction;
+	}
+
+
 	@Override
 	protected void entityInit() {
 		this.dataManager.register(LAYOUT, -1);
@@ -239,6 +243,7 @@ public class EntityOverseer extends Entity {
 	protected void readEntityFromNBT(NBTTagCompound compound) {
 		this.finishedSpawning = compound.getBoolean("spawning");
 		this.setRoomLayout(compound.getInteger("room_layout"));
+		this.setDirection(EnumFacing.getFront(compound.getInteger("direction")));
 
 	}
 
@@ -246,6 +251,7 @@ public class EntityOverseer extends Entity {
 	protected void writeEntityToNBT(NBTTagCompound compound) {
 		compound.setBoolean("spawning", finishedSpawning);
 		compound.setInteger("room_layout", this.getRoomLayout());
+		compound.setInteger("direction", getDirection().getIndex());
 	}
 
 }

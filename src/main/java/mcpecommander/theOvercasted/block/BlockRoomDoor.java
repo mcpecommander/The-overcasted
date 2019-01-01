@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -24,7 +25,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 
@@ -38,7 +38,9 @@ public class BlockRoomDoor extends BlockDoor implements IHasModel{
 		this.setBlockUnbreakable();
 		setResistance(6000000.0F);
 		Registry.BLOCKS.add(this);
+		//This absolutely the worst way to implement an item but the code is literally copied from vanilla so fuck it.
 		Registry.ITEMS.add(new ItemBlock(this) {
+			@Override
 			public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 		    {
 		        if (facing != EnumFacing.UP)
@@ -117,8 +119,70 @@ public class BlockRoomDoor extends BlockDoor implements IHasModel{
 		
 	}
 
-	public void toggleDoor(World world, BlockPos pos) {
-		this.toggleDoor(world, pos, !world.getBlockState(pos).getValue(OPEN));
+	//If we are going to toggle the door, check if a player is standing inside it and push him into the room.
+	@Override
+	public void toggleDoor(World world, BlockPos pos, boolean open) {
+		if (world.getBlockState(pos).getValue(BlockDoor.HALF) == EnumDoorHalf.LOWER) {
+			for(EntityPlayer player : world.playerEntities) {
+				if(player.getPosition().equals(pos)) {
+					if (!world.isRemote) {
+						((EntityPlayerMP) player).connection.setPlayerLocation(player.posX + player.getLookVec().x * 2,
+						player.posY, player.posZ + player.getLookVec().z * 2, player.rotationYaw, player.rotationPitch);
+					}
+				}
+			}
+		}
+		super.toggleDoor(world, pos, open);
+	}
+	
+	//Removed the redstone functionality.
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		if (state.getValue(HALF) == BlockDoor.EnumDoorHalf.UPPER)
+        {
+            BlockPos blockpos = pos.down();
+            IBlockState iblockstate = worldIn.getBlockState(blockpos);
+
+            if (iblockstate.getBlock() != this)
+            {
+                worldIn.setBlockToAir(pos);
+            }
+            else if (blockIn != this)
+            {
+                iblockstate.neighborChanged(worldIn, blockpos, blockIn, fromPos);
+            }
+        }
+        else
+        {
+            boolean flag1 = false;
+            BlockPos blockpos1 = pos.up();
+            IBlockState iblockstate1 = worldIn.getBlockState(blockpos1);
+
+            if (iblockstate1.getBlock() != this)
+            {
+                worldIn.setBlockToAir(pos);
+                flag1 = true;
+            }
+
+            if (!worldIn.getBlockState(pos.down()).isSideSolid(worldIn,  pos.down(), EnumFacing.UP))
+            {
+                worldIn.setBlockToAir(pos);
+                flag1 = true;
+
+                if (iblockstate1.getBlock() == this)
+                {
+                    worldIn.setBlockToAir(blockpos1);
+                }
+            }
+
+            if (flag1)
+            {
+                if (!worldIn.isRemote)
+                {
+                    this.dropBlockAsItem(worldIn, pos, state, 0);
+                }
+            }
+        }
 	}
 	
 	@Override

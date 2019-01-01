@@ -5,6 +5,7 @@ import mcpecommander.theOvercasted.block.BlockTNT;
 import mcpecommander.theOvercasted.block.tileEntity.TileEntityPedestal;
 import mcpecommander.theOvercasted.init.ModRoomLayouts;
 import mcpecommander.theOvercasted.item.effects.Attribute;
+import mcpecommander.theOvercasted.maze.RoomLayout.RoomType;
 import mcpecommander.theOvercasted.registryHandler.Registry;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -19,7 +20,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 public class DungeonDecorator {
 	private ResourceLocation[][] currentLayout = null;
 	
-	public void decorate(int chunkX, int chunkZ, World world, DungeonGenerator chunksRequired, int layout) {
+	public void decorate(int chunkX, int chunkZ, World world, DungeonGenerator chunksRequired, DungeonPopulater populater) {
 		int[][] chunks = chunksRequired.getLayout();
 		switch(chunks[chunkX][chunkZ]) {
 		case 7:
@@ -33,10 +34,11 @@ public class DungeonDecorator {
 			break;
 		case 1:
 			if(currentLayout == null) {
-				currentLayout = ModRoomLayouts.basement_normal_layouts.getObject(layout).getDeco();
+				int randomNormalLayout = chunksRequired.random.nextInt(ModRoomLayouts.layouts.getObject(RoomType.NORMAL).size());
+				currentLayout = ModRoomLayouts.layouts.getObject(RoomType.NORMAL).get(randomNormalLayout).getDeco();
 						
 			}
-			readLayout(currentLayout, world, chunkX, chunkZ);
+			readNormalLayout(currentLayout, world, chunkX, chunkZ);
 			break;
 		default:
 			for(int holes = 0; holes < 5; holes++) {
@@ -50,7 +52,7 @@ public class DungeonDecorator {
 		}
 	}
 
-	private void readLayout(ResourceLocation[][] currentLayout, World world, int chunkX, int chunkZ) {
+	private void readNormalLayout(ResourceLocation[][] currentLayout, World world, int chunkX, int chunkZ) {
 		BlockPos pos = BlockPos.ORIGIN;
 		for(int x = 0; x < 14; x ++) {
 			for(int z = 0; z < 14; z++) {

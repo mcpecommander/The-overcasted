@@ -61,9 +61,8 @@ public class DungeonTerrianGen implements IChunkGenerator {
 			if (chunksRequired.getxChunkSpawn() == x && chunksRequired.getzChunkSpawn() == z)
 				return;
 
-			int layout = chunksRequired.random.nextInt(ModRoomLayouts.basement_normal_layouts.getKeys().size());
-			decorator.decorate(x, z, worldObj, chunksRequired, layout);
-			populater.popluate(x, z, worldObj, chunksRequired, layout);
+			decorator.decorate(x, z, worldObj, chunksRequired, populater);
+
 		}
 	}
 

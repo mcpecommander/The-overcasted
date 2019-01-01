@@ -3,6 +3,7 @@ package mcpecommander.theOvercasted.entity.entities.flies;
 import mcpecommander.theOvercasted.block.BlockPoop;
 import mcpecommander.theOvercasted.registryHandler.Registry;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.world.World;
 
 public class EntityBlackFly extends EntityFly {
@@ -10,6 +11,12 @@ public class EntityBlackFly extends EntityFly {
 	public EntityBlackFly(World worldIn) {
 		super(worldIn);
 		
+	}
+	
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(3d);
 	}
 	
 	@Override

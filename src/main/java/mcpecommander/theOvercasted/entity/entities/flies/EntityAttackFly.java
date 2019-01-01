@@ -1,5 +1,6 @@
 package mcpecommander.theOvercasted.entity.entities.flies;
 
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIFindEntityNearestPlayer;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -12,6 +13,11 @@ public class EntityAttackFly extends EntityFly {
 		super(worldIn);
 	}
 	
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(5d);
+	}
 	
 	@Override
 	protected void initEntityAI() {

@@ -31,6 +31,16 @@ public class DungeonGenerator {
 
 	private DungeonGenerator(int maxLength, int maxRows, int maxColumns, int maxTunnels, int spawnHeight, EnumDungeonType type) {
 		random = new Random();
+		if (type == EnumDungeonType.DEBUG) {
+			this.maxRows = 6;
+			this.maxColumns = 6;
+			this.spawnHeight = 65;
+			layout = Reference.DEBUG_LAYOUT;
+			this.xChunkSpawn = 2;
+			this.zChunkSpawn = 2;
+			this.spawnPos = new BlockPos(xChunkSpawn * 16 + 8, spawnHeight, zChunkSpawn * 16 + 8);
+			return;
+		}
 		this.maxLength = MathHelper.clamp(maxLength, 3, Integer.MAX_VALUE);
 		this.maxRows = maxRows;
 		this.maxColumns = maxColumns;
@@ -434,7 +444,7 @@ public class DungeonGenerator {
 	}
 	
 	public enum EnumDungeonType{
-		BASEMENT("basement"),CELLAR("cellar");
+		BASEMENT("basement"),CELLAR("cellar"),DEBUG("debug");
 
 		private String id;
 

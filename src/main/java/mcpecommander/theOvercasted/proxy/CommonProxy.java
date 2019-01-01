@@ -17,6 +17,7 @@ import mcpecommander.theOvercasted.capability.stats.StatsStorage;
 import mcpecommander.theOvercasted.gui.GuiProxy;
 import mcpecommander.theOvercasted.init.ModDimensions;
 import mcpecommander.theOvercasted.init.ModRoomLayouts;
+import mcpecommander.theOvercasted.maze.RoomLayout.RoomType;
 import mcpecommander.theOvercasted.networking.PacketSendStats;
 import mcpecommander.theOvercasted.networking.PacketSendVec3i;
 import net.minecraft.util.ResourceLocation;
@@ -47,9 +48,9 @@ public class CommonProxy {
 	
 	public void init(FMLInitializationEvent e) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(TheOvercasted.instance, new GuiProxy());
-		ModRoomLayouts.initLayouts("basement", "normal");
-		ModRoomLayouts.initLayouts("basement", "narrow");
-		ModRoomLayouts.initLayouts("basement", "wide");
+		for(RoomType type : RoomType.values()) {
+			ModRoomLayouts.initLayouts("basement", type);
+		}
 
 	}
 	

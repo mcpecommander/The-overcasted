@@ -5,14 +5,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
+import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.maze.RoomLayout;
+import mcpecommander.theOvercasted.maze.RoomLayout.RoomType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
@@ -20,22 +24,21 @@ import net.minecraft.util.registry.RegistrySimple;
 
 public class ModRoomLayouts {
 	
-	public static RegistrySimple<Integer, RoomLayout> basement_normal_layouts ;
-	public static RegistrySimple<Integer, RoomLayout> basement_narrow_layouts ;
-	public static RegistrySimple<Integer, RoomLayout> basement_wide_layouts ;
+	public static RegistrySimple<RoomType, Map<Integer, RoomLayout>> layouts ;
 	
 	public static void init() {
-		basement_normal_layouts = new RegistrySimple<>();
-		basement_narrow_layouts = new RegistrySimple<>();
-		basement_wide_layouts = new RegistrySimple<>();
+		layouts = new RegistrySimple<>();
+		for(RoomType type : RoomType.values()) {
+			layouts.putObject(type, Maps.newHashMap());
+		}
 	}
 	
 	
-	public static void initLayouts(String chapter, String size) {
+	public static void initLayouts(String chapter, RoomType size) {
 		boolean done = false;
 		int i = 0;
 		while(!done) {
-			ResourceLocation location = new ResourceLocation(Reference.MODID, "maps/" + chapter + "/" + size + "_" + i + ".json");
+			ResourceLocation location = new ResourceLocation(Reference.MODID, "maps/" + chapter + "/" + size.toString().toLowerCase() + "_" + i + ".json");
 			IResource resource = null;
 			BufferedReader reader = null;
 			GsonBuilder builder = new GsonBuilder();
@@ -45,10 +48,10 @@ public class ModRoomLayouts {
 				InputStream inputstream = resource.getInputStream();
 				reader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
 				RoomLayout layout = gson.fromJson(reader, RoomLayout.class);
-				Field field = ModRoomLayouts.class.getField(chapter + "_" + size + "_" + "layouts");
-				((RegistrySimple)field.get(null)).putObject(i, layout);
-//    			basement_normal_layouts.putObject(i, layout);
+				layouts.getObject(size).put(i, layout);
 			}catch(Exception e) {
+				//This is really an ineffective way to know when to stop reading files and is prone to a lot of errors,
+				//but minecraft is an asshole and does not have a way to get all resources inside the assets folder.
 				done = true;
 			}finally {
 				IOUtils.closeQuietly(resource, reader);

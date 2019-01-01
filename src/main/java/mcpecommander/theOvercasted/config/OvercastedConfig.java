@@ -6,7 +6,7 @@ import net.minecraftforge.common.config.Config;
 @Config(modid = Reference.MODID, category = "gui", name = "Overcasted/config")
 public class OvercastedConfig {
 	
-	@Config.Comment("hud' Configs")
+	@Config.Comment("Hud' Configs")
 	public static final Hud hud = new Hud();
 
 	public static class Hud {
@@ -25,6 +25,16 @@ public class OvercastedConfig {
 		
 		@Config.Comment("The extra info hud and whether it should be enabled or not")
 		public boolean extraHud = true;
+		
+	}
+	
+	@Config.Comment("Dungeon' Configs")
+	public static final Maze maze = new Maze();
+	
+	public static class Maze {
+		
+		@Config.Comment("Enable Debug mode")
+		public boolean debug = false;
 		
 	}
 

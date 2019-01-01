@@ -4,13 +4,16 @@ import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.entity.entities.EntityNarrowRoomOverseer;
 import mcpecommander.theOvercasted.entity.entities.EntityOverseer;
 import mcpecommander.theOvercasted.entity.entities.IRoomRequirement;
+import mcpecommander.theOvercasted.maze.DungeonPopulater;
 import mcpecommander.theOvercasted.maze.DungeonWorldProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityEvent.EnteringChunk;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -89,13 +92,6 @@ public class DimensionEvents {
 		}
 		
 	}
-	
-	@SubscribeEvent
-	public static void onEnteringChunk(EnteringChunk event) {
-		if(event.getEntity() instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.getEntity();
-//			System.out.println(player);
-		}
-	}
+
 
 }

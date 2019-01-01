@@ -46,7 +46,7 @@ public class DungeonPopulater {
 
 	}
 	
-	public static EntityOverseer getOverseerByChunks(DungeonWorldProvider provider, Chunk chunk) {
+	public static EntityOverseer getOverseerByChunk(DungeonWorldProvider provider, Chunk chunk) {
 		for(EntityOverseer overseer : provider.overseers) {
 			if(overseer.isChunkUnderThisControl(chunk)) return overseer;
 		}
@@ -57,19 +57,33 @@ public class DungeonPopulater {
 		int[][] layout = dungeon.getLayout();
 		Chunk chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
 		if(dungeon.isNarrowSouthNorth(chunkX, chunkZ)) {
+			//if the room to the north is narrow:
 			if(chunkZ - 1 > 1 && layout[chunkX][chunkZ - 1] == 2) {
-				return getOverseerByChunks(provider, chunk) == null ? EnumFacing.NORTH : EnumFacing.UP;
+				// if the north room has an overseer, do not spawn a new one otherwise spawn a
+				// narrow room overseer that controls both.
+				return getOverseerByChunk(provider, chunk) == null ? EnumFacing.NORTH : EnumFacing.UP;
+			//if the room to the south is narrow:
 			}else if(chunkZ + 1 < dungeon.getMaxColumns() - 1 && layout[chunkX][chunkZ + 1] == 2) {
-				return getOverseerByChunks(provider, chunk) == null ? EnumFacing.SOUTH : EnumFacing.UP;
+				// if the south room has an overseer, do not spawn a new one otherwise spawn a
+				// narrow room overseer that controls both.
+				return getOverseerByChunk(provider, chunk) == null ? EnumFacing.SOUTH : EnumFacing.UP;
 			}else {
+			//if there is no neighboring room, spawn a narrow room overseer that controls it.
 				return EnumFacing.DOWN;
 			}
 		}else {
+			//if the room to the west is narrow:
 			if(chunkX - 1 > 1 && layout[chunkX - 1][chunkZ] == 2) {
-				return getOverseerByChunks(provider, chunk) == null ? EnumFacing.WEST : EnumFacing.UP;
+				// if the west room has an overseer, do not spawn a new one otherwise spawn a
+				// narrow room overseer that controls both.
+				return getOverseerByChunk(provider, chunk) == null ? EnumFacing.WEST : EnumFacing.UP;
+			//if the room to the east is narrow:	
 			}else if(chunkX + 1 < dungeon.getMaxRows() - 1 && layout[chunkX + 1][chunkZ] == 2) {
-				return getOverseerByChunks(provider, chunk) == null ? EnumFacing.EAST : EnumFacing.UP;
+				// if the east room has an overseer, do not spawn a new one otherwise spawn a
+				// narrow room overseer that controls both.
+				return getOverseerByChunk(provider, chunk) == null ? EnumFacing.EAST : EnumFacing.UP;
 			}else {
+			//if there is no neighboring room, spawn a narrow room overseer that controls it.
 				return EnumFacing.DOWN;
 			}
 		}

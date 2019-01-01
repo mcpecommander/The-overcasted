@@ -2,6 +2,7 @@ package mcpecommander.theOvercasted.entity.entities.flies;
 
 import mcpecommander.theOvercasted.entity.entities.IRoomRequirement;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -19,6 +20,7 @@ public abstract class EntityFly extends EntityMob implements IRoomRequirement{
 		this(world);
 		this.baseHeight = baseHeight;
 	}
+	
 	
 	@Override
 	public void onLivingUpdate() {

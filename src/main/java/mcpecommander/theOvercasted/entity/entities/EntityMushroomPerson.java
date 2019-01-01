@@ -7,7 +7,6 @@ import com.leviathanstudio.craftstudio.common.animation.IAnimated;
 import mcpecommander.theOvercasted.Reference;
 import mcpecommander.theOvercasted.entity.ai.MushroomPersonAIAttack;
 import mcpecommander.theOvercasted.entity.ai.MushroomPersonAIHide;
-import mcpecommander.theOvercasted.init.ModBlocks;
 import mcpecommander.theOvercasted.util.AnimationHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.IEntityLivingData;
@@ -25,11 +24,9 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 
 public class EntityMushroomPerson extends EntityBaseAnimated {
 
